@@ -2,6 +2,8 @@
 # Winter of Xamarin Events in New Zeland #
 This guide will help you set up for the in-person events and will guide you through the basic installation of Visual Studio 2017 with all the tools and extentions neccessary for the event.
 
+More information about the events and competition - [http://aka.ms/winterofxamarin](http://aka.ms/winterofxamarin)
+
 ---
 
 <a name="Overview"></a>
@@ -21,9 +23,8 @@ One of the key challenges in developing mobile applications for multiple devices
 The following are required to complete this lab:
 
 - [Visual Studio Community 2017](https://www.visualstudio.com/vs/) or higher
-- A computer running Windows 10 that supports hardware emulation using Hyper-V. For more information, and for a list of requirements, see https://msdn.microsoft.com/en-us/library/mt228280.aspx. 
+- A Microsoft Account - such as @live.com, @outlook.com. We will need this for signing up to Azure later on the day.  
 
-You won't be building the iOS version of the app during this event because doing so would require additional setup, including a Mac configured as a build host. However, you can build the iOS version separately if you would like. For more information about building Xamarim Forms iOS apps, see https://developer.xamarin.com/guides/ios/getting_started/installation/windows/.
 
 ---
 <a name="Config"></a>
