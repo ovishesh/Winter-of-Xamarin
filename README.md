@@ -1,5 +1,6 @@
 <a name="HOLTitle"></a>
 # Winter of Xamarin Events in New Zeland #
+![Banner](Images/banner.png)
 This guide will help you set up for the in-person events and will guide you through the basic installation of Visual Studio 2017 with all the tools and extentions neccessary for the event.
 
 More information about the events and competition - [http://aka.ms/winterofxamarin](http://aka.ms/winterofxamarin)
