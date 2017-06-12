@@ -27,6 +27,7 @@ The following are required to complete this lab:
 
 - [Visual Studio Community 2017](https://www.visualstudio.com/vs/) or higher
 - A Microsoft Account - such as @live.com, @outlook.com. We will need this for signing up to Azure later on the day.  
+- Sign up for [Visual Studio Dev Essentials](https://www.visualstudio.com/dev-essentials/) and get access to up to $300 of Azure across 12 months. And preferably activate your Azure benefits before the event
 
 
 ---
