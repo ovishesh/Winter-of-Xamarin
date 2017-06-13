@@ -1,4 +1,4 @@
-![Banner](Images/banner.png)
+![Banner](Preperation/Images/banner.png)
 
 # Winter of Xamarin Events in New Zeland #
 
