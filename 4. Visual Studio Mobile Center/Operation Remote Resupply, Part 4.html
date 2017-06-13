@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Operation Remote Resupply, Part 4</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<p><a name="HOLTitle"></a></p>
+<h1>Operation Remote Resupply, Part 4</h1>
+<hr>
+<p><a name="Overview"></a></p>
+<h2>Overview</h2>
+<p>One of the key challenges to maintaining and supporting mobile apps is understanding what users encounter once an app is published. No matter how perfectly you write your code, or how thorough you are about exception handling and logging, apps sometimes misbehave or even crash. When they do, you need to know what went wrong and why. <a href="https://www.visualstudio.com/vs/mobile-center/" title="Visual Studio Mobile Center">Visual Studio Mobile Center</a> lets you collect crash data — including full stack traces — from various devices so you can identify bugs and prioritize fixes.</p>
+<p>Beyond crash analytics, you may want statistics regarding how many users are launching your app, where they are located, and what languages they speak. Visual Studio Mobile Center makes it easy to collect this information and more. It even allows you to collect rich behavioral analytics and answer questions such as which features are used most often, which screens are never seen, and how users utilize in-app purchases.</p>
+<p>Visual Studio Mobile Center can also be used to automate the build, test, and distribution process. In short, it packages essential services needed by mobile developers into a single, integrated product to help you control the development lifecycle from start to finish.</p>
+<p>In Part 4 of Operation Remote Resupply, you will register the Drone Lander app you built with Visual Studio Mobile Center, learn about the many features that it has to offer, and discover why it should be part of the development process for every mobile app.</p>
+<p><a name="Objectives"></a></p>
+<h3>Objectives</h3>
+<p>In this lab, you will learn how to:</p>
+<ul>
+<li>Register an app with Visual Studio Mobile Center</li>
+<li>Use Visual Studio Mobile Center to automate builds</li>
+<li>Use Visual Studio Mobile Center to automate distribution to testers</li>
+<li>Add crash analytics to a Xamarin Forms app</li>
+<li>View crash reports in Visual Studio Mobile Center</li>
+</ul>
+<p><a name="Prerequisites"></a></p>
+<h3>Prerequisites</h3>
+<p>The following are required to complete this lab:</p>
+<ul>
+<li><a href="https://www.visualstudio.com/vs/">Visual Studio Community 2017</a> or higher</li>
+<li>A computer running Windows 10 that supports hardware emulation using Hyper-V. For more information, and for a list of requirements, see <a href="https://msdn.microsoft.com/en-us/library/mt228280.aspx">https://msdn.microsoft.com/en-us/library/mt228280.aspx</a>.</li>
+<li>A GitHub account. If you don't have one, sign up for free at <a href="https://github.com/join">https://github.com/join</a>.</li>
+<li><a href="https://visualstudio.github.com/">GitHub Extension for Visual Studio</a></li>
+</ul>
+<hr>
+<p><a name="Exercises"></a></p>
+<h2>Exercises</h2>
+<p>This lab includes the following exercises:</p>
+<ul>
+<li><a href="#Exercise1">Exercise 1: Register the app with Visual Studio Mobile Center</a></li>
+<li><a href="#Exercise2">Exercise 2: Add the solution to source control</a></li>
+<li><a href="#Exercise3">Exercise 3: Enable automated builds</a></li>
+<li><a href="#Exercise4">Exercise 4: Enable automated distribution</a></li>
+<li><a href="#Exercise5">Exercise 5: Add crash analytics support to the app</a></li>
+</ul>
+<p>Estimated time to complete this lab: <strong>45</strong> minutes.</p>
+<p><a name="Exercise1"></a></p>
+<h2>Exercise 1: Register the app with Visual Studio Mobile Center</h2>
+<p>Before you can use Visual Studio Mobile Center to automate the build and distribution process or retrieve crash analytics, you need to create a Visual Studio Mobile Center account and register the app there. In this exercise, you will create an account and register the Android version of Drone Lander.</p>
+<ol>
+<li>
+<p>If you don't have a GitHub account, go to <a href="https://github.com/join">https://github.com/join</a> and sign up for one.</p>
+</li>
+<li>
+<p>In a browser, navigate to <a href="https://mobile.azure.com/login">https://mobile.azure.com/login</a>. Once there, click <strong>Connect with GitHub</strong>. If you are prompted to log in, do so using your GitHub account.</p>
+<p><a href="Images/web-select-github.png" target="_blank"><img src="Images/web-select-github.png" alt="Connecting with a GitHub account" style="max-width:100%;"></a></p>
+<p><em>Connecting with a GitHub account</em></p>
+</li>
+<li>
+<p>If you already have a Visual Studio Mobile Center account, go to Step 5. Otherwise, on the "Authorize application" page, click <strong>Authorize application</strong>. If you are asked to sign in to GitHub, sign in with your GitHub user name and password.</p>
+<p><a href="Images/web-authorize-github.png" target="_blank"><img src="Images/web-authorize-github.png" alt="Authorizing an application" style="max-width:100%;"></a></p>
+<p><em>Authorizing an application</em></p>
+</li>
+<li>
+<p>If you are asked to choose a user name, enter a user name for your Visual Studio Mobile Center account (or accept the default) and click <strong>Choose username</strong>.</p>
+<p><a href="Images/web-vsmc-username.png" target="_blank"><img src="Images/web-vsmc-username.png" alt="Choosing a user name" style="max-width:100%;"></a></p>
+<p><em>Choosing a user name</em></p>
+</li>
+<li>
+<p>Now that you have a Visual Studio Mobile Center account, the next step is to register the Drone Lander app that you built for Operation Remote Resupply. To begin, click <strong>Add new app</strong>.</p>
+<p><a href="Images/web-click-add-new-app.png" target="_blank"><img src="Images/web-click-add-new-app.png" alt="Adding a new app in Visual Studio Mobile Center" style="max-width:100%;"></a></p>
+<p><em>Adding a new app in Visual Studio Mobile Center</em></p>
+</li>
+<li>
+<p>Enter "Drone Lander" for the app name, and specify <strong>Android</strong> as the OS and <strong>Xamarin</strong> as the platform. Then click <strong>Add new app</strong>.</p>
+<p><a href="Images/web-add-new-app.png" target="_blank"><img src="Images/web-add-new-app.png" alt="Registering the Android version of Drone Lander" style="max-width:100%;"></a></p>
+<p><em>Registering the Android version of Drone Lander</em></p>
+</li>
+<li>
+<p>Click <strong>Xamarin.Forms</strong> for a summary of the steps required to add the Mobile Center SDK to your app. (This is for informational purposes only at the moment. You will make these changes in a subsequent exercise.)</p>
+<p><a href="Images/web-click-xamarin-forms.png" target="_blank"><img src="Images/web-click-xamarin-forms.png" alt="Viewing Xamarin.Forms integration information" style="max-width:100%;"></a></p>
+<p><em>Viewing Xamarin.Forms integration information</em></p>
+</li>
+</ol>
+<p>If you would like to register the iOS of version Drone lander as well, you can do so by registering Drone Lander again, but this time specifying iOS as the operating system. You don't need to register the iOS version for this lab, but be aware that when you register a Xamarin app with Visual Studio Mobile Center, you need to register it separately for each platform that it runs on. You may also register the Windows (UWP) version if you would like, but be aware that Visual Studio Mobile Center doesn't yet support crash analytics on Windows.</p>
+<p><a name="Exercise2"></a></p>
+<h2>Exercise 2: Add the solution to source control</h2>
+<p>In order to take advantage of Visual Studio Mobile Center (VSMC) build integration, you must set up a remote source-code repository. VSMC supports <a href="https://github.com/">GitHub</a>, <a href="https://bitbucket.org/">Bitbucket</a>, and <a href="https://www.visualstudio.com/team-services/">Visual Studio Team Services</a> (VSTS) as repositories. You will use GitHub, which is a Git hosting service that features a browser-based user interface, bug tracking, access control, task management, and more. In this exercise, you will create a GitHub repository for your <strong>DroneLander</strong> solution.</p>
+<ol>
+<li>
+<p>Start Visual Studio 2017 and type "github extension" into the Quick Launch window. If <strong>GitHub extension for Visual Studio</strong> appears under "Install," click it and follow the on-screen instructions to install the GitHub Extension for Visual Studio. You will probably have to close Visual Studio to install the extension.</p>
+<p><a href="Images/vs-install-git-hub.png" target="_blank"><img src="Images/vs-install-git-hub.png" alt="Installing the GitHub Extension for Visual Studio" style="max-width:100%;"></a></p>
+<p><em>Installing the GitHub Extension for Visual Studio</em></p>
+</li>
+<li>
+<p>Open the <strong>DroneLander</strong> solution in Visual Studio. In Solution Explorer, right-click the solution and use the <strong>Add Solution to Source Control...</strong> command to add the solution to a local GitHub repository.</p>
+</li>
+<li>
+<p>Use the <strong>View</strong> &gt; <strong>Other Windows</strong> &gt; <strong>GitHub</strong> command to open a GitHub window in Visual Studio. Then click <strong>Get Started</strong>.</p>
+<p><a href="Images/vs-click-get-started.png" target="_blank"><img src="Images/vs-click-get-started.png" alt="Starting the GitHub publishing process" style="max-width:100%;"></a></p>
+<p><em>Starting the GitHub publishing process</em></p>
+</li>
+<li>
+<p>If you see a <strong>Sign In</strong> link under "Publish to GitHub," click the link and sign in to GitHub.</p>
+<p><a href="Images/sign-in-to-github.png" target="_blank"><img src="Images/sign-in-to-github.png" alt="Signing in to GitHub" style="max-width:100%;"></a></p>
+<p><em>Signing in to GitHub</em></p>
+</li>
+<li>
+<p>Click the <strong>Publish</strong> button under "Publish to GitHub."</p>
+<p><a href="Images/vs-github-click-publish.png" target="_blank"><img src="Images/vs-github-click-publish.png" alt="Publishing to GitHub" style="max-width:100%;"></a></p>
+<p><em>Publishing to GitHub</em></p>
+</li>
+<li>
+<p>Click <strong>Sync</strong>.</p>
+<p><a href="Images/vs-click-first-sync.png" target="_blank"><img src="Images/vs-click-first-sync.png" alt="Synchronizing repos" style="max-width:100%;"></a></p>
+<p><em>Synchronizing repos</em></p>
+</li>
+<li>
+<p>Click <strong>Sync</strong> one more time to synchronize incoming and outgoing commits.</p>
+<p><a href="Images/vs-github-click-sync.png" target="_blank"><img src="Images/vs-github-click-sync.png" alt="Synchronizing repos" style="max-width:100%;"></a></p>
+<p><em>Synchronizing repos</em></p>
+</li>
+<li>
+<p>Confirm that the repos synced successfully.</p>
+<p><a href="Images/vs-sync-success.png" target="_blank"><img src="Images/vs-sync-success.png" alt="A successful GitHub synchronization" style="max-width:100%;"></a></p>
+<p><em>A successful GitHub synchronization</em></p>
+</li>
+</ol>
+<p>Now that Drone Lander has been added to source control and uploaded to a GitHub repository, you can configure Visual Studio Mobile Center to build it directly from there.</p>
+<p><a name="Exercise3"></a></p>
+<h2>Exercise 3: Enable automated builds</h2>
+<p>With Visual Studio Mobile Center's build feature, you can store your source code in a GitHub repository and create an installable app package automatically with every commit or push — a process known as <em>continuous integration</em>. Best of all, you don't need to provision any agents or external machines to build your apps. Mobile Center takes care of this and will compile your iOS, Android, and Windows apps right from the repo with no manual setup on your side. In this exercise, you will configure Visual Studio Mobile Center to build the app from the repo you established in the previous exercise.</p>
+<ol>
+<li>
+<p>Open your Visual Studio Mobile Center apps collection by navigating to <a href="https://mobile.azure.com/apps">https://mobile.azure.com/apps</a>. Then click <strong>Drone Lander for Android</strong>.</p>
+<p><a href="Images/web-app-listing.png" target="_blank"><img src="Images/web-app-listing.png" alt="Opening the Android version of Drone Lander" style="max-width:100%;"></a></p>
+<p><em>Opening the Android version of Drone Lander</em></p>
+</li>
+<li>
+<p>Click <strong>Build</strong> in the menu on the left.</p>
+<p><a href="Images/web-click-build-tab.png" target="_blank"><img src="Images/web-click-build-tab.png" alt="Opening the Build menu" style="max-width:100%;"></a></p>
+<p><em>Opening the Build menu</em></p>
+</li>
+<li>
+<p>Click <strong>GitHub</strong>.</p>
+<p><a href="Images/web-select-github-service.png" target="_blank"><img src="Images/web-select-github-service.png" alt="Selecting GitHub as the service provider" style="max-width:100%;"></a></p>
+<p><em>Selecting GitHub as the service provider</em></p>
+</li>
+<li>
+<p>Select <strong>DroneLander</strong> from the list of repos.</p>
+<p><a href="Images/web-connected-to-github.png" target="_blank"><img src="Images/web-connected-to-github.png" alt="Selecting the DroneLander repo" style="max-width:100%;"></a></p>
+<p><em>Selecting the DroneLander repo</em></p>
+</li>
+<li>
+<p>Select the <strong>master</strong> branch from the list of branches, and then click <strong>Set up branch</strong> to configure that branch for build integration.</p>
+<p><a href="Images/web-click-setup-branch.png" target="_blank"><img src="Images/web-click-setup-branch.png" alt="Setting up a build branch" style="max-width:100%;"></a></p>
+<p><em>Setting up a build branch</em></p>
+</li>
+<li>
+<p>Change the build configuration from Debug to <strong>Release</strong>. Also ensure that <strong>Build this branch on every push</strong> is selected.</p>
+<p><a href="Images/web-branch-setup-01.png" target="_blank"><img src="Images/web-branch-setup-01.png" alt="Configuring build settings" style="max-width:100%;"></a></p>
+<p><em>Configuring build settings</em></p>
+</li>
+<li>
+<p>Toggle <strong>Sign builds</strong> from off to on. Click <strong>Keystore file</strong> and upload the keystore file named <strong>DroneLanderKeystore.keystore</strong> from this lab's "Resources\Keystore" folder. A keystore file enables signing of the Android app package (*.apk) and is required for release deployments of Android apps. Then enter the following values (without quotation marks) under "Signing credentials:"</p>
+<ul>
+<li><strong>KEYSTORE_PASSWORD</strong> - "DroneLander"</li>
+<li><strong>KEY_ALIAS</strong> - "DroneLanderKeystore"</li>
+<li><strong>KEY_PASSWORD</strong> - "DroneLander"</li>
+</ul>
+<blockquote>
+<p>The keystore file you're importing was created in advance specifically for this lab. In your own development projects, you will want to create your own keystores using the Android Keystore tool available in Visual Studio 2017.</p>
+</blockquote>
+<p><a href="Images/web-branch-setup-02.png" target="_blank"><img src="Images/web-branch-setup-02.png" alt="Enabling signed builds" style="max-width:100%;"></a></p>
+<p><em>Enabling signed builds</em></p>
+</li>
+<li>
+<p>Toggle <strong>Distribute builds</strong> from off to on and click the <strong>Save</strong> button..</p>
+<p><a href="Images/web-branch-setup-03.png" target="_blank"><img src="Images/web-branch-setup-03.png" alt="Enabling build distribution" style="max-width:100%;"></a></p>
+<p><em>Enabling build distribution</em></p>
+</li>
+<li>
+<p>Wait until you are notified that a build has been added to the queue, and that the build has begun. When the build completes, click it.</p>
+<p><a href="Images/web-build-build-complete.png" target="_blank"><img src="Images/web-build-build-complete.png" alt="Opening a completed build" style="max-width:100%;"></a></p>
+<p><em>Opening a completed build</em></p>
+</li>
+<li>
+<p>Click the <strong>Download</strong> button and select <strong>Download build</strong> from the menu to download a signed and verified Android package.</p>
+<p><a href="Images/web-click-download.png" target="_blank"><img src="Images/web-click-download.png" alt="Downloading the package" style="max-width:100%;"></a></p>
+<p><em>Downloading the package</em></p>
+</li>
+</ol>
+<p>Now that Visual Studio Mobile Center is configured to build the app, a new build will be initiated each time you check in changes to the GitHub repo. Now...wouldn't it be great if each person testing the app could be notified following each successful build? Visual Studio Mobile Center can help with that, too.</p>
+<p><a name="Exercise4"></a></p>
+<h2>Exercise 4: Enable automated distribution</h2>
+<p>In this exercise, you will configure Visual Studio Mobile Center to send e-mail notifications to a group of collaborators each time a new build is created. The e-mails will include a link that each tester can use use to the download the app and install it on his or her device.</p>
+<ol>
+<li>
+<p>Return to the build created in the previous exercise and click <strong>Distribute</strong>.</p>
+<p><a href="Images/web-click-distribute.png" target="_blank"><img src="Images/web-click-distribute.png" alt="Configuring build distributions" style="max-width:100%;"></a></p>
+<p><em>Configuring build distributions</em></p>
+</li>
+<li>
+<p>Select the <strong>Collaborators</strong> distribution group, and then click <strong>Next</strong>.</p>
+<blockquote>
+<p>The Collaborators group is created automatically when you configure build services in Visual Studio Mobile Center. You can create additional groups if desired, and you can add e-mail addresses to the Collaborators groups and to groups that you create.</p>
+</blockquote>
+<p><a href="Images/web-select-distribution.png" target="_blank"><img src="Images/web-select-distribution.png" alt="Selecting a distribution group" style="max-width:100%;"></a></p>
+<p><em>Selecting a distribution group</em></p>
+</li>
+<li>
+<p>Optionally enter a short release note such as "My first release of Drone Lander." Then click <strong>Distribute Build</strong>.</p>
+</li>
+<li>
+<p>Check your e-mail and confirm that you received a message notifying you of a new release.</p>
+<p><a href="Images/mail-new-version.png" target="_blank"><img src="Images/mail-new-version.png" alt="Build notification from Visual Studio Mobile Center" style="max-width:100%;"></a></p>
+<p><em>Build notification from Visual Studio Mobile Center</em></p>
+</li>
+</ol>
+<p>Feel free to add more testers to the Collaborators distribution group, or to create additional groups. Remember, users can install your app on their devices by simply clicking the link in the email.</p>
+<p><a name="Exercise5"></a></p>
+<h2>Exercise 5: Add crash analytics support to the app</h2>
+<p>In a perfect world, apps would never crash. In the real world, they sometimes do. The Visual Studio Mobile Center SDK makes it easy to add logic to a Xamarin Forms app to generate helpful analytics when crashes occur. In this exercise, you will add code to Drone Lander to configure it so that crash information can be viewed in Visual Studio Mobile Center, and you will test your changes by temporarily modifying Drone Lander to generate an unhandled exception when it starts up.</p>
+<ol>
+<li>
+<p>Open the <strong>DroneLander</strong> solution in Visual Studio 2017 if it isn't already open. In Solution Explorer, right-click the solution and select <strong>Manage NuGet Packages for Solution...</strong>.</p>
+</li>
+<li>
+<p>Ensure that "Browse" is selected in the NuGet Package Manager, and type "Microsoft.Azure.Mobile.Analytics" into the search box. Select the <strong>Microsoft.Azure.Mobile.Analytics</strong> package. Then check the <strong>Project</strong> box to add the package to all of the projects in the solution, and click <strong>Install</strong>. If you are prompted to review changes and accept licenses, do so.</p>
+</li>
+<li>
+<p>Return to the NuGet Package Manager and once more ensure that "Browse" is selected. Type "Microsoft.Azure.Mobile.Crashes" into the search box and select the <strong>Microsoft.Azure.Mobile.Crashes</strong> package. Then check the <strong>Project</strong> box to add the package to all of the projects in the solution, and click <strong>Install</strong>. Once more, accept any changes you are asked to review.</p>
+</li>
+<li>
+<p>In Solution Explorer, open <strong>App.xaml.cs</strong> in the <strong>DroneLander (Portable)</strong> project. Then add the following statements at the top of the file:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">Microsoft.Azure.Mobile</span>;
+<span class="pl-k">using</span> <span class="pl-en">Microsoft.Azure.Mobile.Analytics</span>;
+<span class="pl-k">using</span> <span class="pl-en">Microsoft.Azure.Mobile.Crashes</span>;</pre></div>
+</li>
+<li>
+<p>Add the following code to the <code>OnStart</code> method:</p>
+<div class="highlight highlight-source-cs"><pre> <span class="pl-en">MobileCenter.Start</span>($"android={Common.MobileCenterConstants.AndroidAppId};<span class="pl-s"><span class="pl-pds">"</span> +</span>
+<span class="pl-s">               $<span class="pl-pds">"</span></span><span class="pl-en">ios</span>={Common.MobileCenterConstants.iOSAppId}<span class="pl-s"><span class="pl-pds">"</span>,</span>
+<span class="pl-s">               typeof(Analytics), typeof(Crashes));</span>
+<span class="pl-s"></span></pre></div>
+</li>
+<li>
+<p>Open <strong>CoreConstants.cs</strong> in the <strong>DroneLander (Portable)</strong> project's "Common" folder, and add the following class directly below the <code>CoreConstants</code> class:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-en">MobileCenterConstants</span>
+{
+    <span class="pl-k">public const </span><span class="pl-k">string</span> <span class="pl-en">AndroidAppId</span> = <span class="pl-s"><span class="pl-pds">"</span>MOBILE_CENTER_ANDROID_APP_ID<span class="pl-pds">"</span></span>;
+    <span class="pl-k">public const </span><span class="pl-k">string</span> <span class="pl-en">iOSAppId</span> = <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>;
+}</pre></div>
+<p>These constants will be used by Mobile Center to track usage and crash information when your app starts.</p>
+</li>
+<li>
+<p>Return to <a href="https://mobile.azure.com/apps">Visual Studio Mobile Center</a> in your browser and open the Android version of <strong>Drone Lander</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Manage App</strong> in the upper-right corner of the page.</p>
+</li>
+<li>
+<p>Copy the value in the <strong>App secret</strong> box to the clipboard.</p>
+</li>
+<li>
+<p>Return to <strong>CoreConstants.cs</strong> and replace MOBILE_CENTER_ANDROID_APP_ID with the value on the clipboard.</p>
+<p><a href="Images/vs-updated-android-id.png" target="_blank"><img src="Images/vs-updated-android-id.png" alt="Updating the Android App ID" style="max-width:100%;"></a></p>
+<p><em>Updating the Android App ID</em></p>
+</li>
+<li>
+<p>Now it's time generate a crash report and see how it looks in Visual Studio Mobile Center. To do that, you will temporarily comment out a line of code in the app to generate a crash. Begin by opening <strong>MainViewModels.cs</strong> in the <strong>DroneLander (Portable)</strong> project's "ViewModels" folder. Then comment out the line of code that initializes <code>this.ActiveLandingParameters</code> in the <code>MainViewModel</code> constructor.</p>
+<p><a href="Images/vs-comment-out.png" target="_blank"><img src="Images/vs-comment-out.png" alt="Commenting out a line of code to induce a crash" style="max-width:100%;"></a></p>
+<p><em>Commenting out a line of code to induce a crash</em></p>
+</li>
+<li>
+<p>Launch the Android version of Drone Lander in the debugger. Confirm that the app throws an unhandled exception when it starts.</p>
+<p><a href="Images/vs-new-exception.png" target="_blank"><img src="Images/vs-new-exception.png" alt="The unhandled exception" style="max-width:100%;"></a></p>
+<p><em>The unhandled exception</em></p>
+</li>
+<li>
+<p>Crash data is initially stored on the local device, and is typically transmitted to Visual Studio Mobile Center the next time the app loads. In Visual Studio, return to <strong>MainViewModel.cs</strong> and uncomment the line of code that generates the unhandled exception. Use Visual Studio's <strong>Debug</strong> &gt; <strong>Start Without Debugging</strong> command (or simply press <strong>CTRL+F5</strong>) to launch the app <strong>without</strong> the debugger attached. This will transmit the crash information stored on the local device to VSMC.</p>
+</li>
+<li>
+<p>Since you modified the Drone Lander code, now is a good time to commit the changes and sync with GitHub. Right-click the <strong>DroneLander</strong> solution and selecting <strong>Commit...</strong>. Enter a comment such as "Added Mobile Center crash and analytics support." Then select <strong>Commit All and Push</strong> from the <strong>Commit All</strong> drop-down.</p>
+<p><a href="Images/vs-commit-all.png" target="_blank"><img src="Images/vs-commit-all.png" alt="Committing updates to GitHub" style="max-width:100%;"></a></p>
+<p><em>Committing updates to GitHub</em></p>
+</li>
+<li>
+<p>Return to the <a href="https://mobile.azure.com/apps">Visual Studio Mobile Center</a> in your browser and open <strong>Drone Lander</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Crashes</strong> in the menu on the left and take a moment to examine the various charts displaying crash information, as well as the entry at the bottom of the page representing the crash that occurred moments ago.</p>
+<blockquote>
+<p>The crash may not appear in the portal for 10 minutes or so. If it's not there, proceed to Exercise 6 and return to the crash reports later.</p>
+</blockquote>
+</li>
+<li>
+<p>Select the crash details for <strong>Crash Group #1</strong> and examine the stack trace for the crash that occurred. The stack trace identifies the <code>MainViewModel</code> constructor as the source of the crash, and <code>System.NullReferenceException</code> as the type of exception.</p>
+<p><a href="Images/portal-new-crash-report.png" target="_blank"><img src="Images/portal-new-crash-report.png" alt="Crash reporting in Visual Studio Mobile Center" style="max-width:100%;"></a></p>
+<p><em>Crash reporting in Visual Studio Mobile Center</em></p>
+</li>
+</ol>
+<p>You have seen first-hand how Visual Studio Mobile Center supports automated builds and distribution and provides rich crash analytics. But this isn't all VSMC can do. It also provides back-end services for authenticating users and supports integrated testing, data syncing, and (soon) push notifications. For more information on VSMC and its various features, see <a href="https://docs.microsoft.com/en-us/mobile-center">https://docs.microsoft.com/en-us/mobile-center</a>.</p>
+<p><a name="Summary"></a></p>
+<h2>Summary</h2>
+<p>That's it for Part 4 of Operation Remote Resupply. In Part 5, you will build an Azure back-end and modify the app to use it. Along the way, you will learn how to authenticate users, employ Azure data services, and even create your own mobile APIs. Then you will fly <em>real</em> supply missions and compete with others in the room to resupply Mars bases. Get ready, because this event is about to start rocking!</p>
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Title="Drone Lander"
+             xmlns:local="clr-namespace:DroneLander" 
+             BackgroundImage="drone_lander_back.jpg"
+             x:Class="DroneLander.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackLayout Padding="40,30">
+            <Label Style="{DynamicResource CaptionLabelStyle}" Text="Altitude (meters)" />
+            <Label Style="{DynamicResource DisplayLabelStyle}" Text="{Binding Altitude, Converter={StaticResource DecimalDisplayConverter}}" />
+
+            <Label Style="{DynamicResource CaptionLabelStyle}" Text="Descent Rate (meters per second)" />
+            <Label Style="{DynamicResource DisplayLabelStyle}" Text="{Binding DescentRate, Converter={StaticResource DecimalDisplayConverter}}" />
+
+            <Label Style="{DynamicResource CaptionLabelStyle}" Text="Thrust (Newtons)" />
+            <Label Style="{DynamicResource DisplayLabelStyle}" Text="{Binding Thrust, Converter={StaticResource DecimalDisplayConverter}}" />
+
+            <Label Style="{DynamicResource CaptionLabelStyle}" Text="Fuel Remaining" />
+            <ProgressBar Progress="{Binding FuelRemaining}" />
+
+            <Label Style="{DynamicResource CaptionLabelStyle}" Text="Throttle"></Label>
+            <Slider Minimum="0" Maximum="100" Value="{Binding Throttle, Mode=TwoWay}" />
+        </StackLayout>
+
+        <Button Style="{DynamicResource ButtonLabelStyle}" Grid.Row="1" VerticalOptions="Fill" Text="{Binding ActionLabel}" Command="{Binding AttemptLandingCommand}" />
+    </Grid>
+</ContentPage>

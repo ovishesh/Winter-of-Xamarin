@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Operation Remote Resupply, Part 6</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<p><a name="HOLTitle"></a></p>
+<h1>Operation Remote Resupply, Part 6</h1>
+<hr>
+<p><a name="Overview"></a></p>
+<h2>Overview</h2>
+<p>In Part 4 of Operation Remote Resupply, you used <a href="https://www.visualstudio.com/vs/mobile-center/" title="Visual Studio Mobile Center">Visual Studio Mobile Center</a> to automate the process of building and distributing apps, triggered by commits to GitHub. Although a simple "load test" was performed during this process, automated UI acceptance testing is not currently part of the lifecycle.</p>
+<p>In Part 6, you will build on what you did in Part 4 by using the <a href="https://developer.xamarin.com/guides/testcloud/uitest/">Xamarin.UITest</a> framework and the <a href="https://developer.xamarin.com/guides/testcloud/testrecorder/">Xamarin Test Recorder</a> to add automated UI tests to the Android version of the Drone Lander app. Once the tests are written, you will submit them to Visual Studio Mobile Center so they're executed automatically every time the app is built. Xamarin.UITest is based on the open-source <a href="http://calaba.sh/">Calabash</a> framework and features tight integration with Xamarin.Forms, Xamarin.iOS, and Xamarin.Android projects. It exposes a rich API allowing you to simulate button clicks, gestures, and other input, include assertions in your tests, take screen shots, and more. It can even be used with iOS and Android projects written in other languages, including Objective-C, Swift, and Java.</p>
+<p>UI acceptance testing is a critical part of the development lifecycle, and is typically at the top of the testing pyramid when it comes to producing robust, bug-free apps. Let's finish up Operation Remote Resupply by adding automated UI testing to Drone Lander and put the "Test" in "Build, Test, and Distribute."</p>
+<p><a name="Objectives"></a></p>
+<h3>Objectives</h3>
+<p>In this lab, you will learn how to:</p>
+<ul>
+<li>Add a Xamarin UI Test project to a Xamarin Forms solution</li>
+<li>Write cross-platform UI acceptance tests</li>
+<li>Use the Xamarin Test Recorder to record test scripts</li>
+<li>Integrate automated UI tests with Visual Studio Mobile Center</li>
+</ul>
+<p><a name="Prerequisites"></a></p>
+<h3>Prerequisites</h3>
+<p>The following are required to complete this lab:</p>
+<ul>
+<li><a href="https://www.visualstudio.com/vs/">Visual Studio Community 2017</a></li>
+<li>A computer running Windows 10 that supports hardware emulation using Hyper-V. For more information, and for a list of requirements, see <a href="https://msdn.microsoft.com/en-us/library/mt228280.aspx">https://msdn.microsoft.com/en-us/library/mt228280.aspx</a>.</li>
+</ul>
+<hr>
+<p><a name="Exercises"></a></p>
+<h2>Exercises</h2>
+<p>This lab includes the following exercises:</p>
+<ul>
+<li><a href="#Exercise1">Exercise 1: Add a UI test project to a Xamarin Forms solution</a></li>
+<li><a href="#Exercise2">Exercise 2: Write cross-platform UI test scripts</a></li>
+<li><a href="#Exercise3">Exercise 3: Use the Xamarin Test Recorder to record tests</a></li>
+<li><a href="#Exercise4">Exercise 4: Submit automated UI tests to Visual Studio Mobile Center</a></li>
+</ul>
+<p>Estimated time to complete this lab: <strong>45</strong> minutes.</p>
+<p><a name="Exercise1"></a></p>
+<h2>Exercise 1: Add a UI test project to a Xamarin Forms solution</h2>
+<p>The first step in incorporating UI tests into a Xamarin Forms app is to add a Xamarin.UITest project to the solution and update a couple of NuGet packages. In this exercise, you will add a test project to the <strong>DroneLander</strong> solution and run a simple test.</p>
+<ol>
+<li>
+<p>Open the <strong>DroneLander</strong> solution in Visual Studio 2017.</p>
+</li>
+<li>
+<p>In Solution Explorer, right-click the solution and use the <strong>Add</strong> &gt; <strong>New Project</strong> command to add a <strong>UI Test App (Xamarin.UITest | Cross-Platform)</strong> project named "DroneLander.UITest" to the solution.</p>
+<p><a href="Images/vs-add-new-project.png" target="_blank"><img src="Images/vs-add-new-project.png" alt="Adding a Xamarin.UITest project to the solution" style="max-width:100%;"></a></p>
+<p><em>Adding a Xamarin.UITest project to the solution</em></p>
+</li>
+<li>
+<p>In Solution Explorer, right-click the <strong>DroneLander.UITest</strong> project and select <strong>Manage NuGet Packages...</strong>. Make sure "Installed" is selected. Then select <strong>Xamarin.UITest</strong> and click <strong>Update</strong> to install the latest stable version.</p>
+<p><a href="Images/vs-update-nuget.png" target="_blank"><img src="Images/vs-update-nuget.png" alt="Updating Xamarin.UITest" style="max-width:100%;"></a></p>
+<p><em>Updating Xamarin.UITest</em></p>
+</li>
+<li>
+<p>Repeat this process for the NUnitTestAdapter package, updating it to the latest stable version.</p>
+<blockquote>
+<p>DO NOT update the NUnit package. Xamarin.UITest requires NUnit version 2.6 and does not work with version 3.0 and higher.</p>
+</blockquote>
+</li>
+<li>
+<p>Right-click the <strong>DroneLander.Android</strong> project and select <strong>Properties</strong> from the context menu. Select <strong>Android Manifest</strong> and set <strong>Package name</strong> to "com.traininglabs.dronelander" if it isn't set to that already. Then save the modified manifest.</p>
+<p><a href="Images/vs-android-package-name.png" target="_blank"><img src="Images/vs-android-package-name.png" alt="Setting the Android package name" style="max-width:100%;"></a></p>
+<p><em>Setting the Android package name</em></p>
+</li>
+<li>
+<p>Notice the <strong>AppInitializer.cs</strong> and <strong>Tests.cs</strong> files included in the Xamarin.UITest project. <strong>AppInitializer.cs</strong> contains logic for activating platform-specific versions of your app, while <strong>Tests.cs</strong> is where you write your tests.</p>
+<p>Open <strong>AppInitializer.cs</strong> and add the following statement directly above the call to <code>StartApp</code> in the Android initialization code to connect the test project to the Android version of Drone Lander:</p>
+<div class="highlight highlight-source-cs"><pre>.<span class="pl-en">InstalledApp</span>("com.traininglabs.dronelander")</pre></div>
+<p><a href="Images/vs-add-installed-path.png" target="_blank"><img src="Images/vs-add-installed-path.png" alt="Specifying the app package name in the test project" style="max-width:100%;"></a></p>
+<p><em>Specifying the app package name in the test project</em></p>
+</li>
+<li>
+<p>Rebuild the solution. Then open Test Explorer using Visual Studio's <strong>Test</strong> &gt; <strong>Windows</strong> &gt; <strong>Test Explorer</strong> command. Confirm that two tests named "AppLaunches" are displayed. The first is for Android, and the second is for iOS. These are tests that are performed each time the app launches.</p>
+<p><a href="Images/vs-test-explorer.png" target="_blank"><img src="Images/vs-test-explorer.png" alt="AppLaunches tests in Test Explorer" style="max-width:100%;"></a></p>
+<p><em>AppLaunches tests in Test Explorer</em></p>
+</li>
+<li>
+<p>Right-click the first AppLaunches test and select <strong>Open Test</strong> to view the code for the test in <strong>Tests.cs</strong>. Note the <code>[Test]</code> attribute decorating the <code>AppLaunches</code> method. This attribute marks a method as a callable entry point for an NUnit test and exposes it to the Xamarin.UITest platform for execution. Other attributes such as <code>[StartUp]</code> and <code>[TearDown]</code> are also useful when working with Xamarin.UITest.</p>
+</li>
+<li>
+<p>When a Xamarin.UITest project is created, the default <code>AppLaunches</code> method contains a single call to the <code>Screenshot</code> method, which takes a screen shot of the app.</p>
+<p><a href="Images/vs-open-tests.png" target="_blank"><img src="Images/vs-open-tests.png" alt="The Android AppLaunches method" style="max-width:100%;"></a></p>
+<p><em>The Android AppLaunches method</em></p>
+<p>By default, screen shots are not stored locally. To change that, go back to <strong>AppInitializer.cs</strong> and add the following statement after the call to <code>InstalledApp</code> that you added earlier:</p>
+<div class="highlight highlight-source-cs"><pre>.<span class="pl-en">EnableLocalScreenshots</span>()</pre></div>
+</li>
+<li>
+<p>Right-click the first AppLaunches test in Test Explorer and select <strong>Run Selected Tests</strong> to run the test for the Android version of Drone Lander. Then wait until Test Explorer indicates that the test has completed successfully.</p>
+<p><a href="Images/vs-first-test-successful.png" target="_blank"><img src="Images/vs-first-test-successful.png" alt="A successful test" style="max-width:100%;"></a></p>
+<p><em>A successful test</em></p>
+</li>
+<li>
+<p>Screen shots that are saved locally are saved in the build folder in the test project. Right-click the test project and use the  <strong>Open Folder in File Explorer</strong> command to open a File Explorer window. Then navigate to the "bin\Debug" subdirectory and confirm that it contains a screen shot named <strong>screenshot-1.png</strong>.</p>
+<p><a href="Images/fe-screenshot.png" target="_blank"><img src="Images/fe-screenshot.png" alt="The screen shot created during the test run" style="max-width:100%;"></a></p>
+<p><em>The screen shot created during the test run</em></p>
+</li>
+</ol>
+<p>You now have a UI test project integrated into your solution. The next step is to add test scripts to the project to do more than just snap a screen shot when the app launches.</p>
+<p><a name="Exercise2"></a></p>
+<h2>Exercise 2: Write cross-platform UI test scripts</h2>
+<p>Xamarin.UITest provides a rich API for implementing sophisticated UI tests. You can simulate button clicks, insert text into entry fields, change the orientation of the device (or emulator), and more. In this exercise, you will add code to the Android AppLaunches test to perform simple actions using just a few of the APIs available in the Xamarin.UITest framework.</p>
+<ol>
+<li>
+<p>Open <strong>Tests.cs</strong> in the <strong>DroneLander.UITest</strong> project and replace the code in the <code>AppLaunches</code> method with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">app.Tap</span>(x =&gt; x.Button(<span class="pl-s"><span class="pl-pds">"</span>Start<span class="pl-pds">"</span></span>));
+<span class="pl-en">app.Screenshot</span>("The app in progress.");</pre></div>
+<p>The first line of code simulates a tap of the Start button by querying the UI for a button labeled "Start" and then passing it to the <code>Tap</code> method. The second line snaps a screen shot after the button is tapped — that is, once the drone has begun descending to the Mars surface.</p>
+</li>
+<li>
+<p>Right-click the first <strong>AppLaunches</strong> test in Test Explorer and select <strong>Run Selected Tests</strong> to run the updated test for the Android version of Drone Lander. Then switch to the Android emulator and watch as Drone Lander loads and the Start button is tapped to begin a descent.</p>
+<p><a href="Images/app-after-first-run.png" target="_blank"><img src="Images/app-after-first-run.png" alt="A descent initiated by a test script" style="max-width:100%;"></a></p>
+<p><em>A descent initiated by a test script</em></p>
+</li>
+<li>
+<p>In Drone Lander, tap <strong>Reset</strong> to end the descent.</p>
+</li>
+<li>
+<p>Navigate back to the test project's "bin\Debug" folder and open <strong>screenshot-1.png</strong>. Confirm that it pictures the app <em>after</em> the Start button is tapped.</p>
+</li>
+<li>
+<p>In addition to interacting with elements in the UI, Xamarin.UITest test scripts can interact with the device itself. To demonstrate, add the following statements to the <code>AppLaunches</code> method in <strong>Test.cs</strong> in the test project, immediately after the call to <code>app.Screenshot</code>:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">app.Flash</span>(x =&gt; x.Text(<span class="pl-s"><span class="pl-pds">"</span>Sign In<span class="pl-pds">"</span></span>));
+<span class="pl-en">app.SetOrientationLandscape</span>();
+<span class="pl-en">app.PressVolumeDown</span>();
+<span class="pl-en">app.PressVolumeDown</span>();
+<span class="pl-en">app.SetOrientationPortrait</span>();
+<span class="pl-en">app.Flash</span>(x =&gt; x.Button(<span class="pl-s"><span class="pl-pds">"</span>Reset<span class="pl-pds">"</span></span>));
+<span class="pl-en">app.PressVolumeUp</span>();
+<span class="pl-en">app.PressVolumeUp</span>();</pre></div>
+</li>
+<li>
+<p>Run the Android AppLaunches test again, and switch to the Android emulator to see the automated test in action. When you're done, click <strong>Reset</strong> to stop the descent.</p>
+<blockquote>
+<p>Since these steps are automated, they happen quickly. If desired, you could insert calls to  <code>Thread.Sleep</code> to space them out more.</p>
+</blockquote>
+</li>
+</ol>
+<p>You can create sophisticated tests by coding them manually as you did in this exercise. However, what if you could simply "record" your UI tests by interacting with the app, and then later play them back? With the Xamarin Test Recorder, you can do just that.</p>
+<p><a name="Exercise3"></a></p>
+<h2>Exercise 3: Use the Xamarin Test Recorder to record tests</h2>
+<p>Coding UI automation tests by hand is time-consuming and error-prone. The <a href="https://developer.xamarin.com/guides/testcloud/testrecorder/">Xamarin Test Recorder</a> is a Visual Studio 2017 extension that can record your interactions with an app and create automated tests written in C# based on those interactions. In this exercise, you will install the Xamarin Test Recorder and record UI automation tests that can be run locally or integrated with the app lifecycle using the <a href="https://www.xamarin.com/test-cloud">Xamarin Test Cloud</a> or Visual Studio Mobile Center.</p>
+<blockquote>
+<p>The Xamarin Test Recorder is only available in Visual Studio Enterprise 2017. If you are <em>not</em> using the Enterprise edition, simply read through this exercise to learn how to use the recorder.</p>
+</blockquote>
+<ol>
+<li>
+<p>Install the Xamarin Test Recorder by using Visual Studio's <strong>Tools</strong> &gt; <strong>Extensions and Updates...</strong> command to display the "Extensions and Updates" dialog, searching for "xamarin test recorder" in the Visual Studio Marketplace, and clicking <strong>Download</strong>.</p>
+<p><a href="Images/vs-install-recorder.png" target="_blank"><img src="Images/vs-install-recorder.png" alt="Installing the Xamarin Test Recorder" style="max-width:100%;"></a></p>
+<p><em>Installing the Xamarin Test Recorder</em></p>
+</li>
+<li>
+<p>Close Visual Studio 2017 to allow the Xamarin Test Recorder to install, and then reopen the <strong>DroneLander</strong> solution after installation is complete.</p>
+</li>
+<li>
+<p>Open <strong>Tests.cs</strong> in the <strong>DroneLander.UITest</strong> project and confirm that two icons appear in the left margin. These icons are used to begin recording UI automation tests. The <code>[TestFixture]</code> attribute indicates that a class contains callable test methods.</p>
+<p><a href="Images/vs-new-icons.png" target="_blank"><img src="Images/vs-new-icons.png" alt="The Xamarin Test Recorder icons" style="max-width:100%;"></a></p>
+<p><em>The Xamarin Test Recorder icons</em></p>
+</li>
+<li>
+<p>The Xamarin Test Recorder can't use the Mono Shared Runtime that is typically used in debug builds. Therefore, change the current build configuration to release mode. Then rebuild the <strong>DroneLander.Android</strong> project to produce a release build.</p>
+<p><a href="Images/vs-release-mode.png" target="_blank"><img src="Images/vs-release-mode.png" alt="Changing the build configuration" style="max-width:100%;"></a></p>
+<p><em>Changing the build configuration</em></p>
+</li>
+<li>
+<p>Click the record icon to the left of <code>[TestFixture(Platform.Android)]</code> in <strong>Tests.cs</strong> and select <strong>Record New Test</strong> &gt; <strong>Build DroneLander.Android project</strong> to start a recording session.</p>
+<p><a href="Images/vs-record-new-test.png" target="_blank"><img src="Images/vs-record-new-test.png" alt="Starting a recording session" style="max-width:100%;"></a></p>
+<p><em>Starting a recording session</em></p>
+</li>
+<li>
+<p>Wait until the Xamarin Test Recorder begins connecting to the emulator, as pictured below. Then launch the app in the Android emulator.</p>
+<p><a href="Images/vs-connection-to-app.png" target="_blank"><img src="Images/vs-connection-to-app.png" alt="Connecting Xamarin Test Recorder to an emulator session" style="max-width:100%;"></a></p>
+<p><em>Connecting Xamarin Test Recorder to an emulator session</em></p>
+</li>
+<li>
+<p><strong>Wait for the connection status to change from "Connecting to app..." to "Connected".</strong> This may take up to 30 seconds. Then switch to the emulator and perform the following steps in the order shown:</p>
+<ul>
+<li>Tap <strong>Sign In</strong></li>
+<li>Enter the e-mail address for your Microsoft account</li>
+<li>Tap the <strong>Next</strong> button</li>
+<li>Enter the password for your Microsoft account</li>
+<li>Tap the <strong>Sign In</strong> button</li>
+<li>Tap <strong>Activity</strong> to view landing activity</li>
+<li>Tap the emulator's back button</li>
+<li>Tap <strong>Start</strong> to begin a descent</li>
+<li>Slide the throttle slider all the way to the right</li>
+<li>Tap <strong>Reset</strong></li>
+</ul>
+</li>
+<li>
+<p>Return to Visual Studio 2017 and observe that a new method named <code>NewTest</code> has been created in <strong>Tests.cs</strong> and populated with lines of code corresponding to the actions you just performed. Click the icon to the left of the last line and select <strong>Stop Recording</strong>.</p>
+<blockquote>
+<p>Steps related to signing in with your Microsoft account may not have been captured. If that's the case, don't fret; you will fix that in a moment. Capturing these actions often depends on the speed with which the dialogs load and other factors unrelated to Xamarin.UITest.</p>
+</blockquote>
+<p><a href="Images/vs-stop-recording.png" target="_blank"><img src="Images/vs-stop-recording.png" alt="Ending the recording session" style="max-width:100%;"></a></p>
+<p><em>Ending the recording session</em></p>
+</li>
+<li>
+<p>In Test Explorer, right-click the Android version of NewTest and select <strong>Run Selected Tests</strong> to run the test in the emulator. Then switch to the Android emulator and observe the automated test in action.</p>
+<blockquote>
+<p>You can easily determine whether a test method targets Android or iOS by hovering over the test in Test Explorer and inspecting the ensuing tooltip window.</p>
+</blockquote>
+</li>
+<li>
+<p>When played back, the part of the test in which you sign in with your Microsoft account might not work, and it might even hang. This is because the recording doesn't take into account the time required for pages and dialogs to load. You can fix this by modifying the code generated by the Xamarin Test Recorder. Begin by changing the name of the <code>NewTest</code> method to something more descriptive such as "SignInAndCheckActivity."</p>
+</li>
+<li>
+<p>If the generated test code generated <strong>does not</strong> include statements referencing the <code>WebView</code> class, insert the following statements after the first statement in the test method to automate the sign-in process. Substitute your user name and password for YOUR_MICROSOFT_ACCOUNT_EMAIL_ADDRESS and YOUR_MICROSOFT_ACCOUNT_PASSWORD.</p>
+<blockquote>
+<p>In production testing scenarios, you will want to create test accounts to use in your tests and avoid using personal accounts.</p>
+</blockquote>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">app.WaitForElement</span>(c =&gt; c.WebView().Css(<span class="pl-s"><span class="pl-pds">"</span>INPUT#i0116<span class="pl-pds">"</span></span>));
+<span class="pl-en">app.EnterText</span>(x =&gt; x.WebView().Css(<span class="pl-s"><span class="pl-pds">"</span>INPUT#i0116<span class="pl-pds">"</span></span>), <span class="pl-s"><span class="pl-pds">"</span>YOUR_MICROSOFT_ACCOUNT_EMAIL_ADDRESS<span class="pl-pds">"</span></span>);
+<span class="pl-en">app.Tap</span>(x =&gt; x.WebView().Css(<span class="pl-s"><span class="pl-pds">"</span>INPUT#idSIButton9<span class="pl-pds">"</span></span>));
+<span class="pl-en">app.EnterText</span>(x =&gt; x.WebView().Css(<span class="pl-s"><span class="pl-pds">"</span>INPUT#i0118<span class="pl-pds">"</span></span>), <span class="pl-s"><span class="pl-pds">"</span>YOUR_MICROSOFT_ACCOUNT_PASSWORD<span class="pl-pds">"</span></span>);
+<span class="pl-en">app.Tap</span>(x =&gt; x.WebView().Css(<span class="pl-s"><span class="pl-pds">"</span>INPUT#idSIButton9<span class="pl-pds">"</span></span>));</pre></div>
+</li>
+<li>
+<p>If the generated test code <strong>does</strong> include references to the <code>WebView</code> class, insert the following statement after the first statement in the test method to wait for the authentication dialog to appear:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">app.WaitForElement</span>(c =&gt; c.WebView().Css(<span class="pl-s"><span class="pl-pds">"</span>INPUT#i0116<span class="pl-pds">"</span></span>));</pre></div>
+<p>The <code>WaitForElement</code> method provides an easy-to-use mechanism for delaying until a condition involving a UI element is satisfied. In this example, it waits for the authentication dialog to render in the <code>WebView</code> control.</p>
+</li>
+<li>
+<p>Since the Test Recorder doesn't record the delays between actions, it's often helpful to force a delay in a script, or wait for a UI element to become available before moving to the next step. You may have noticed, for example, that the generated code immediately goes back to the previous page after navigating to the landing-activity page.</p>
+<p>To compensate, insert the following statement after the statement that simulates a tap of the Activity button to wait for the text string "Kaboom" to appear on the page:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">app.WaitForElement</span>(x =&gt; x.Text(<span class="pl-s"><span class="pl-pds">"</span>Kaboom<span class="pl-pds">"</span></span>));</pre></div>
+</li>
+<li>
+<p>Since your recording includes a tap of the Reset button following the increase in throttle, you should introduce a delay before the Reset button is tapped to allow the landing simulation to run for a period of time. To that end, add the following statement after the statement that changes the value of the Slider control:</p>
+<div class="highlight highlight-source-cs"><pre> <span class="pl-en">System.Threading.Thread.Sleep</span>(2000);</pre></div>
+</li>
+<li>
+<p>Rebuild the <strong>DroneLander.UITest</strong> project so the new test methods appear in Test Explorer.</p>
+<p><a href="Images/vs-sign-in-and-check.png" target="_blank"><img src="Images/vs-sign-in-and-check.png" alt="The updated test methods in Test Explorer" style="max-width:100%;"></a></p>
+<p><em>The updated test methods in Test Explorer</em></p>
+</li>
+<li>
+<p>Run the Android version of the test. Then switch to the Android emulator and watch the test execute. Confirm that the test executes successfully and that Test Explorer indicates that the test passed.</p>
+<p><a href="Images/vs-sign-in-complete.png" target="_blank"><img src="Images/vs-sign-in-complete.png" alt="A successful test" style="max-width:100%;"></a></p>
+<p><em>A successful test</em></p>
+</li>
+</ol>
+<p>Automating UI tests in this manner by using the Xamarin Test Recorder to record your actions and, when necessary, modifying the code that it generates reduces the amount of effort required to incorporate UI tests into the development process. The next step is to run the tests that you create on real hardware, and not just on hardware you own, but on a variety of devices. Only then can you be reasonably assured that your app is robust enough for real-world use.</p>
+<p><a name="Exercise4"></a></p>
+<h2>Exercise 4: Submit automated UI tests to Visual Studio Mobile Center</h2>
+<p>It probably isn't realistic for you to collect hundreds of devices on which to run your tests. Even if you could, the process of running them one by one would be painstaking unless that process, too, were automated.</p>
+<p>Both the <a href="https://www.xamarin.com/test-cloud">Xamarin Test Cloud</a> and Visual Studio Mobile Center can solve this problem by enabling you to run the automated tests that you create on hundreds of devices. In this exercise, you will add the <strong>DroneLander.UITest</strong> project to the GitHub repo that you created earlier and integrate the automated tests into the app lifecycle using Visual Studio Mobile Center.</p>
+<ol>
+<li>
+<p>Open <strong>Tests.cs</strong> in the <strong>DroneLander.UITest</strong> project and replace the code in the <code>SignInAndCheckActivity</code> method with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">app.Tap</span>(x =&gt; x.Text(<span class="pl-s"><span class="pl-pds">"</span>Start<span class="pl-pds">"</span></span>));
+<span class="pl-en">app.SetSliderValue</span>(x =&gt; x.Class(<span class="pl-s"><span class="pl-pds">"</span>FormsSeekBar<span class="pl-pds">"</span></span>), <span class="pl-c1">1000</span>);
+<span class="pl-en">System.Threading.Thread.Sleep</span>(2000);
+<span class="pl-en">app.Screenshot</span>("Drone Lander in action");
+<span class="pl-en">app.Tap</span>(x =&gt; x.Text(<span class="pl-s"><span class="pl-pds">"</span>Reset<span class="pl-pds">"</span></span>));</pre></div>
+<blockquote>
+<p>Since many third-party authentication services, including Microsoft's, often require two-factor authentication or secondary forms of validation, you are removing the code that signs in with a Microsoft account to avoid any "false failures" during test runs.</p>
+</blockquote>
+</li>
+<li>
+<p>Delete the <code>AppLaunches</code> method (including the <code>[Test]</code> attribute decorating it) from <strong>Tests.cs</strong>. You no longer need it since the <code>SignInAndCheckActivity</code> method starts a descent and takes a screen shot.</p>
+</li>
+<li>
+<p>Ensure that the build configuration is still set to release mode in Visual Studio. Then right-click the <strong>DroneLander.Android</strong> project and use the <strong>Archive...</strong> command to create a release version of the project package.</p>
+</li>
+<li>
+<p>Add the <strong>DroneLander.UITest</strong> project to your GitHub repo by clicking the changes indicator in the lower-right corner of the Visual Studio status bar, entering a commit message such as "Added test project," and selecting <strong>Commit All and Push</strong>.</p>
+<p><a href="Images/vs-github-changes.png" target="_blank"><img src="Images/vs-github-changes.png" alt="Adding the test project to the repo" style="max-width:100%;"></a></p>
+<p><em>Adding the test project to the repo</em></p>
+</li>
+<li>
+<p>Recall that any new commits to the GitHub repo will automatically trigger the build and distribution process. Xamarin.UITest is designed to seamlessly integrate into this process and perform the Test portion of a Build/Test/Distribute lifecyle.</p>
+<p>Go to <a href="https://mobile.azure.com/apps">Visual Studio Mobile Center</a> in your browser and select the Android version of Drone Lander. Then click <strong>Test</strong>.</p>
+<p><a href="Images/portal-click-test.png" target="_blank"><img src="Images/portal-click-test.png" alt="Configuring tests in Visual Studio Mobile Center" style="max-width:100%;"></a></p>
+<p><em>Configuring tests in Visual Studio Mobile Center</em></p>
+</li>
+<li>
+<p>Click <strong>Try Automated UI Testing</strong>. Then click <strong>Test series</strong> in the upper-right corner of the page, and click <strong>Create new series</strong>.</p>
+<p><a href="Images/portal-click-test-series.png" target="_blank"><img src="Images/portal-click-test-series.png" alt="Creating a new test series" style="max-width:100%;"></a></p>
+<p><em>Creating a new test series</em></p>
+</li>
+<li>
+<p>Enter "UI Acceptance Series" as the series name, and then click <strong>Create</strong>.</p>
+<p><a href="Images/portal-create-series.png" target="_blank"><img src="Images/portal-create-series.png" alt="Naming the test series" style="max-width:100%;"></a></p>
+<p><em>Naming the test series</em></p>
+</li>
+<li>
+<p>Close the "Test Series" dialog to return to the Mobile Center Test page, and then click <strong>New test run</strong>.</p>
+</li>
+<li>
+<p>Select the device you want to use for testing, and then click <strong>Select (1) device</strong> at the bottom of the screen.</p>
+<blockquote>
+<p>You are only testing on one device to make testing as quick as possible, but if you weren't concerned about time, you could select as many devices as you want.</p>
+</blockquote>
+<p><a href="Images/portal-select-device.png" target="_blank"><img src="Images/portal-select-device.png" alt="Selecting a target device" style="max-width:100%;"></a></p>
+<p><em>Selecting a target device</em></p>
+</li>
+<li>
+<p>Select <strong>UI Acceptance Series</strong> as the test series and <strong>Xamarin.UITest</strong> as the test framework. Then click <strong>Next</strong>.</p>
+<p><a href="Images/portal-configure-tab.png" target="_blank"><img src="Images/portal-configure-tab.png" alt="Specifying the test series and test framework" style="max-width:100%;"></a></p>
+<p><em>Specifying the test series and test framework</em></p>
+</li>
+<li>
+<p>Review the information presented to you. <strong>Perform steps 1 and 2</strong> in the "Prerequisites" section to ensure that <a href="https://nodejs.org/">Node.js</a> and the <a href="https://docs.microsoft.com/en-us/mobile-center/cli/">Mobile Center CLI</a> are installed.</p>
+<p><a href="Images/portal-prereqs.png" target="_blank"><img src="Images/portal-prereqs.png" alt="Prerequisites for submitting tests" style="max-width:100%;"></a></p>
+<p><em>Prerequisites for submitting tests</em></p>
+</li>
+<li>
+<p>Click <strong>Copy to clipboard</strong> in the "Running tests" section to copy the Mobile Center CLI command to the clipboard.</p>
+<p><a href="Images/portal-copy-to-clipboard.png" target="_blank"><img src="Images/portal-copy-to-clipboard.png" alt="Copying the Mobile Center CLI command to the clipboard" style="max-width:100%;"></a></p>
+<p><em>Copying the Mobile Center CLI command to the clipboard</em></p>
+</li>
+<li>
+<p>This command needs to be run from the "packages" folder located in the root of the DroneLander solution. To get the location of that folder, right-click the solution in Solution Explorer and select <strong>Open Folder in File Explorer</strong>.</p>
+</li>
+<li>
+<p>Open a Command Prompt window and type "cd " (notice the trailing space). Then drag the "packages" folder from the File Explorer window to the Command Prompt window and press <strong>Enter</strong> to change to the "packages" directory.</p>
+</li>
+<li>
+<p>Paste the command on the clipboard into the Command Prompt window, but don't execute the command just yet.</p>
+</li>
+<li>
+<p>Replace <em>pathToFile.apk</em> in the command you pasted in with the following path name. This is the path to the release-mode Android package that you archived:</p>
+<pre><code>"..\DroneLander\DroneLander.Android\bin\Release\com.traininglabs.dronelander.apk"
+</code></pre>
+</li>
+<li>
+<p>Replace <em>pathToUITestBuildDir</em> with the following path name. This is the Xamarin.UITest build directory:</p>
+<pre><code>"..\DroneLander.UITest\bin\Release"
+</code></pre>
+</li>
+<li>
+<p>Press <strong>Enter</strong> to execute the command and submit your acceptance tests.</p>
+<p><a href="Images/cli-started.png" target="_blank"><img src="Images/cli-started.png" alt="Submitting acceptance tests" style="max-width:100%;"></a></p>
+<p><em>Submitting acceptance tests</em></p>
+</li>
+<li>
+<p>Return to the Test page for the Android version of Drone Lander in Mobile Center and confirm that a test has been started.</p>
+<p><a href="Images/portal-test-started.png" target="_blank"><img src="Images/portal-test-started.png" alt="Viewing the test status" style="max-width:100%;"></a></p>
+<p><em>Viewing the test status</em></p>
+</li>
+<li>
+<p>Since Mobile Center is running your automated UI tests on a real device, this process could take <strong>10 to 15 minutes to complete</strong>. Wait until the status changes to "PASSED", and then click the test to view the results.</p>
+<p><a href="Images/portal-success.png" target="_blank"><img src="Images/portal-success.png" alt="Viewing the test results" style="max-width:100%;"></a></p>
+<p><em>Viewing the test results</em></p>
+</li>
+</ol>
+<p>For more detailed information about test runs on specific devices, you can click <strong>Details</strong> and <strong>Logs</strong> to view device specifications, test logs, and stack traces.</p>
+<p><a name="Summary"></a></p>
+<h2>Summary</h2>
+<p>The development lifecycle is now complete and fully automated. The tests you created in this lab, although simple, can serve as a starting point for more rigorous UI acceptance tests. For more information about Xamarin.UITest as well as its features and capabilities, see <a href="https://developer.xamarin.com/guides/testcloud/uitest/intro-to-uitest/">https://developer.xamarin.com/guides/testcloud/uitest/intro-to-uitest/</a>.</p>
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

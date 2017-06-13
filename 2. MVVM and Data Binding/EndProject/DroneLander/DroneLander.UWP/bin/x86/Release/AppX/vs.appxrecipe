@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>DESKTOP-1GC55AG</Machine>
+    <WindowsUser>visho</WindowsUser>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetOsVersion>10.0</TargetOsVersion>
+    <TargetOsDescription>Windows 10.0</TargetOsDescription>
+    <SolutionConfiguration>Release|x86</SolutionConfiguration>
+    <PackageArchitecture>x86</PackageArchitecture>
+    <PackageIdentityName>04770cde-ea3c-4c61-a508-74f968c56a2f</PackageIdentityName>
+    <PackageIdentityPublisher>CN=visho</PackageIdentityPublisher>
+    <IntermediateOutputPath>C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\</IntermediateOutputPath>
+    <RemoteDeploymentType>
+    </RemoteDeploymentType>
+    <PackageRegistrationPath>
+    </PackageRegistrationPath>
+    <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
+    <DeployOptionalPackages>false</DeployOptionalPackages>
+    <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
+    <LayoutDir>C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\AppX</LayoutDir>
+    <RegisteredManifestChecksum>1C04723B21FFC54158ABCD50722CCFCD07F6CB2F273D5F7022067748F64B253E</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>04770cde-ea3c-4c61-a508-74f968c56a2f_1.0.0.0_x86__ttwx3rveahfrj</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>04770cde-ea3c-4c61-a508-74f968c56a2f_ttwx3rveahfrj!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>04770cde-ea3c-4c61-a508-74f968c56a2f</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=visho</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-08T11:47:19.630</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\DroneLander_150x150.scale-100.png">
+      <PackagePath>Assets\DroneLander_150x150.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-08T11:28:49.819</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\DroneLander_310x150.scale-100.png">
+      <PackagePath>Assets\DroneLander_310x150.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-08T11:28:49.819</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\DroneLander_310x310.scale-100.png">
+      <PackagePath>Assets\DroneLander_310x310.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-08T11:28:49.819</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\DroneLander_44x44.scale-100.png">
+      <PackagePath>Assets\DroneLander_44x44.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-08T11:28:49.803</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\DroneLander_71x71.scale-100.png">
+      <PackagePath>Assets\DroneLander_71x71.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-08T11:28:49.803</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\DroneLander_splash.scale-100.png">
+      <PackagePath>Assets\DroneLander_splash.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-08T11:28:49.834</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\DroneLander_store.scale-100.png">
+      <PackagePath>Assets\DroneLander_store.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-08T11:28:49.834</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-100.png">
+      <PackagePath>Assets\LockScreenLogo.scale-100.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.851</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-125.png">
+      <PackagePath>Assets\LockScreenLogo.scale-125.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.855</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-150.png">
+      <PackagePath>Assets\LockScreenLogo.scale-150.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.857</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-200.png">
+      <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.859</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-400.png">
+      <PackagePath>Assets\LockScreenLogo.scale-400.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.861</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-100.png">
+      <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.864</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-125.png">
+      <PackagePath>Assets\SplashScreen.scale-125.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.867</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-150.png">
+      <PackagePath>Assets\SplashScreen.scale-150.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.869</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-200.png">
+      <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.870</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-400.png">
+      <PackagePath>Assets\SplashScreen.scale-400.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.873</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-100.png">
+      <PackagePath>Assets\Square150x150Logo.scale-100.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.875</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-125.png">
+      <PackagePath>Assets\Square150x150Logo.scale-125.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.878</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-150.png">
+      <PackagePath>Assets\Square150x150Logo.scale-150.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.881</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-200.png">
+      <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.883</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-400.png">
+      <PackagePath>Assets\Square150x150Logo.scale-400.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.885</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-100.png">
+      <PackagePath>Assets\Square44x44Logo.scale-100.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.887</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-125.png">
+      <PackagePath>Assets\Square44x44Logo.scale-125.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.889</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-150.png">
+      <PackagePath>Assets\Square44x44Logo.scale-150.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.892</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-200.png">
+      <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.894</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-400.png">
+      <PackagePath>Assets\Square44x44Logo.scale-400.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.897</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-16_altform-unplated.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-16_altform-unplated.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.900</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.902</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-256_altform-unplated.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-256_altform-unplated.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.904</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-32_altform-unplated.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-32_altform-unplated.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.907</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-48_altform-unplated.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-48_altform-unplated.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.909</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\StoreLogo.png">
+      <PackagePath>Assets\StoreLogo.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.911</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-100.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-100.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.913</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-125.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-125.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.916</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-150.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-150.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.918</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-200.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.920</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-400.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-400.png</PackagePath>
+      <Modified>2017-06-08T10:53:15.922</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\clrcompression.dll">
+      <PackagePath>clrcompression.dll</PackagePath>
+      <Modified>2016-06-13T09:51:30.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\DroneLander.UWP.dll">
+      <PackagePath>DroneLander.UWP.dll</PackagePath>
+      <Modified>2017-06-08T11:47:18.777</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\DroneLander.UWP.exe">
+      <PackagePath>DroneLander.UWP.exe</PackagePath>
+      <Modified>2017-06-08T11:47:19.595</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\DroneLander.UWP.pdb">
+      <PackagePath>DroneLander.UWP.pdb</PackagePath>
+      <Modified>2017-06-08T11:47:19.573</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\drone_lander_back.jpg">
+      <PackagePath>drone_lander_back.jpg</PackagePath>
+      <Modified>2017-06-08T11:28:38.679</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-06-08T11:30:35.278</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\_Resources\0.rsrc">
+      <PackagePath>_Resources\0.rsrc</PackagePath>
+      <Modified>2017-06-08T11:46:30.963</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\_Resources\1.rsrc">
+      <PackagePath>_Resources\1.rsrc</PackagePath>
+      <Modified>2017-06-08T11:46:30.970</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\DroneLander\DroneLander\DroneLander.UWP\bin\x86\Release\ilc\_Resources\index.txt">
+      <PackagePath>_Resources\index.txt</PackagePath>
+      <Modified>2017-06-08T11:46:30.971</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\">
+      <Name>Microsoft.NET.Native.Framework.1.3</Name>
+      <Version>1.3.24201.0</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Framework.1.3, MinVersion = 1.3.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\.\arm\ret\Native\Microsoft.NET.Native.Framework.1.3.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\">
+      <Name>Microsoft.NET.Native.Framework.1.3</Name>
+      <Version>1.3.24201.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Framework.1.3, MinVersion = 1.3.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\.\x64\ret\Native\Microsoft.NET.Native.Framework.1.3.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\">
+      <Name>Microsoft.NET.Native.Framework.1.3</Name>
+      <Version>1.3.24201.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Framework.1.3, MinVersion = 1.3.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\.\x86\ret\Native\Microsoft.NET.Native.Framework.1.3.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\">
+      <Name>Microsoft.NET.Native.Runtime.1.4</Name>
+      <Version>1.4.24201.0</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Runtime.1.4, MinVersion = 1.4.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\.\AppX\ARM\Microsoft.NET.Native.Runtime.1.4.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\">
+      <Name>Microsoft.NET.Native.Runtime.1.4</Name>
+      <Version>1.4.24201.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Runtime.1.4, MinVersion = 1.4.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\.\AppX\x64\Microsoft.NET.Native.Runtime.1.4.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\">
+      <Name>Microsoft.NET.Native.Runtime.1.4</Name>
+      <Version>1.4.24201.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Runtime.1.4, MinVersion = 1.4.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\.\AppX\x86\Microsoft.NET.Native.Runtime.1.4.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\ARM\Microsoft.VCLibs.ARM.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x64\Microsoft.VCLibs.x64.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x86\Microsoft.VCLibs.x86.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+  </ItemGroup>
+</Project>

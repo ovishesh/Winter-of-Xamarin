@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Operation Remote Resupply, Part 1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<p><a name="HOLTitle"></a></p>
+<h1>Operation Remote Resupply, Part 1</h1>
+<hr>
+<p><a name="Overview"></a></p>
+<h2>Overview</h2>
+<p>One of the key challenges in developing mobile applications for multiple devices and platforms is the diverse set of tools, languages, and resources required to develop and maintain features and functionality across a variety of programming languages, APIs, and user-interface paradigms.</p>
+<p><a href="https://www.xamarin.com/">Xamarin</a> offers one solution to the problem by allowing apps to be written in C# for iOS, Android, and Windows using a common API based on Microsoft .NET. Because Xamarin apps use native user interface controls, apps look and act the way a user expects for a given device and platform. Xamarin apps also have access to the full spectrum of functionality exposed by the underlying operating system and device and are compiled into native binaries for performance.</p>
+<p><a href="https://www.xamarin.com/forms">Xamarin Forms</a> is a framework included with Xamarin that allows developers to create cross-platform user interfaces by defining those interfaces in XAML or code. Controls and UI elements created this way render native controls for the host platform, so iOS users see iOS controls and Android users see Android controls. Whereas classic Xamarin apps share code but not UI, Xamarin Forms apps share code <em>and</em> UI and are frequently able to share 95% of their source code across platforms.</p>
+<p><a href="https://www.visualstudio.com/vs/">Visual Studio 2017</a> provides seamless support for Xamarin and Xamarin Forms so you can build cutting-edge mobile apps for a variety of platforms using a single set of tools and APIs. In Part 1 of Operation Remote Resupply, you will use Visual Studio 2017 and Xamarin Forms to create a drone-lander app that lets you fly simulated supply missions to Mars. In subsequent sessions, you will build upon what you created here to expand the app's features and capabilities.</p>
+<p><a name="Objectives"></a></p>
+<h3>Objectives</h3>
+<p>In this lab, you will learn how to:</p>
+<ul>
+<li>Create a Xamarin Forms solution targeting Android, iOS, and Windows</li>
+<li>Add native image and package assets to Xamarin Forms projects</li>
+<li>Implement shared logic in C# in Xamarin Forms projects</li>
+<li>Implement shared UIs in XAML in Xamarin Forms projects</li>
+</ul>
+<p><a name="Prerequisites"></a></p>
+<h3>Prerequisites</h3>
+<p>The following are required to complete this lab:</p>
+<ul>
+<li><a href="https://www.visualstudio.com/vs/">Visual Studio Community 2017</a> or higher</li>
+<li>A computer running Windows 10 that supports hardware emulation using Hyper-V. For more information, and for a list of requirements, see <a href="https://msdn.microsoft.com/en-us/library/mt228280.aspx">https://msdn.microsoft.com/en-us/library/mt228280.aspx</a>.</li>
+</ul>
+<p>You won't be building the iOS version of the app during this event because doing so would require additional setup, including a Mac configured as a build host. However, you can build the iOS version separately if you would like. For more information about building Xamarim Forms iOS apps, see <a href="https://developer.xamarin.com/guides/ios/getting_started/installation/windows/">https://developer.xamarin.com/guides/ios/getting_started/installation/windows/</a>.</p>
+<hr>
+<p><a name="Exercises"></a></p>
+<h2>Exercises</h2>
+<p>This lab includes the following exercises:</p>
+<ul>
+<li><a href="#Exercise1">Exercise 1: Configure Visual Studio 2017 for Xamarin Development</a></li>
+<li><a href="#Exercise2">Exercise 2: Create a Xamarin Forms solution</a></li>
+<li><a href="#Exercise3">Exercise 3: Add image and package assets</a></li>
+<li><a href="#Exercise4">Exercise 4: Add common logic to the Portable project</a></li>
+<li><a href="#Exercise5">Exercise 5: Add a user interface</a></li>
+<li><a href="#Exercise6">Exercise 6: Test the app</a></li>
+<li><a href="#Exercise7">Exercise 7 (optional): Add a splash screen to the Android project</a></li>
+</ul>
+<p>Estimated time to complete this lab: <strong>45</strong> minutes.</p>
+<p><a name="Exercise1"></a></p>
+<h2>Exercise 1: Configure Visual Studio 2017 for Xamarin Development</h2>
+<p>If Visual Studio 2017 is already installed on your computer, it's important to make sure it is configured with the proper components and workloads to support Xamarin development. If it <em>isn't</em> installed, then you need to install it with the proper workloads. You can install the Community edition, which is free, or any other edition that you would like. The Community edition and other editions of Visual Studio 2017 can be downloaded from <a href="https://www.visualstudio.com/vs/">https://www.visualstudio.com/vs/</a>.</p>
+<p>If Visual Studio is already installed, you can determine which components and workloads are installed by starting the Visual Studio installer. (An easy way to do that is to press the Windows key, type "installer," and select <strong>Visual Studio Installer</strong> from the menu. You can then click the <strong>Modify</strong> button to view a list of installed components.) If you are installing Visual Studio for the first time, the same UI allows you to select the component and workloads to installed. Here is what must be installed for you to complete this lab and subsequent labs.</p>
+<ol>
+<li>
+<p>Under "Workloads" in the Visual Studio installer, make sure <strong>Universal Windows Platform development</strong> and <strong>.NET desktop development</strong> are checked.</p>
+<p><a href="Images/workload-1.png" target="_blank"><img src="Images/workload-1.png" alt="Installing the UWP and .NET development workloads" style="max-width:100%;"></a></p>
+<p><em>Installing the UWP and .NET development workloads</em></p>
+</li>
+<li>
+<p>Under "Workloads" in the Visual Studio installer, make sure <strong>Mobile development with .NET</strong> is checked.</p>
+<p><a href="Images/workload-2.png" target="_blank"><img src="Images/workload-2.png" alt="Installing the mobile development workload" style="max-width:100%;"></a></p>
+<p><em>Installing the mobile development workload</em></p>
+</li>
+<li>
+<p>Under "Individual Components" in the Visual Studio installer, make sure <strong>Visual Studio Emulator for Android</strong> and <strong>Windows 10 Mobile Emulator (Creators Update)</strong> are checked. If you would prefer to use the Google Android emulator instead, you may do so if you choose.</p>
+<blockquote>
+<p>If you haven't installed the Windows Creators Update, select the Anniversary Edition instead. If these emulators don't appear as options in the Visual Studio installer, it could because your PC doesn't support virtualization or that virtualization hasn't been enabled. For more information, see <a href="https://msdn.microsoft.com/en-us/library/mt228280.aspx">https://msdn.microsoft.com/en-us/library/mt228280.aspx</a>.</p>
+</blockquote>
+<p><a href="Images/workload-3.png" target="_blank"><img src="Images/workload-3.png" alt="Installing emulators" style="max-width:100%;"></a></p>
+<p><em>Installing emulators</em></p>
+</li>
+</ol>
+<p>Once these workloads and components are installed, you are ready to begin creating Xamarin Forms apps.</p>
+<p><a name="Exercise2"></a></p>
+<h2>Exercise 2: Create a Xamarin Forms solution</h2>
+<p>The first step in creating a cross-platform solution with Xamarin Forms is to provision a solution based on the Visual Studio 2017 Cross Platform App template. In this exercise, you will create a new Xamarin Forms solution using this template.</p>
+<ol>
+<li>
+<p>Start Visual Studio 2017. Then use the <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Project</strong> command to create a new Cross Platform App (Xamarin) solution named "DroneLander."</p>
+<p><a href="Images/vs-new-project.png" target="_blank"><img src="Images/vs-new-project.png" alt="Creating a new Cross Platform App solution" style="max-width:100%;"></a></p>
+<p><em>Creating a new Cross Platform App solution</em></p>
+</li>
+<li>
+<p>In the "New Cross Platform App" dialog, select the <strong>Blank App</strong> template. Make sure <strong>Xamarin.Forms</strong> is selected under "UI Technology" and select <strong>Portable Class Library (PCL)</strong> as the "Code Sharing Strategy." Then click <strong>OK</strong>.</p>
+<p><a href="Images/vs-select-blank-app.png" target="_blank"><img src="Images/vs-select-blank-app.png" alt="Specifying Cross Platform App preferences" style="max-width:100%;"></a></p>
+<p><em>Specifying Cross Platform App preferences</em></p>
+</li>
+<li>
+<p>When prompted to choose platform requirements for the Universal Windows Platform project, accept the defaults and click <strong>OK</strong>. If you are then prompted to connect to a Mac, simply close the dialog.</p>
+<p><a href="Images/vs-target-platform.png" target="_blank"><img src="Images/vs-target-platform.png" alt="Specifying UWP platform versions" style="max-width:100%;"></a></p>
+<p><em>Specifying UWP platform versions</em></p>
+</li>
+<li>
+<p>Confirm that the solution appears in Solution Explorer and that it contains four projects:</p>
+<ul>
+<li><strong>DroneLander (Portable)</strong> - Contains shared logic for your  Xamarin Forms app</li>
+<li><strong>DroneLander.Android</strong> - Contains assets, resources, and logic specific to Android</li>
+<li><strong>DroneLander.iOS</strong> - Contains assets, resources, and logic specific to iOS</li>
+<li><strong>DroneLander.UWP (Universal Windows)</strong> - Contains assets, resources, and logic specific to the Universal Windows Platform (UWP)</li>
+</ul>
+<p><a href="Images/vs-projects-created.png" target="_blank"><img src="Images/vs-projects-created.png" alt="The generated solution" style="max-width:100%;"></a></p>
+<p><em>The generated solution</em></p>
+</li>
+<li>
+<p>Right-click the <strong>DroneLander.Android</strong> project in Solution Explorer and select <strong>Properties</strong> from the context menu. Then click <strong>Android Options</strong>, uncheck the <strong>Use Fast Deployment</strong> box, and save your changes. This option, if enabled, sometimes causes problems with Android emulators in Hyper-V.</p>
+<p><a href="Images/disable-fast-deployment.png" target="_blank"><img src="Images/disable-fast-deployment.png" alt="Disabling fast deployment on Android" style="max-width:100%;"></a></p>
+<p><em>Disabling fast deployment on Android</em></p>
+</li>
+<li>
+<p>Right-click the <strong>DroneLander.UWP</strong> project and select <strong>Set as StartUp Project</strong> to make it the startup project. Then select <strong>Configuration Manager...</strong> from the <strong>Build</strong> menu. Check the <strong>Build</strong> and <strong>Deploy</strong> boxes for the UWP solution so the UWP app will be built and deployed each time you launch it. Then select <strong>Release</strong> from the <strong>Active solution configuration</strong> drop-down and check these boxes again. Dismiss the dialog by clicking the <strong>Close</strong> button.</p>
+<p><a href="Images/enable-auto-deploy.png" target="_blank"><img src="Images/enable-auto-deploy.png" alt="Enabling auto-deployment on Windows" style="max-width:100%;"></a></p>
+<p><em>Enabling auto-deployment on Windows</em></p>
+</li>
+<li>
+<p>Open the Settings app on your PC (an easy way to do it is to click the Windows button, type "Settings," and click <strong>Settings</strong>). Then click <strong>Update &amp; security</strong> followed by <strong>For developers</strong>, and select <strong>Developer mode</strong> if it isn't already selected to make sure you can launch UWP apps from Visual Studio and run them on the local machine.</p>
+<blockquote>
+<p>If you try to enable developer mode and receive an error, see <a href="https://www.kapilarya.com/developer-mode-package-failed-to-install-error-code-0x80004005-windows-10">https://www.kapilarya.com/developer-mode-package-failed-to-install-error-code-0x80004005-windows-10</a> for a potential fix.</p>
+</blockquote>
+<p><a href="Images/developer-mode.png" target="_blank"><img src="Images/developer-mode.png" alt="Enabling developer mode in Windows 10" style="max-width:100%;"></a></p>
+<p><em>Enabling developer mode in Windows 10</em></p>
+</li>
+<li>
+<p>Return to Visual Studio and right-click the <strong>DroneLander.Android</strong> project and select <strong>Set as StartUp Project</strong> to make it the startup project.</p>
+</li>
+<li>
+<p>In Solution Explorer, right-click the <strong>DroneLander</strong> solution and select <strong>Build Solution</strong> to build the solution. Confirm that the solution builds without errors.</p>
+</li>
+</ol>
+<p>Your Xamarin Forms solution has now been provisioned and configured, and you're ready to start adding platform-specific image and package assets to the projects.</p>
+<p><a name="Exercise3"></a></p>
+<h2>Exercise 3: Add image and package assets</h2>
+<p>The next step in building your Xamarin Forms app is to add shared and platform-specific images and other assets to the individual projects based on recommended standards for each platform. Each mobile platform requires images and assets to be located and configured in a specific way. In this exercise, you will add images and assets to the Portable, Android, iOS, and Windows projects.</p>
+<ol>
+<li>
+<p>Open a Windows File Explorer window and navigate to the "Resources\Droid\Resources" folder included with this lab. Copy all of the subfolders in that folder to the clipboard. Then return to Solution Explorer, right-click the "Resources" folder in the <strong>DroneLander.Android</strong> project, and select <strong>Paste</strong> to paste the contents of the clipboard into the project.</p>
+</li>
+<li>
+<p>In the subsequent "Merge Folders" dialog, check <strong>Apply to all items</strong> and then click <strong>Yes</strong>.</p>
+<p><a href="Images/vs-accept-merge.png" target="_blank"><img src="Images/vs-accept-merge.png" alt="Merging folders" style="max-width:100%;"></a></p>
+<p><em>Merging  folders</em></p>
+</li>
+<li>
+<p>In the "Destination File Exists" dialog, again check <strong>Apply to all items</strong> and click <strong>Yes</strong>. This will update your Android images and assets with appropriately branded assets for your app.</p>
+<p><a href="Images/vs-accept-overwrite-01.png" target="_blank"><img src="Images/vs-accept-overwrite-01.png" alt="Overwriting existing resources" style="max-width:100%;"></a></p>
+<p><em>Overwriting existing resources</em></p>
+</li>
+<li>
+<p>In Solution Explorer, right-click the "Resources" folder in the <strong>DroneLander.iOS</strong> project and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import all of the files from the lab's "Resources\iOS\Resources" folder.</p>
+<p><a href="Images/fe-selecting-ios-resources.png" target="_blank"><img src="Images/fe-selecting-ios-resources.png" alt="Adding images to the iOS project" style="max-width:100%;"></a></p>
+<p><em>Adding images to the iOS project</em></p>
+</li>
+<li>
+<p>In the "Destination File Exists" dialog, check <strong>Apply to all items</strong> and then click <strong>Yes</strong>. This will update your iOS images and assets with appropriately branded assets for your app.</p>
+<p><a href="Images/vs-accept-overwrite-02.png" target="_blank"><img src="Images/vs-accept-overwrite-02.png" alt="Overwriting existing resources" style="max-width:100%;"></a></p>
+<p><em>Overwriting existing resources</em></p>
+</li>
+<li>
+<p>Right-click <strong>Info.plist</strong> in the <strong>DroneLander.iOS</strong> project and select <strong>Open With...</strong> from the context menu. Then select <strong>Generic PList Editor</strong> and click <strong>OK</strong>.</p>
+<p><a href="Images/open-plist.png" target="_blank"><img src="Images/open-plist.png" alt="Opening Info.plist" style="max-width:100%;"></a></p>
+<p><em>Opening Info.plist</em></p>
+</li>
+<li>
+<p>Scroll to the bottom of the list, right-click <strong>Launch screen interface file base name</strong>, and select <strong>Delete</strong> to delete this property from the file. Removing this property instructs iOS to use image assets rather than storyboards for launch images.</p>
+<p><a href="Images/vs-info-plist.png" target="_blank"><img src="Images/vs-info-plist.png" alt="Deleting a property from Info.plist" style="max-width:100%;"></a></p>
+<p><em>Deleting a property from Info.plist</em></p>
+</li>
+<li>
+<p>In Solution Explorer, right-click the <strong>DroneLander.UWP</strong> project and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import the file named <strong>drone_lander_back.jpg</strong> from the lab's "Resources\UWP" folder into the root of the project.</p>
+</li>
+<li>
+<p>Now right-click the "Assets" folder in the same project and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import all of the files from the lab's "Resources\UWP\Assets" folder.</p>
+<p><a href="Images/fe-selecting-uwp-resources.png" target="_blank"><img src="Images/fe-selecting-uwp-resources.png" alt="Adding images to the Windows project" style="max-width:100%;"></a></p>
+<p><em>Adding images to the Windows project</em></p>
+</li>
+<li>
+<p>Right-click <strong>Package.appxmanifest</strong> in the UWP project and select <strong>View Code</strong>. Locate the <code>Properties</code> element in the XML file. Select that element and all of the statements that follow it.</p>
+<p><a href="Images/vs-package-manifest.png" target="_blank"><img src="Images/vs-package-manifest.png" alt="Selecting statements in the package manifest" style="max-width:100%;"></a></p>
+<p><em>Selecting statements in the package manifest</em></p>
+</li>
+<li>
+<p>Replace the statements you selected with the following XML to update the manifest file to reference the updated assets.</p>
+<div class="highlight highlight-text-xml"><pre>  &lt;<span class="pl-ent">Properties</span>&gt;
+    &lt;<span class="pl-ent">DisplayName</span>&gt;Drone Lander&lt;/<span class="pl-ent">DisplayName</span>&gt;
+    &lt;<span class="pl-ent">PublisherDisplayName</span>&gt;Developer&lt;/<span class="pl-ent">PublisherDisplayName</span>&gt;
+    &lt;<span class="pl-ent">Logo</span>&gt;Assets\DroneLander_store.png&lt;/<span class="pl-ent">Logo</span>&gt;
+  &lt;/<span class="pl-ent">Properties</span>&gt;
+  &lt;<span class="pl-ent">Dependencies</span>&gt;
+    &lt;<span class="pl-ent">TargetDeviceFamily</span> <span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>Windows.Universal<span class="pl-pds">"</span></span> <span class="pl-e">MinVersion</span>=<span class="pl-s"><span class="pl-pds">"</span>10.0.0.0<span class="pl-pds">"</span></span> <span class="pl-e">MaxVersionTested</span>=<span class="pl-s"><span class="pl-pds">"</span>10.0.0.0<span class="pl-pds">"</span></span> /&gt;
+  &lt;/<span class="pl-ent">Dependencies</span>&gt;
+  &lt;<span class="pl-ent">Resources</span>&gt;
+    &lt;<span class="pl-ent">Resource</span> <span class="pl-e">Language</span>=<span class="pl-s"><span class="pl-pds">"</span>x-generate<span class="pl-pds">"</span></span> /&gt;
+  &lt;/<span class="pl-ent">Resources</span>&gt;
+  &lt;<span class="pl-ent">Applications</span>&gt;
+    &lt;<span class="pl-ent">Application</span> <span class="pl-e">Id</span>=<span class="pl-s"><span class="pl-pds">"</span>App<span class="pl-pds">"</span></span> <span class="pl-e">Executable</span>=<span class="pl-s"><span class="pl-pds">"</span>$targetnametoken$.exe<span class="pl-pds">"</span></span> <span class="pl-e">EntryPoint</span>=<span class="pl-s"><span class="pl-pds">"</span>DroneLander.UWP.App<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">VisualElements</span> <span class="pl-e">DisplayName</span>=<span class="pl-s"><span class="pl-pds">"</span>Drone Lander<span class="pl-pds">"</span></span> <span class="pl-e">Square150x150Logo</span>=<span class="pl-s"><span class="pl-pds">"</span>Assets\DroneLander_150x150.png<span class="pl-pds">"</span></span> <span class="pl-e">Square44x44Logo</span>=<span class="pl-s"><span class="pl-pds">"</span>Assets\DroneLander_44x44.png<span class="pl-pds">"</span></span> <span class="pl-e">Description</span>=<span class="pl-s"><span class="pl-pds">"</span>Drone Lander for Windows<span class="pl-pds">"</span></span> <span class="pl-e">BackgroundColor</span>=<span class="pl-s"><span class="pl-pds">"</span>#212121<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">DefaultTile</span> <span class="pl-e">Wide310x150Logo</span>=<span class="pl-s"><span class="pl-pds">"</span>Assets\DroneLander_310x150.png<span class="pl-pds">"</span></span> <span class="pl-e">Square310x310Logo</span>=<span class="pl-s"><span class="pl-pds">"</span>Assets\DroneLander_310x310.png<span class="pl-pds">"</span></span> <span class="pl-e">Square71x71Logo</span>=<span class="pl-s"><span class="pl-pds">"</span>Assets\DroneLander_71x71.png<span class="pl-pds">"</span></span>&gt;
+          &lt;<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">ShowNameOnTiles</span>&gt;
+            &lt;<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">ShowOn</span> <span class="pl-e">Tile</span>=<span class="pl-s"><span class="pl-pds">"</span>square150x150Logo<span class="pl-pds">"</span></span> /&gt;
+            &lt;<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">ShowOn</span> <span class="pl-e">Tile</span>=<span class="pl-s"><span class="pl-pds">"</span>wide310x150Logo<span class="pl-pds">"</span></span> /&gt;
+            &lt;<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">ShowOn</span> <span class="pl-e">Tile</span>=<span class="pl-s"><span class="pl-pds">"</span>square310x310Logo<span class="pl-pds">"</span></span> /&gt;
+          &lt;/<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">ShowNameOnTiles</span>&gt;
+        &lt;/<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">DefaultTile</span>&gt;
+        &lt;<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">SplashScreen</span> <span class="pl-e">Image</span>=<span class="pl-s"><span class="pl-pds">"</span>Assets\DroneLander_splash.png<span class="pl-pds">"</span></span> <span class="pl-e">BackgroundColor</span>=<span class="pl-s"><span class="pl-pds">"</span>#212121<span class="pl-pds">"</span></span> /&gt;
+      &lt;/<span class="pl-ent">uap</span><span class="pl-ent">:</span><span class="pl-ent">VisualElements</span>&gt;
+    &lt;/<span class="pl-ent">Application</span>&gt;
+  &lt;/<span class="pl-ent">Applications</span>&gt;
+  &lt;<span class="pl-ent">Capabilities</span>&gt;
+    &lt;<span class="pl-ent">Capability</span> <span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>internetClient<span class="pl-pds">"</span></span> /&gt;
+  &lt;/<span class="pl-ent">Capabilities</span>&gt;
+&lt;/<span class="pl-ent">Package</span>&gt;</pre></div>
+</li>
+<li>
+<p>Now it's time to run the app for the first time. Let's start with the Android version. Ensure that the Android project is selected as the startup project by right-clicking the <strong>DroneLander.Android</strong> project in Solution Explorer and selecting <strong>Set as StartUp Project</strong>.</p>
+</li>
+<li>
+<p>Click the <strong>Run</strong> button (the one with the green arrow) at the top of Visual Studio to launch the Android version of Drone Lander in the selected Android emulator. Note that the emulator will probably take a minute or two to start.</p>
+<p><a href="Images/run-android.png" target="_blank"><img src="Images/run-android.png" alt="Launching the Android app" style="max-width:100%;"></a></p>
+<p><em>Launching the Android app</em></p>
+</li>
+<li>
+<p>Confirm that the app appears in the Android emulator. Leave the Android emulator running (that will allow the Android app to start quickly next time). Then return to Visual Studio and select <strong>Stop Debugging</strong> from the <strong>Debug</strong> menu to stop debugging.</p>
+<p><a href="Images/app-welcome-screen.png" target="_blank"><img src="Images/app-welcome-screen.png" alt="Drone Lander on Android" style="max-width:100%;"></a></p>
+<p><em>Drone Lander on Android</em></p>
+</li>
+<li>
+<p>Make <strong>DroneLander.UWP</strong> the startup project by right-clicking it and selecting <strong>Set as StartUp Project</strong>. Then click the <strong>Run</strong> button at the top of Visual Studio to launch the UWP version of Drone Lander on the local machine. Once the app is running, use the <strong>Stop Debugging</strong> command to terminate it.</p>
+<blockquote>
+<p>If you would prefer to run the UWP app in a Windows phone emulator rather than on the desktop, simply select the desired emulator from the drop-down list attached to the <strong>Run</strong> button.</p>
+</blockquote>
+<p><a href="Images/run-uwp.png" target="_blank"><img src="Images/run-uwp.png" alt="Launching the UWP app" style="max-width:100%;"></a></p>
+<p><em>Launching the UWP app</em></p>
+</li>
+</ol>
+<p>If you go to the home screen in the Android emulator or the start screen in Windows, you should find customized icons for the apps. Customizing the branding in this way is a good first step in building a great Xamarin Forms app that lights up on various platforms.</p>
+<p><a name="Exercise4"></a></p>
+<h2>Exercise 4: Add common logic to the Portable project</h2>
+<p>A common design pattern used in Xamarin Forms solutions is the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel">Model-View-ViewModel</a> (MVVM) pattern, which facilitates a clean separation of the business logic and user interface. In this exercise, you will implement a model and a view-model in C# and place them in the Portable project so that they are shared by the iOS, Android, and Windows apps. You will also import some helper classes used by the view-model and by the user interface.</p>
+<ol>
+<li>
+<p>In Solution Explorer, right-click the <strong>DroneLander (Portable)</strong> project and use the <strong>Add</strong> &gt; <strong>New Folder</strong> command to add a folder named "Common" to the project. Then repeat this step to add folders named "Models" and "ViewModels" to the project.</p>
+</li>
+<li>
+<p>Right-click the "Common" folder that you just added and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import all of the files from the lab's "Resources\Portable\Common" folder. These files contain helper classes that implement commanding and property-binding notifications.</p>
+</li>
+<li>
+<p>Right-click the "Models" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "LandingParameters.cs" to the folder. Then replace the contents of the file with the following code. This class serves as the data model for information displayed by your app.</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">DroneLander.Common</span>;
+<span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">enum</span> LandingResultType { <span class="pl-en">Landed</span>, <span class="pl-en">Kaboom</span>, }
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">LandingParameters</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-en">LandingParameters</span>()
+        {
+            <span class="pl-c1">this</span>.Altitude = CoreConstants.StartingAltitude;
+            <span class="pl-c1">this</span>.Velocity = CoreConstants.StartingVelocity;
+            <span class="pl-c1">this</span>.Fuel = CoreConstants.StartingFuel;
+            <span class="pl-c1">this</span>.Thrust = CoreConstants.StartingThrust;
+        }
+
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Altitude</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Velocity</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Fuel</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Thrust</span>;
+    }
+}</pre></div>
+</li>
+<li>
+<p>Right-click the "ViewModels" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "MainViewModel.cs." Then replace the contents of the file with the following code. The purpose of this class is to provide a view-model containing logic to calculate drone sensor readings, as well as to update UI elements through data binding.</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">DroneLander.Common</span>;
+<span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Windows.Input</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MainViewModel</span> : <span class="pl-en">Common.ObservableBase</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-en">MainViewModel</span>(MainPage activityPage)
+    	{
+            <span class="pl-c1">this</span>.ActivityPage = activityPage;
+            <span class="pl-c1">this</span>.ActiveLandingParameters = <span class="pl-k">new</span> <span class="pl-en">LandingParameters</span>();	
+            <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude;
+            <span class="pl-c1">this</span>.Velocity = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity;
+            <span class="pl-c1">this</span>.Fuel = <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel;
+            <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust;
+            <span class="pl-c1">this</span>.FuelRemaining = CoreConstants.StartingFuel;
+            <span class="pl-c1">this</span>.IsActive = <span class="pl-c1">false</span>;
+        }
+
+        <span class="pl-k">private </span><span class="pl-en">MainPage</span> <span class="pl-en">_activityPage</span>;
+        <span class="pl-k">public </span><span class="pl-en">MainPage</span> <span class="pl-en">ActivityPage</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._activityPage; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._activityPage, <span class="pl-k">value</span>); }
+        }
+
+        <span class="pl-k">public </span><span class="pl-en">LandingParameters</span> <span class="pl-en">ActiveLandingParameters</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+
+        <span class="pl-k">private </span><span class="pl-k">double</span> <span class="pl-en">_altitude</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Altitude</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._altitude; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._altitude, <span class="pl-k">value</span>); }
+        }
+
+        <span class="pl-k">private </span><span class="pl-k">double</span> <span class="pl-en">_descentRate</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">DescentRate</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._descentRate; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._descentRate, <span class="pl-k">value</span>); }
+        }
+
+        <span class="pl-k">private </span><span class="pl-k">double</span> <span class="pl-en">_velocity</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Velocity</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._velocity; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._velocity, <span class="pl-k">value</span>); }
+        }
+
+        <span class="pl-k">private </span><span class="pl-k">double</span> <span class="pl-en">_fuel</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Fuel</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._fuel; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._fuel, <span class="pl-k">value</span>); }
+        }
+
+        <span class="pl-k">private </span><span class="pl-k">double</span> <span class="pl-en">_fuelRemaining</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">FuelRemaining</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._fuelRemaining; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._fuelRemaining, <span class="pl-k">value</span>); }
+        }
+
+        <span class="pl-k">private </span><span class="pl-k">double</span> <span class="pl-en">_thrust</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Thrust</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._thrust; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._thrust, <span class="pl-k">value</span>); }
+        }
+
+        <span class="pl-k">private </span><span class="pl-k">double</span> <span class="pl-en">_throttle</span>;
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Throttle</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._throttle; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._throttle, <span class="pl-k">value</span>); }
+        }
+
+        <span class="pl-k">private</span> <span class="pl-k">bool</span> <span class="pl-en">_isActionable</span>() =&gt; <span class="pl-c1">true</span>;
+        <span class="pl-k">private </span><span class="pl-k">string</span> <span class="pl-en">_actionLabel</span>;
+        <span class="pl-k">public </span><span class="pl-k">string</span> <span class="pl-en">ActionLabel</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._actionLabel; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._actionLabel, <span class="pl-k">value</span>); }
+        }
+
+        <span class="pl-k">private </span><span class="pl-k">bool</span> <span class="pl-en">_isActive</span>;
+        <span class="pl-k">public </span><span class="pl-k">bool</span> <span class="pl-en">IsActive</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._isActive; }
+            <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._isActive, <span class="pl-k">value</span>); <span class="pl-c1">this</span>.ActionLabel = (<span class="pl-c1">this</span>.IsActive) ? <span class="pl-s"><span class="pl-pds">"</span>Reset<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>Start<span class="pl-pds">"</span></span>; }
+        }
+
+        <span class="pl-k">public </span><span class="pl-en">ICommand</span> <span class="pl-en">AttemptLandingCommand</span>
+        {
+            <span class="pl-k">get</span>
+            {
+                <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">RelayCommand</span>(() =&gt;
+                {
+                    <span class="pl-c1">this</span>.IsActive = !<span class="pl-c1">this</span>.IsActive;
+
+                    <span class="pl-k">if</span> (<span class="pl-c1">this</span>.IsActive)
+                    {
+                        StartLanding();
+                    }
+                    <span class="pl-k">else</span>
+                    {
+                        ResetLanding();
+                    }
+
+                }, _isActionable);
+            }
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">StartLanding</span>()
+        {
+            Device.StartTimer(TimeSpan.FromMilliseconds(Common.CoreConstants.PollingIncrement), () =&gt;
+            {
+                UpdateFlightParameters();
+                
+                <span class="pl-k">if</span> (<span class="pl-c1">this</span>.ActiveLandingParameters.Altitude &gt; <span class="pl-c1">0.0</span>)
+                {
+                    Device.BeginInvokeOnMainThread(() =&gt;
+                    {
+                        <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude;
+                        <span class="pl-c1">this</span>.DescentRate = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity;
+                        <span class="pl-c1">this</span>.FuelRemaining = <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel / <span class="pl-c1">1000</span>;
+                        <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust;
+                    });
+
+                    <span class="pl-k">return</span> <span class="pl-c1">this</span>.IsActive;
+                }
+                <span class="pl-k">else</span>
+                {
+                    <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude = <span class="pl-c1">0.0</span>;
+                    <span class="pl-c1">this</span>.IsActive = <span class="pl-c1">false</span>;
+
+                    Device.BeginInvokeOnMainThread(() =&gt;
+                    {
+                        <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude;
+                        <span class="pl-c1">this</span>.DescentRate = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity;
+                        <span class="pl-c1">this</span>.FuelRemaining = <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel / <span class="pl-c1">1000</span>;
+                        <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust;
+                    });
+
+                    <span class="pl-k">if</span> (<span class="pl-c1">this</span>.ActiveLandingParameters.Velocity &gt; -<span class="pl-c1">5.0</span>)
+                    {
+                        MessagingCenter.Send(<span class="pl-c1">this</span>.ActivityPage, <span class="pl-s"><span class="pl-pds">"</span>ActivityUpdate<span class="pl-pds">"</span></span>, LandingResultType.Landed);
+                    }
+                    <span class="pl-k">else</span>
+                    {
+                        MessagingCenter.Send(<span class="pl-c1">this</span>.ActivityPage, <span class="pl-s"><span class="pl-pds">"</span>ActivityUpdate<span class="pl-pds">"</span></span>, LandingResultType.Kaboom);
+                    }
+
+                    <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+                }
+            });
+        }
+
+        <span class="pl-k">private</span> <span class="pl-k">void</span> <span class="pl-en">UpdateFlightParameters</span>()
+        {
+            <span class="pl-k">double</span> <span class="pl-en">seconds</span> = Common.CoreConstants.PollingIncrement / <span class="pl-c1">1000.0</span>;
+
+            <span class="pl-c">// Compute thrust and remaining fuel</span>
+            <span class="pl-c">//thrust = throttle * 1200.0;</span>
+            <span class="pl-k">var</span> <span class="pl-en">used </span>= (<span class="pl-c1">this</span>.Throttle * seconds) / <span class="pl-c1">10.0</span>;
+            used = Math.Min(used, <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel); <span class="pl-c">// Can't burn more fuel than you have</span>
+            <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust = used * <span class="pl-c1">25000.0</span>;
+            <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel -= used;
+
+            <span class="pl-c">// Compute new flight parameters</span>
+            <span class="pl-k">double</span> <span class="pl-en">avgmass</span> = Common.CoreConstants.LanderMass + (used / <span class="pl-c1">2.0</span>);
+            <span class="pl-k">double</span> <span class="pl-en">force</span> = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust - (avgmass * Common.CoreConstants.Gravity);
+            <span class="pl-k">double</span> <span class="pl-en">acc</span> = force / avgmass;
+
+            <span class="pl-k">double</span> <span class="pl-en">vel2</span> = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity + (acc * seconds);
+            <span class="pl-k">double</span> <span class="pl-en">avgvel</span> = (<span class="pl-c1">this</span>.ActiveLandingParameters.Velocity + vel2) / <span class="pl-c1">2.0</span>;
+            <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude += (avgvel * seconds);
+            <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity = vel2;
+        }
+		
+        <span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-k">void</span> <span class="pl-en">ShakeLandscapeAsync</span>(<span class="pl-en">ContentPage</span> <span class="pl-smi">page</span>)
+        {
+            <span class="pl-k">try</span>
+            {
+                <span class="pl-k">for</span> (<span class="pl-k">int</span> <span class="pl-en">i</span> = <span class="pl-c1">0</span>; i &lt; <span class="pl-c1">8</span>; i++)
+                {
+                    <span class="pl-k">await</span> Task.WhenAll(
+                            page.ScaleTo(<span class="pl-c1">1.1</span>, <span class="pl-c1">20</span>, Easing.Linear),
+                            page.TranslateTo(-<span class="pl-c1">30</span>, <span class="pl-c1">0</span>, <span class="pl-c1">20</span>, Easing.Linear)
+                        );
+
+                    <span class="pl-k">await</span> Task.WhenAll(
+                            page.TranslateTo(<span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">20</span>, Easing.Linear)
+                       );
+
+                    <span class="pl-k">await</span> Task.WhenAll(
+                            page.TranslateTo(<span class="pl-c1">0</span>, -<span class="pl-c1">30</span>, <span class="pl-c1">20</span>, Easing.Linear)
+                       );
+
+                    <span class="pl-k">await</span> Task.WhenAll(
+                             page.ScaleTo(<span class="pl-c1">1.0</span>, <span class="pl-c1">20</span>, Easing.Linear),
+                             page.TranslateTo(<span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">20</span>, Easing.Linear)
+                         );
+                }
+            }
+            <span class="pl-k">catch</span> { }
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-k">void</span> <span class="pl-en">ResetLanding</span>()
+        {
+            <span class="pl-k">await</span> Task.Delay(<span class="pl-c1">500</span>);
+
+            <span class="pl-c1">this</span>.ActiveLandingParameters = <span class="pl-k">new</span> <span class="pl-en">LandingParameters</span>();
+
+            <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">5000.0</span>;
+            <span class="pl-c1">this</span>.Velocity = <span class="pl-c1">0.0</span>;
+            <span class="pl-c1">this</span>.Fuel = <span class="pl-c1">1000.0</span>;
+            <span class="pl-c1">this</span>.FuelRemaining = <span class="pl-c1">1000.0</span>;
+            <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">0.0</span>;
+            <span class="pl-c1">this</span>.DescentRate = <span class="pl-c1">0.0</span>;
+            <span class="pl-c1">this</span>.Throttle = <span class="pl-c1">0.0</span>;
+        }
+    }
+}</pre></div>
+</li>
+</ol>
+<p>The Portable project now contains shared logic to support a rich user experience. The next step is to create a user experience utilizing that logic.</p>
+<p><a name="Exercise5"></a></p>
+<h2>Exercise 5: Add a user interface</h2>
+<p>In this exercise, you will add a view to the Portable project and bind it to the view-model to create a user interface. The view will be written in XAML, and like the model and view-model, it will be shared by the iOS, Android, and Windows versions of the app. This is the goal of Xamarin Forms programming: sharing as much UI and logic as possible across platforms by locating them in the Portable project.</p>
+<blockquote>
+<p>Virtually all Xamarin Forms projects contain some logic and UI elements that are platform-specific. This is one of the most compelling features of Xamarin Forms: that even though most of the code and UI is shared across platforms, you can still leverage platform-specific features of iOS, Android, and Windows to make the app "light up" on each platform.</p>
+</blockquote>
+<ol>
+<li>
+<p>Open <strong>App.xaml</strong> in the Portable project and replace its contents with the following XAML:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> ?&gt;
+&lt;<span class="pl-ent">Application</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://xamarin.com/schemas/2014/forms<span class="pl-pds">"</span></span>
+             <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">x</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.microsoft.com/winfx/2009/xaml<span class="pl-pds">"</span></span>
+             <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">common</span>=<span class="pl-s"><span class="pl-pds">"</span>clr-namespace:DroneLander.Common;assembly=DroneLander<span class="pl-pds">"</span></span> 
+             <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Class</span>=<span class="pl-s"><span class="pl-pds">"</span>DroneLander.App<span class="pl-pds">"</span></span>&gt;
+	&lt;<span class="pl-ent">Application</span>.Resources&gt;
+
+        &lt;<span class="pl-ent">ResourceDictionary</span>&gt;
+            &lt;<span class="pl-ent">common</span><span class="pl-ent">:</span><span class="pl-ent">DecimalDisplayConverter</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>DecimalDisplayConverter<span class="pl-pds">"</span></span>/&gt;
+
+            &lt;<span class="pl-ent">Style</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>CaptionLabelStyle<span class="pl-pds">"</span></span> <span class="pl-e">TargetType</span>=<span class="pl-s"><span class="pl-pds">"</span>Label<span class="pl-pds">"</span></span>&gt;                
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>TextColor<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>White<span class="pl-pds">"</span></span> /&gt;
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>Opacity<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>0.7<span class="pl-pds">"</span></span> /&gt;
+            &lt;/<span class="pl-ent">Style</span>&gt;
+
+            &lt;<span class="pl-ent">Style</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>DisplayLabelStyle<span class="pl-pds">"</span></span> <span class="pl-e">TargetType</span>=<span class="pl-s"><span class="pl-pds">"</span>Label<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>TextColor<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>White<span class="pl-pds">"</span></span> /&gt;
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>Margin<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>0,-15,0,0<span class="pl-pds">"</span></span> /&gt;
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>FontSize<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>48<span class="pl-pds">"</span></span> /&gt;
+            &lt;/<span class="pl-ent">Style</span>&gt;
+
+            &lt;<span class="pl-ent">Style</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>ButtonLabelStyle<span class="pl-pds">"</span></span> <span class="pl-e">TargetType</span>=<span class="pl-s"><span class="pl-pds">"</span>Button<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>BorderWidth<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> /&gt;
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>TextColor<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>White<span class="pl-pds">"</span></span> /&gt;
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>FontSize<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>20<span class="pl-pds">"</span></span> /&gt;
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>BackgroundColor<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>Transparent<span class="pl-pds">"</span></span> /&gt;
+                &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>HeightRequest<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>64<span class="pl-pds">"</span></span> /&gt;
+            &lt;/<span class="pl-ent">Style</span>&gt;
+        &lt;/<span class="pl-ent">ResourceDictionary</span>&gt;	
+	&lt;/<span class="pl-ent">Application</span>.Resources&gt;
+&lt;/<span class="pl-ent">Application</span>&gt;</pre></div>
+<p>This markup defines several styles used to stylize the app's controls. It also declares an instance of <code>DecimalDisplayConverter</code>, which will be used in <strong>MainPage.xaml</strong> as a value converter. Value converters are components that modify data as it is passed between data sources and data targets during data binding and are widely used in XAML UIs to control output formatting and convert data from one type to another. You imported the <code>DecimalDisplayConverter</code> class when you imported the files from the lab's "Resources\Portable\Common" folder in Exercise 4, Step 2. Declaring styles, converters, and other resources in <strong>App.xaml</strong> makes them available to all of the application's views. You can also declare resources in the XAML files for individual views, but doing so limits the availability of those resources to the views in which they are declared.</p>
+</li>
+<li>
+<p>Now open <strong>App.xaml.cs</strong> and add the following property declaration above the <code>App</code> constructor:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-en">MainViewModel</span> ViewModel { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }</pre></div>
+<p><a href="Images/vs-updating-app-cs.png" target="_blank"><img src="Images/vs-updating-app-cs.png" alt="Updating the App.xaml.cs file" style="max-width:100%;"></a></p>
+<p><em>Updating the App.xaml.cs file</em></p>
+</li>
+<li>
+<p>In the <code>App</code> constructor, replace the statement that initializes the <code>MainPage</code> property with the following statement:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">MainPage</span> = new <span class="pl-en">NavigationPage</span>(<span class="pl-en">new</span> <span class="pl-smi">DroneLander</span>.MainPage());</pre></div>
+<p><a href="Images/vs-updated-app-cs.png" target="_blank"><img src="Images/vs-updated-app-cs.png" alt="Updating the MainPage property in the App contructor" style="max-width:100%;"></a></p>
+<p><em>Updating the MainPage property in the App contructor</em></p>
+<p>This statement sets the app's <code>MainPage</code> property to an instance of <code>NavigationPage</code> and passes an instance of <code>MainPage</code> as a parameter. This makes the <code>MainPage</code> class part of the navigation stack, and also makes it the page that's shown when the app is started.</p>
+</li>
+<li>
+<p>The next task is to replace the placeholder XAML in <strong>MainPage.xaml</strong> with XAML defining the app's user interface. Open <strong>MainPage.xaml</strong> and replace its contents with the following XAML:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> ?&gt;
+&lt;<span class="pl-ent">ContentPage</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://xamarin.com/schemas/2014/forms<span class="pl-pds">"</span></span>
+             <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">x</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.microsoft.com/winfx/2009/xaml<span class="pl-pds">"</span></span> <span class="pl-e">Title</span>=<span class="pl-s"><span class="pl-pds">"</span>Drone Lander<span class="pl-pds">"</span></span>
+             <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">local</span>=<span class="pl-s"><span class="pl-pds">"</span>clr-namespace:DroneLander<span class="pl-pds">"</span></span> 
+             <span class="pl-e">BackgroundImage</span>=<span class="pl-s"><span class="pl-pds">"</span>drone_lander_back.jpg<span class="pl-pds">"</span></span>
+             <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Class</span>=<span class="pl-s"><span class="pl-pds">"</span>DroneLander.MainPage<span class="pl-pds">"</span></span>&gt;
+  
+    &lt;<span class="pl-ent">Grid</span>&gt;
+        &lt;<span class="pl-ent">Grid</span>.RowDefinitions&gt;
+            &lt;<span class="pl-ent">RowDefinition</span>/&gt;
+            &lt;<span class="pl-ent">RowDefinition</span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>Auto<span class="pl-pds">"</span></span>/&gt;
+        &lt;/<span class="pl-ent">Grid</span>.RowDefinitions&gt;
+
+        &lt;<span class="pl-ent">StackLayout</span> <span class="pl-e">Padding</span>=<span class="pl-s"><span class="pl-pds">"</span>40,30<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource CaptionLabelStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>Altitude (meters)<span class="pl-pds">"</span></span> /&gt;
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource DisplayLabelStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding Altitude, Converter={StaticResource DecimalDisplayConverter}}<span class="pl-pds">"</span></span> /&gt;
+
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource CaptionLabelStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>Descent Rate (meters per second)<span class="pl-pds">"</span></span> /&gt;
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource DisplayLabelStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding DescentRate, Converter={StaticResource DecimalDisplayConverter}}<span class="pl-pds">"</span></span> /&gt;
+
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource CaptionLabelStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>Thrust (Newtons)<span class="pl-pds">"</span></span> /&gt;
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource DisplayLabelStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding Thrust, Converter={StaticResource DecimalDisplayConverter}}<span class="pl-pds">"</span></span> /&gt;
+
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource CaptionLabelStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>Fuel Remaining<span class="pl-pds">"</span></span> /&gt;
+            &lt;<span class="pl-ent">ProgressBar</span> <span class="pl-e">Progress</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding FuelRemaining}<span class="pl-pds">"</span></span> /&gt;
+           
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource CaptionLabelStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>Throttle<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">Label</span>&gt;
+            &lt;<span class="pl-ent">Slider</span> <span class="pl-e">Minimum</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Maximum</span>=<span class="pl-s"><span class="pl-pds">"</span>100<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding Throttle, Mode=TwoWay}<span class="pl-pds">"</span></span> /&gt;
+        &lt;/<span class="pl-ent">StackLayout</span>&gt;
+
+        &lt;<span class="pl-ent">Button</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource ButtonLabelStyle}<span class="pl-pds">"</span></span> Grid.Row=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">VerticalOptions</span>=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding ActionLabel}<span class="pl-pds">"</span></span> <span class="pl-e">Command</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding AttemptLandingCommand}<span class="pl-pds">"</span></span> /&gt;
+    &lt;/<span class="pl-ent">Grid</span>&gt;
+&lt;/<span class="pl-ent">ContentPage</span>&gt;</pre></div>
+<p>Note the <code>Style</code> attributes that reference the styles added to <strong>App.xaml</strong>. Also note how <code>DecimalDisplayConverter</code> is used to format the text output by three of the <code>Label</code> controls. Without this converter, the Altitude, Descent Rate, and Thrust readouts would include numbers to the right of the decimal point. Internally, <code>DecimalDisplayConverter</code> calls <code>ToString("F0")</code> on the value passed to it to remove the decimal point and any values to the right of it.</p>
+</li>
+<li>
+<p>Now open <strong>MainPage.xaml.cs</strong> and replace its contents with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">partial</span> <span class="pl-k">class</span> <span class="pl-en">MainPage</span> : <span class="pl-en">ContentPage</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-en">MainPage</span>()
+        {  
+            InitializeComponent();
+        }
+
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnAppearing</span>()
+        {
+            <span class="pl-c1">base</span>.OnAppearing();
+
+            <span class="pl-k">if</span> (App.ViewModel == <span class="pl-c1">null</span>) App.ViewModel = <span class="pl-k">new</span> <span class="pl-en">MainViewModel</span>(<span class="pl-en">this</span>);
+
+            <span class="pl-c1">this</span>.BindingContext = App.ViewModel;
+
+            MessagingCenter.Subscribe&lt;MainPage, LandingResultType&gt;(<span class="pl-c1">this</span>, <span class="pl-s"><span class="pl-pds">"</span>ActivityUpdate<span class="pl-pds">"</span></span>, (sender, arg) =&gt;
+            {
+                <span class="pl-k">string</span> <span class="pl-en">title</span> = arg.ToString();
+                <span class="pl-k">string</span> <span class="pl-en">message</span> = (arg == LandingResultType.Landed) ? <span class="pl-s"><span class="pl-pds">"</span>The Eagle has landed!<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>That's going to leave a mark!<span class="pl-pds">"</span></span>;
+                <span class="pl-k">if</span> (arg == LandingResultType.Kaboom) App.ViewModel.ShakeLandscapeAsync(<span class="pl-c1">this</span>);
+
+                Device.BeginInvokeOnMainThread(() =&gt;
+                {
+                    <span class="pl-c1">this</span>.DisplayAlert(title, message, <span class="pl-s"><span class="pl-pds">"</span>OK<span class="pl-pds">"</span></span>);
+                    App.ViewModel.ResetLanding();
+                });
+            });
+        }
+
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnDisappearing</span>()
+        {
+            <span class="pl-c1">base</span>.OnDisappearing();
+            MessagingCenter.Unsubscribe&lt;MainPage, LandingResultType&gt;(<span class="pl-c1">this</span>, <span class="pl-s"><span class="pl-pds">"</span>ActivityUpdate<span class="pl-pds">"</span></span>);
+        }
+    }
+}</pre></div>
+</li>
+</ol>
+<p>Almost there! The final step is to run Drone Lander and see how it looks on Android and Windows.</p>
+<p><a name="Exercise6"></a></p>
+<h2>Exercise 6: Test the app</h2>
+<p>In this exercise, you will run the app and practice flying supply missions to Mars. You begin a descent 5,000 meters above the Mars surface. When you click <strong>Start</strong>, the supply drone begins falling. (The gravity on Mars is weaker than the gravity on Earth, but there is gravity nonetheless.) The goal is to touch down on the surface with a downward velocity of 5 meters per second or less. Anything faster, and you dig another crater on the surface of Mars.</p>
+<p>You control the descent by adjusting the throttle, which is represented by a <code>Slider</code> control. More throttle means more thrust and a slower descent rate. Be careful, however. The drone has just enough fuel to arrest your descent and touch down softly if you fly a perfect mission. Use too much throttle too early, and you will run out of fuel and fall the rest of the way to Mars.</p>
+<ol>
+<li>
+<p>Launch the app in the Android emulator and click <strong>Start</strong>. Observe that altitude begins decreasing while the descent rate increases, and it happens in real time.</p>
+<p><a href="Images/app-click-start.png" target="_blank"><img src="Images/app-click-start.png" alt="Starting a descent in Drone Lander" style="max-width:100%;"></a></p>
+<p><em>Starting a descent in Drone Lander</em></p>
+</li>
+<li>
+<p>To control the descent rate, you need to apply upward thrust by adjusting the throttle. Slide the throttle slider to the right to increase throttle.</p>
+<p><a href="Images/app-adjust-throttle.png" target="_blank"><img src="Images/app-adjust-throttle.png" alt="Adjusting the drone's throttle" style="max-width:100%;"></a></p>
+<p><em>Adjusting the drone's throttle</em></p>
+</li>
+<li>
+<p>Continue adjusting the throttle to control your descent. Since fuel is a limited resource, you need to practice with the throttle and find a mission profile that enables you to land without running out of fuel. Get it right and you'll be notified that the Eagle has landed. Remember: when altitude reaches zero, you <strong>must have a descent rate of 5 meters per second or less</strong> or else you will crash.</p>
+<blockquote>
+<p>Observe that when you crash, the background scenery shakes. That is accomplished using <a href="https://blog.xamarin.com/creating-animations-with-xamarin-forms/">Xamarin Forms animations</a>. Check out the <code>ShakeLandscapeAsync</code> method added to the solution in Exercise 4, Step 4 to see how it works.</p>
+</blockquote>
+<p><a href="Images/app-landed.png" target="_blank"><img src="Images/app-landed.png" alt="Success!" style="max-width:100%;"></a></p>
+<p><em>Success!</em></p>
+</li>
+<li>
+<p>Repeat Steps 1 through 3 for the UWP app and observe how the user experience differs on that platform.</p>
+</li>
+</ol>
+<p>Landing the supply drone is hard. Chances are you will crash the first time, and maybe several times after that. Practice landing it until you can do so successfully most of the time. Later, you will fly <strong>real</strong> supply missions, and every descent will count because there are astronauts depending on your skill to resupply the Mars bases.</p>
+<p><a name="Exercise7"></a></p>
+<h2>Exercise 7 (optional): Add a splash screen to the Android project</h2>
+<p>Have some extra time and want to try an additional challenge? Did you notice that the Android version of the app doesn't have a splash screen? You can implement custom splash screens in iOS and Windows simply by adding assets to the project, but Android apps require a little more effort.</p>
+<ol>
+<li>
+<p>In Solution Explorer, right-click the <strong>DroneLander.Android</strong> project and use the <strong>Add</strong> &gt; <strong>New Item...</strong> command to add an activity named "SplashActivity.cs."</p>
+<blockquote>
+<p>In Android, an <em>activity</em> is a task that interacts with the user. Activities usually, but not always, occupy the entire screen, and are somewhat analgous to <em>pages</em> in other platforms such as Windows.</p>
+</blockquote>
+<p><a href="Images/vs-add-splash-activity.png" target="_blank"><img src="Images/vs-add-splash-activity.png" alt="Adding an activity to the Android project" style="max-width:100%;"></a></p>
+<p><em>Adding an activity to the Android project</em></p>
+</li>
+<li>
+<p>Replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">Android.App</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Content</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.OS</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Runtime</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Views</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Widget</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Droid</span>
+{
+    [Activity(Label = <span class="pl-s"><span class="pl-pds">"</span>Drone Lander<span class="pl-pds">"</span></span>, Theme = <span class="pl-s"><span class="pl-pds">"</span>@style/Theme.Splash<span class="pl-pds">"</span></span>, MainLauncher = <span class="pl-en">true</span>, <span class="pl-en">NoHistory</span> = <span class="pl-c1">true</span>)]
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">SplashActivity</span> : <span class="pl-en">Activity</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnCreate</span>(<span class="pl-en">Bundle</span> <span class="pl-smi">savedInstanceState</span>, <span class="pl-en">PersistableBundle</span> <span class="pl-smi">persistentState</span>)
+        {
+            <span class="pl-c1">base</span>.OnCreate(savedInstanceState, persistentState);
+        }
+
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnResume</span>()
+        {
+            <span class="pl-c1">base</span>.OnResume();
+
+            <span class="pl-en">Task</span> <span class="pl-en">startupWork</span> = <span class="pl-k">new</span> <span class="pl-en">Task</span>(async () =&gt;
+            {
+                <span class="pl-k">await</span> Task.Delay(<span class="pl-c1">300</span>);
+            });
+
+            startupWork.ContinueWith(t =&gt;
+            {
+                StartActivity(<span class="pl-k">new</span> <span class="pl-en">Intent</span>(Application.Context, <span class="pl-k">typeof</span>(<span class="pl-en">MainActivity</span>)));
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+
+            startupWork.Start();
+        }
+    }
+}</pre></div>
+<p>Notice the <code>MainLauncher = true</code> property in the attribute applied to the <code>SplashActivity</code> class. This instructs Android to use this class as the "startup" activity for the app. <code>Theme = @style/Theme.Splash</code> references the <code>Theme.Splash</code> style that was included in the assets you imported into the Android project in Exercise 3.</p>
+</li>
+<li>
+<p>Now open <strong>MainActivity.cs</strong> and change <code>MainLauncher = true</code> to <code>MainLauncher = false</code>.</p>
+<p><a href="Images/vs-turn-off-launcher.png" target="_blank"><img src="Images/vs-turn-off-launcher.png" alt="Disabling MainLauncher in MainActivity" style="max-width:100%;"></a></p>
+<p><em>Disabling MainLauncher in MainActivity</em></p>
+</li>
+<li>
+<p>Run the app in the Android emulator and confirm that it displays the splash screen below.</p>
+<p><a href="Images/app-splash-screen.png" target="_blank"><img src="Images/app-splash-screen.png" alt="The new splash screen" style="max-width:100%;"></a></p>
+<p><em>The new splash screen</em></p>
+</li>
+</ol>
+<p>Developers who are new to Xamarin Forms often wonder what magic is required to customize Android splash screens. It's not hard once you know how. And now you know how!</p>
+<p><a name="Summary"></a></p>
+<h2>Summary</h2>
+<p>The app runs on multiple platforms, but you wrote no platform-specific code. All of the C# and XAML added to the app was added to the Portable project, meaning you achieved 100% sharing of code and UI. Moreover, the app was compiled into native code for each platform you ran it on and is virtually indistinguishable from a native iOS, Android, or UWP app.</p>
+<p>That's it for Part 1 of Operation Remote Resupply. In Part 2, you will modify the app to leverage platform-specific features of iOS, Android, and Windows — features that are supported on individual devices but that aren't exposed through Xamarin Forms.</p>
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

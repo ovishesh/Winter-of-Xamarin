@@ -1,0 +1,11 @@
+/out:"C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\ilc\intermediate\SgGenerated\\"
+/int:"C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\ilc\intermediate\\"
+/ref:"C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\ilc\intermediate\PreMergeILTransformed\\"
+/ref:"C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\ilc\intermediate\TransformedSRWR\\"
+/ref:"C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\ilc\in\\"
+/ref:"C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\ilc\in\\"
+/ref:"C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\ilc\in\\"
+/ref:"C:\Program Files (x86)\MSBuild\15.0\.Net\.NetNative\15.0.24211\x86\ilc\lib\Private\\"
+/ref:"C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\ilc\in\WinMetadata\\"
+/ca:System.Private.CoreLib
+"@C:\Projects\DroneLander\DroneLander\DroneLander.UWP\obj\x86\Release\ilc\intermediate\PreMergeILTransformed\ComputedSerializationInput.txt"

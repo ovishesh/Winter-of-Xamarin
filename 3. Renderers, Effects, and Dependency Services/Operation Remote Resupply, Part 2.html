@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Operation Remote Resupply, Part 2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<p><a name="HOLTitle"></a></p>
+<h1>Operation Remote Resupply, Part 2</h1>
+<hr>
+<p><a name="Overview"></a></p>
+<h2>Overview</h2>
+<p>In Part 1, you built a Xamarin Forms Drone Lander application that achieved 100% sharing of code (C#) and UI (XAML). In the real world, it's rarely that simple. Almost every application requires some platform-specific code in order to customize the UI for individual platforms or leverage features of those platforms that aren't exposed through Xamarin.</p>
+<p>Xamarin Forms supports several techniques for implementing per-platform features. <a href="https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/dependency-service/">Dependency services</a> allow platform-specific services such as location APIs and text-to-speech APIs to be called through a common interface defined in shared code. <a href="https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/custom-renderer/">Custom renderers</a> allow deep customization of Xamarin Forms controls. <a href="https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/effects/">Effects</a> also facilitate control customization, but without many of the complications of custom renderers.</p>
+<p>In this lab, you will modify the app you built in Part 1 by customizing the <code>ProgressBar</code> control that represents the fuel gauge and the <code>Slider</code> control used for the throttle. You will also add sounds to the app so users receive audible feedback as they attempt to land the drone. Along the way, you will get a first-hand look at dependency services, custom renderers, and custom effects, and learn how to write them as well as when to apply them.</p>
+<p><a name="Objectives"></a></p>
+<h3>Objectives</h3>
+<p>In this lab, you will learn how to:</p>
+<ul>
+<li>Use custom renderers to customize Xamarin Forms controls</li>
+<li>Use custom effects to apply custom fonts to Xamarin Forms controls</li>
+<li>Use a dependency service to play audio in Xamarin Forms apps</li>
+</ul>
+<p><a name="Prerequisites"></a></p>
+<h3>Prerequisites</h3>
+<p>The following are required to complete this lab:</p>
+<ul>
+<li><a href="https://www.visualstudio.com/vs/">Visual Studio Community 2017</a> or higher</li>
+<li>A computer running Windows 10 that supports hardware emulation using Hyper-V. For more information, and for a list of requirements, see <a href="https://msdn.microsoft.com/en-us/library/mt228280.aspx">https://msdn.microsoft.com/en-us/library/mt228280.aspx</a>.</li>
+</ul>
+<hr>
+<p><a name="Exercises"></a></p>
+<h2>Exercises</h2>
+<p>This lab includes the following exercises:</p>
+<ul>
+<li><a href="#Exercise1">Exercise 1: Add custom renderers</a></li>
+<li><a href="#Exercise2">Exercise 2: Add a custom effect</a></li>
+<li><a href="#Exercise3">Exercise 3: Add a dependency service</a></li>
+<li><a href="#Exercise3">Exercise 4: Call the dependency service from shared code</a></li>
+<li><a href="#Exercise5">Exercise 5: Test the updated app</a></li>
+</ul>
+<p>Estimated time to complete this lab: <strong>45</strong> minutes.</p>
+<p><a name="Exercise1"></a></p>
+<h2>Exercise 1: Add custom renderers</h2>
+<p>One of the remarkable aspects of Xamarin Forms is that you declare controls in XAML that is shared between platforms, but at run-time, Xamarin Forms emits controls that are native to the host platform. For example, a <code>Button</code> control declared in XAML becomes a native <code>Button</code> control on Windows and Android and a <code>UIButton</code> on iOS. This feat is accomplished using <em>renderers</em> that create native controls from Xamarin Forms controls.</p>
+<p>Each control in Xamarin Forms is accompanied by a renderer whose job is to "project" the control into the UI by instantiating a native control. You can change the look and behavior of these controls by replacing the built-in renderers with renderers of your own, known as <em>custom renderers</em>. For a great overview of how custom renderers work and how they're written, see <a href="http://www.wintellect.com/devcenter/jprosise/supercharging-xamarin-forms-with-custom-renderers-part-1">Supercharging Xamarin Forms with Custom Renderers</a>.</p>
+<p>In this exercise, you will write custom renderers for all three platforms to customize the fuel gauge and the throttle control. Such customizations are common in Xamarin Forms applications and knowing how to perform them is a crucial step in becoming a skilled Xamarin Forms developer.</p>
+<ol>
+<li>
+<p>In Visual Studio 2017, open the <strong>Drone Lander</strong> solution created in the previous lab.</p>
+</li>
+<li>
+<p>Right-click the <strong>DroneLander.Android</strong> project in Solution Explorer and use the <strong>Add</strong> &gt; <strong>New Folder</strong> command to add a folder named "Renderers" to the project.</p>
+</li>
+<li>
+<p>Right-click the "Renderers" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "FuelControlRenderer.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">Android.App</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Content</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.OS</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Runtime</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Views</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Widget</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms.Platform.Android</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Graphics</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Droid.Renderers</span>;
+
+[assembly: ExportRenderer(typeof(Xamarin.Forms.ProgressBar), typeof(FuelControlRenderer))]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Droid.Renderers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">FuelControlRenderer</span> : <span class="pl-en">ProgressBarRenderer</span>
+    {
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnElementChanged</span>(<span class="pl-en">ElementChangedEventArgs</span>&lt;<span class="pl-en">Xamarin</span>.<span class="pl-en">Forms</span>.<span class="pl-en">ProgressBar</span>&gt; <span class="pl-smi">e</span>)
+        {
+            <span class="pl-c1">base</span>.OnElementChanged(e);
+
+            <span class="pl-k">if</span> (Control != <span class="pl-c1">null</span>)
+            {
+                Control.ScaleY = <span class="pl-c1">4.0f</span>;
+                Control.ProgressDrawable.SetColorFilter(Android.Graphics.Color.Rgb(<span class="pl-c1">217</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>), PorterDuff.Mode.SrcIn);
+            }
+        }
+    }
+}</pre></div>
+<p>Thanks to the <code>ExportRenderer</code> attribute, this class will now be used to render <code>ProgressBar</code> controls in the Android version of the app. The <code>OnElementChanged</code> method is called by Xamarin Forms to allow the renderer to the create the control. Calling the base class's implementation of that method allows the default renderer to create the native control and assign a reference to the renderer's <code>Control</code> property. After that, the renderer can modify the control as needed. In this case, the renderer modifies two properties of the native Android <code>ProgressBar</code> control to increase its thickness and change its color to red.</p>
+</li>
+<li>
+<p>Once more, right-click the "Renderers" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "ThrottleControlRenderer.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">Android.App</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Content</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.OS</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Runtime</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Views</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Widget</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms.Platform.Android</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Graphics</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Droid.Renderers</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Graphics.Drawables</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Support.V4.Content</span>;
+
+[assembly: ExportRenderer(typeof(Slider), typeof(ThrottleControlRenderer))]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Droid.Renderers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ThrottleControlRenderer</span> : <span class="pl-en">SliderRenderer</span>
+    {
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnElementChanged</span>(<span class="pl-en">ElementChangedEventArgs</span>&lt;<span class="pl-en">Slider</span>&gt; <span class="pl-smi">e</span>)
+        {
+            <span class="pl-c1">base</span>.OnElementChanged(e);
+
+            <span class="pl-k">if</span> (Control != <span class="pl-c1">null</span>)
+            {	                
+                Control.ProgressDrawable.SetColorFilter(Android.Graphics.Color.Rgb(<span class="pl-c1">217</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>), PorterDuff.Mode.SrcIn);
+                <span class="pl-en">Drawable</span> <span class="pl-en">myThumb</span> = ContextCompat.GetDrawable(Context, Resource.Drawable.throttle_thumb);
+                Control.SetThumb(myThumb);
+            }
+        }
+    }
+}</pre></div>
+</li>
+<li>
+<p>The modified throttle control uses a custom image as the selector thumb. That image needs to be added to the project. In Solution Explorer, right-click the "Resources/drawable" folder in the <strong>DroneLander.Android</strong> project and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import <strong>throttle_thumb.png</strong> from the lab's "Resources\Renderers" folder.</p>
+</li>
+<li>
+<p>Ensure that the Android project is selected as the startup project by right-clicking the <strong>DroneLander.Android</strong> project in Solution Explorer and selecting <strong>Set as StartUp Project</strong>.</p>
+</li>
+<li>
+<p>Click the <strong>Run</strong> button (the one with the green arrow) at the top of Visual Studio to launch the Android version of Drone Lander in the selected Android emulator. Note that the emulator will probably take a minute or two to start if it isn't already running.</p>
+<p><a href="Images/run-android.png" target="_blank"><img src="Images/run-android.png" alt="Launching Drone Lander on Android" style="max-width:100%;"></a></p>
+<p><em>Launching Drone Lander on Android</em></p>
+</li>
+<li>
+<p>Confirm that the <code>ProgressBar</code> and <code>Slider</code> controls used for the fuel gauge and throttle, respectively, resemble the ones below. (Don't worry about the vertical spacing between controls for the moment; you will attend to that later.) When you're done, use Visual Studio's <strong>Debug</strong> &gt; <strong>Stop Debugging</strong> command to terminate the app.</p>
+<p><a href="Images/app-updated-controls.png" target="_blank"><img src="Images/app-updated-controls.png" alt="The Android app with customized controls" style="max-width:100%;"></a></p>
+<p><em>The Android app with customized controls</em></p>
+</li>
+<li>
+<p>Now let's modify the iOS version of the app to use custom renderers, too. (You won't be building the iOS project in this lab, but in case you build it later, you want the iOS app to look as good as the Android app.) In Solution Explorer, right-click the <strong>DroneLander.iOS</strong> project and use the <strong>Add</strong> &gt; <strong>New Folder</strong> command to add a folder named "Renderers" to the project.</p>
+</li>
+<li>
+<p>Right-click the "Renderers" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "FuelControlRenderer.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms.Platform.iOS</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.iOS.Renderers</span>;
+<span class="pl-k">using</span> <span class="pl-en">UIKit</span>;
+<span class="pl-k">using</span> <span class="pl-en">CoreGraphics</span>;
+
+[assembly: ExportRenderer(typeof(ProgressBar), typeof(FuelControlRenderer))]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.iOS.Renderers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">FuelControlRenderer</span> : <span class="pl-en">ProgressBarRenderer</span>
+    {
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnElementChanged</span>(<span class="pl-en">ElementChangedEventArgs</span>&lt;<span class="pl-en">ProgressBar</span>&gt; <span class="pl-smi">e</span>)
+        {
+            <span class="pl-c1">base</span>.OnElementChanged(e);
+
+            <span class="pl-k">if</span> (Control != <span class="pl-c1">null</span>)
+            {
+                Control.TintColor = UIColor.FromRGB(<span class="pl-c1">217</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>);
+            }
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">LayoutSubviews</span>()
+        {
+            <span class="pl-c1">base</span>.LayoutSubviews();
+
+            <span class="pl-k">var</span> <span class="pl-en">X </span>= <span class="pl-c1">1.0f</span>;
+            <span class="pl-k">var</span> <span class="pl-en">Y </span>= <span class="pl-c1">4.0f</span>;
+
+            <span class="pl-en">CGAffineTransform</span> <span class="pl-en">transform</span> = CGAffineTransform.MakeScale(X, Y);
+            Control.Transform = transform;
+        }
+    }
+}</pre></div>
+</li>
+<li>
+<p>Once more, right-click the "Renderers" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "ThrottleControlRenderer.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms.Platform.iOS</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.iOS.Renderers</span>;
+<span class="pl-k">using</span> <span class="pl-en">UIKit</span>;
+<span class="pl-k">using</span> <span class="pl-en">CoreGraphics</span>;
+
+[assembly: ExportRenderer(typeof(Slider), typeof(ThrottleControlRenderer))]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.iOS.Renderers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ThrottleControlRenderer</span> : <span class="pl-en">SliderRenderer</span>
+    {
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnElementChanged</span>(<span class="pl-en">ElementChangedEventArgs</span>&lt;<span class="pl-en">Slider</span>&gt; <span class="pl-smi">e</span>)
+        {
+            <span class="pl-c1">base</span>.OnElementChanged(e);
+
+            <span class="pl-k">if</span> (Control != <span class="pl-c1">null</span>)
+            {
+                Control.SetThumbImage(UIImage.FromFile(<span class="pl-s"><span class="pl-pds">"</span>throttle_thumb.png<span class="pl-pds">"</span></span>), UIControlState.Normal);
+                Control.TintColor = UIColor.FromRGB(<span class="pl-c1">217</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>);
+            }
+        }
+    }
+}</pre></div>
+</li>
+<li>
+<p>Right-click the "Resources" folder in the <strong>DroneLander.iOS</strong> project and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import <strong>throttle_thumb.png</strong> from the lab's "Resources\Renderers" folder. This completes the modifications for the iOS version of the app.</p>
+</li>
+<li>
+<p>Now let's update the Windows project to use custom renderers. In Solution Explorer, right-click the <strong>DroneLander.UWP</strong> project and use the <strong>Add</strong> &gt; <strong>New Folder</strong> command to add a folder named "Renderers" to the project.</p>
+</li>
+<li>
+<p>Right-click the "Renderers" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "FuelControlRenderer.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">DroneLander.UWP.Renderers</span>;
+<span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">Windows.UI.Xaml.Media</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms.Platform.UWP</span>;
+
+[assembly: ExportRenderer(typeof(ProgressBar), typeof(FuelControlRenderer))]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.UWP.Renderers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">FuelControlRenderer</span> : <span class="pl-en">ProgressBarRenderer</span>
+    {
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnElementChanged</span>(<span class="pl-en">ElementChangedEventArgs</span>&lt;<span class="pl-en">ProgressBar</span>&gt; <span class="pl-smi">e</span>)
+        {
+            <span class="pl-c1">base</span>.OnElementChanged(e);
+
+            <span class="pl-k">if</span> (Control != <span class="pl-c1">null</span>)
+            {
+                Control.Height = <span class="pl-c1">16</span>;
+                Control.Foreground = <span class="pl-k">new</span> <span class="pl-en">SolidColorBrush</span>(Windows.UI.Color.FromArgb(<span class="pl-c1">255</span>, <span class="pl-c1">217</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>));
+            }
+        }
+    }
+}</pre></div>
+</li>
+<li>
+<p>Once more, right-click the "Renderers" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "ThrottleControlRenderer.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">DroneLander.UWP.Renderers</span>;
+<span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">Windows.UI.Xaml.Media</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms.Platform.UWP</span>;
+
+[assembly: ExportRenderer(typeof(Slider), typeof(ThrottleControlRenderer))]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.UWP.Renderers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ThrottleControlRenderer</span> : <span class="pl-en">SliderRenderer</span>
+    {
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnElementChanged</span>(<span class="pl-en">ElementChangedEventArgs</span>&lt;<span class="pl-en">Slider</span>&gt; <span class="pl-smi">e</span>)
+        {
+            <span class="pl-c1">base</span>.OnElementChanged(e);
+
+            <span class="pl-k">if</span> (Control != <span class="pl-c1">null</span>)
+            {
+                Control.Style = (Windows.UI.Xaml.Style)App.Current.Resources[<span class="pl-s"><span class="pl-pds">"</span>KnobSliderStyle<span class="pl-pds">"</span></span>];
+            }
+        }
+    }
+}</pre></div>
+</li>
+<li>
+<p>Right-click the "Assets" folder in the <strong>DroneLander.UWP</strong> project and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import <strong>throttle_thumb.png</strong> from the lab's "Resources\Renderers" folder.</p>
+</li>
+<li>
+<p>Still in the <strong>DroneLander.UWP</strong> project, open <strong>App.xaml</strong> and replace the contents of the file with the following XAML to define the color, brush, and style resources used by the throttle control:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">Application</span>
+x:Class=<span class="pl-s"><span class="pl-pds">"</span>DroneLander.UWP.App<span class="pl-pds">"</span></span>
+xmlns=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.microsoft.com/winfx/2006/xaml/presentation<span class="pl-pds">"</span></span>
+xmlns:x=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.microsoft.com/winfx/2006/xaml<span class="pl-pds">"</span></span>
+xmlns:local=<span class="pl-s"><span class="pl-pds">"</span>using:DroneLander.UWP<span class="pl-pds">"</span></span>
+RequestedTheme=<span class="pl-s"><span class="pl-pds">"</span>Dark<span class="pl-pds">"</span></span>&gt;
+
+&lt;<span class="pl-ent">Application</span>.Resources&gt;
+    &lt;<span class="pl-ent">ResourceDictionary</span>&gt;
+        &lt;<span class="pl-ent">Color</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>AppMainAccentColor<span class="pl-pds">"</span></span>&gt;#FFD90000&lt;/<span class="pl-ent">Color</span>&gt;
+        &lt;<span class="pl-ent">SolidColorBrush</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>AppMainAccentBrush<span class="pl-pds">"</span></span> <span class="pl-e">Color</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource AppMainAccentColor}<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">SolidColorBrush</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>SliderTrackValueFillPointerOver<span class="pl-pds">"</span></span> <span class="pl-e">Color</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource AppMainAccentColor}<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">SolidColorBrush</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>SliderTrackValueFillPressed<span class="pl-pds">"</span></span> <span class="pl-e">Color</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource AppMainAccentColor}<span class="pl-pds">"</span></span>/&gt;
+
+        &lt;<span class="pl-ent">x</span><span class="pl-ent">:</span><span class="pl-ent">Double</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>SliderOutsideTickBarThemeHeight<span class="pl-pds">"</span></span>&gt;8&lt;/<span class="pl-ent">x</span><span class="pl-ent">:</span><span class="pl-ent">Double</span>&gt;
+        &lt;<span class="pl-ent">x</span><span class="pl-ent">:</span><span class="pl-ent">Double</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>SliderTrackThemeHeight<span class="pl-pds">"</span></span>&gt;4&lt;/<span class="pl-ent">x</span><span class="pl-ent">:</span><span class="pl-ent">Double</span>&gt;
+
+        &lt;<span class="pl-ent">Style</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>KnobSliderStyle<span class="pl-pds">"</span></span> <span class="pl-e">TargetType</span>=<span class="pl-s"><span class="pl-pds">"</span>Slider<span class="pl-pds">"</span></span>&gt;
+            &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackFill}<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>BorderThickness<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderBorderThemeThickness}<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>Foreground<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource AppMainAccentBrush}<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>FontFamily<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource ContentControlThemeFontFamily}<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>FontSize<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource ControlContentThemeFontSize}<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>ManipulationMode<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>None<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>UseSystemFocusVisuals<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>True<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>Template<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">Setter</span>.Value&gt;
+                    &lt;<span class="pl-ent">ControlTemplate</span> <span class="pl-e">TargetType</span>=<span class="pl-s"><span class="pl-pds">"</span>Slider<span class="pl-pds">"</span></span>&gt;
+                        &lt;<span class="pl-ent">Grid</span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding Padding}<span class="pl-pds">"</span></span>&gt;
+                            &lt;<span class="pl-ent">Grid</span>.Resources&gt;
+                                &lt;<span class="pl-ent">Style</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>SliderThumbStyle<span class="pl-pds">"</span></span> <span class="pl-e">TargetType</span>=<span class="pl-s"><span class="pl-pds">"</span>Thumb<span class="pl-pds">"</span></span>&gt;
+                                    &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>BorderThickness<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderThumbBackground}<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>Template<span class="pl-pds">"</span></span>&gt;
+                                        &lt;<span class="pl-ent">Setter</span>.Value&gt;
+                                            &lt;<span class="pl-ent">ControlTemplate</span> <span class="pl-e">TargetType</span>=<span class="pl-s"><span class="pl-pds">"</span>Thumb<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">Border</span> <span class="pl-e">BorderBrush</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding BorderBrush}<span class="pl-pds">"</span></span> <span class="pl-e">BorderThickness</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding BorderThickness}<span class="pl-pds">"</span></span> <span class="pl-e">Background</span>=<span class="pl-s"><span class="pl-pds">"</span>Transparent<span class="pl-pds">"</span></span> <span class="pl-e">CornerRadius</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>&gt;
+                                                    &lt;<span class="pl-ent">Image</span> <span class="pl-e">Stretch</span>=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> <span class="pl-e">Source</span>=<span class="pl-s"><span class="pl-pds">"</span>ms-appx://DroneLander.UWP/Assets/throttle_thumb.png<span class="pl-pds">"</span></span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>16<span class="pl-pds">"</span></span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>34<span class="pl-pds">"</span></span>/&gt;
+                                                &lt;/<span class="pl-ent">Border</span>&gt;
+                                            &lt;/<span class="pl-ent">ControlTemplate</span>&gt;
+                                        &lt;/<span class="pl-ent">Setter</span>.Value&gt;
+                                    &lt;/<span class="pl-ent">Setter</span>&gt;
+                                &lt;/<span class="pl-ent">Style</span>&gt;
+                            &lt;/<span class="pl-ent">Grid</span>.Resources&gt;
+                            &lt;<span class="pl-ent">Grid</span>.RowDefinitions&gt;
+                                &lt;<span class="pl-ent">RowDefinition</span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>Auto<span class="pl-pds">"</span></span>/&gt;
+                                &lt;<span class="pl-ent">RowDefinition</span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span>/&gt;
+                            &lt;/<span class="pl-ent">Grid</span>.RowDefinitions&gt;
+                            &lt;<span class="pl-ent">VisualStateManager</span>.VisualStateGroups&gt;
+                                &lt;<span class="pl-ent">VisualStateGroup</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>CommonStates<span class="pl-pds">"</span></span>&gt;
+                                    &lt;<span class="pl-ent">VisualState</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>Normal<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">VisualState</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>Pressed<span class="pl-pds">"</span></span>&gt;
+                                        &lt;<span class="pl-ent">Storyboard</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalTrackRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackFillPressed}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalTrackRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackFillPressed}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalThumb<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderThumbBackgroundPressed}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalThumb<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderThumbBackgroundPressed}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>SliderContainer<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderContainerBackgroundPressed}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalDecreaseRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackValueFillPressed}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalDecreaseRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackValueFillPressed}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                        &lt;/<span class="pl-ent">Storyboard</span>&gt;
+                                    &lt;/<span class="pl-ent">VisualState</span>&gt;
+                                    &lt;<span class="pl-ent">VisualState</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>Disabled<span class="pl-pds">"</span></span>&gt;
+                                        &lt;<span class="pl-ent">Storyboard</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Foreground<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HeaderContentPresenter<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderHeaderForegroundDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalDecreaseRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackValueFillDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalTrackRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackFillDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalDecreaseRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackValueFillDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalTrackRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackFillDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalThumb<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderThumbBackgroundDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalThumb<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderThumbBackgroundDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>TopTickBar<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTickBarFillDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>BottomTickBar<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTickBarFillDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>LeftTickBar<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTickBarFillDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>RightTickBar<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTickBarFillDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>SliderContainer<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderContainerBackgroundDisabled}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                        &lt;/<span class="pl-ent">Storyboard</span>&gt;
+                                    &lt;/<span class="pl-ent">VisualState</span>&gt;
+                                    &lt;<span class="pl-ent">VisualState</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>PointerOver<span class="pl-pds">"</span></span>&gt;
+                                        &lt;<span class="pl-ent">Storyboard</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalTrackRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackFillPointerOver}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalTrackRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackFillPointerOver}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalThumb<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderThumbBackgroundPointerOver}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalThumb<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderThumbBackgroundPointerOver}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Background<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>SliderContainer<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderContainerBackgroundPointerOver}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalDecreaseRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackValueFillPointerOver}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>Fill<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalDecreaseRect<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackValueFillPointerOver}<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                        &lt;/<span class="pl-ent">Storyboard</span>&gt;
+                                    &lt;/<span class="pl-ent">VisualState</span>&gt;
+                                &lt;/<span class="pl-ent">VisualStateGroup</span>&gt;
+                                &lt;<span class="pl-ent">VisualStateGroup</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>FocusEngagementStates<span class="pl-pds">"</span></span>&gt;
+                                    &lt;<span class="pl-ent">VisualState</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>FocusDisengaged<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">VisualState</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>FocusEngagedHorizontal<span class="pl-pds">"</span></span>&gt;
+                                        &lt;<span class="pl-ent">Storyboard</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>(Control.IsTemplateFocusTarget)<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>SliderContainer<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>False<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>(Control.IsTemplateFocusTarget)<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>HorizontalThumb<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>True<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                        &lt;/<span class="pl-ent">Storyboard</span>&gt;
+                                    &lt;/<span class="pl-ent">VisualState</span>&gt;
+                                    &lt;<span class="pl-ent">VisualState</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>FocusEngagedVertical<span class="pl-pds">"</span></span>&gt;
+                                        &lt;<span class="pl-ent">Storyboard</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>(Control.IsTemplateFocusTarget)<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>SliderContainer<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>False<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                            &lt;<span class="pl-ent">ObjectAnimationUsingKeyFrames</span> Storyboard.TargetProperty=<span class="pl-s"><span class="pl-pds">"</span>(Control.IsTemplateFocusTarget)<span class="pl-pds">"</span></span> Storyboard.TargetName=<span class="pl-s"><span class="pl-pds">"</span>VerticalThumb<span class="pl-pds">"</span></span>&gt;
+                                                &lt;<span class="pl-ent">DiscreteObjectKeyFrame</span> <span class="pl-e">KeyTime</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>True<span class="pl-pds">"</span></span>/&gt;
+                                            &lt;/<span class="pl-ent">ObjectAnimationUsingKeyFrames</span>&gt;
+                                        &lt;/<span class="pl-ent">Storyboard</span>&gt;
+                                    &lt;/<span class="pl-ent">VisualState</span>&gt;
+                                &lt;/<span class="pl-ent">VisualStateGroup</span>&gt;
+                            &lt;/<span class="pl-ent">VisualStateManager</span>.VisualStateGroups&gt;
+                            &lt;<span class="pl-ent">ContentPresenter</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>HeaderContentPresenter<span class="pl-pds">"</span></span> <span class="pl-e">ContentTemplate</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding HeaderTemplate}<span class="pl-pds">"</span></span> <span class="pl-e">Content</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding Header}<span class="pl-pds">"</span></span> <span class="pl-e">Foreground</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderHeaderForeground}<span class="pl-pds">"</span></span> <span class="pl-e">FontWeight</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderHeaderThemeFontWeight}<span class="pl-pds">"</span></span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderHeaderThemeMargin}<span class="pl-pds">"</span></span> <span class="pl-e">TextWrapping</span>=<span class="pl-s"><span class="pl-pds">"</span>Wrap<span class="pl-pds">"</span></span> <span class="pl-e">Visibility</span>=<span class="pl-s"><span class="pl-pds">"</span>Collapsed<span class="pl-pds">"</span></span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">DeferLoadStrategy</span>=<span class="pl-s"><span class="pl-pds">"</span>Lazy<span class="pl-pds">"</span></span>/&gt;
+                            &lt;<span class="pl-ent">Grid</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>SliderContainer<span class="pl-pds">"</span></span> <span class="pl-e">Background</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderContainerBackground}<span class="pl-pds">"</span></span> Control.IsTemplateFocusTarget=<span class="pl-s"><span class="pl-pds">"</span>True<span class="pl-pds">"</span></span> Grid.Row=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>&gt;
+                                &lt;<span class="pl-ent">Grid</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>HorizontalTemplate<span class="pl-pds">"</span></span> <span class="pl-e">MinHeight</span>=<span class="pl-s"><span class="pl-pds">"</span>44<span class="pl-pds">"</span></span>&gt;
+                                    &lt;<span class="pl-ent">Grid</span>.ColumnDefinitions&gt;
+                                        &lt;<span class="pl-ent">ColumnDefinition</span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>Auto<span class="pl-pds">"</span></span>/&gt;
+                                        &lt;<span class="pl-ent">ColumnDefinition</span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>Auto<span class="pl-pds">"</span></span>/&gt;
+                                        &lt;<span class="pl-ent">ColumnDefinition</span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;/<span class="pl-ent">Grid</span>.ColumnDefinitions&gt;
+                                    &lt;<span class="pl-ent">Grid</span>.RowDefinitions&gt;
+                                        &lt;<span class="pl-ent">RowDefinition</span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>18<span class="pl-pds">"</span></span>/&gt;
+                                        &lt;<span class="pl-ent">RowDefinition</span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>Auto<span class="pl-pds">"</span></span>/&gt;
+                                        &lt;<span class="pl-ent">RowDefinition</span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>18<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;/<span class="pl-ent">Grid</span>.RowDefinitions&gt;
+                                    &lt;<span class="pl-ent">Rectangle</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>HorizontalTrackRect<span class="pl-pds">"</span></span> Grid.ColumnSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding Background}<span class="pl-pds">"</span></span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackThemeHeight}<span class="pl-pds">"</span></span> Grid.Row=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">Rectangle</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>HorizontalDecreaseRect<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource AppMainAccentBrush}<span class="pl-pds">"</span></span> Grid.Row=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">TickBar</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>TopTickBar<span class="pl-pds">"</span></span> Grid.ColumnSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTickBarFill}<span class="pl-pds">"</span></span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderOutsideTickBarThemeHeight}<span class="pl-pds">"</span></span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>0,0,0,4<span class="pl-pds">"</span></span> <span class="pl-e">Visibility</span>=<span class="pl-s"><span class="pl-pds">"</span>Collapsed<span class="pl-pds">"</span></span> <span class="pl-e">VerticalAlignment</span>=<span class="pl-s"><span class="pl-pds">"</span>Bottom<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">TickBar</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>HorizontalInlineTickBar<span class="pl-pds">"</span></span> Grid.ColumnSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderInlineTickBarFill}<span class="pl-pds">"</span></span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackThemeHeight}<span class="pl-pds">"</span></span> Grid.Row=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">Visibility</span>=<span class="pl-s"><span class="pl-pds">"</span>Collapsed<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">TickBar</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>BottomTickBar<span class="pl-pds">"</span></span> Grid.ColumnSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTickBarFill}<span class="pl-pds">"</span></span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderOutsideTickBarThemeHeight}<span class="pl-pds">"</span></span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>0,4,0,0<span class="pl-pds">"</span></span> Grid.Row=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span> <span class="pl-e">Visibility</span>=<span class="pl-s"><span class="pl-pds">"</span>Collapsed<span class="pl-pds">"</span></span> <span class="pl-e">VerticalAlignment</span>=<span class="pl-s"><span class="pl-pds">"</span>Top<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">Thumb</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>HorizontalThumb<span class="pl-pds">"</span></span> AutomationProperties.AccessibilityView=<span class="pl-s"><span class="pl-pds">"</span>Raw<span class="pl-pds">"</span></span> Grid.Column=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span> <span class="pl-e">DataContext</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding Value}<span class="pl-pds">"</span></span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>34<span class="pl-pds">"</span></span> Grid.Row=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> Grid.RowSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{StaticResource SliderThumbStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>16<span class="pl-pds">"</span></span> <span class="pl-e">HorizontalAlignment</span>=<span class="pl-s"><span class="pl-pds">"</span>Left<span class="pl-pds">"</span></span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>/&gt;
+                                &lt;/<span class="pl-ent">Grid</span>&gt;
+                                &lt;<span class="pl-ent">Grid</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>VerticalTemplate<span class="pl-pds">"</span></span> <span class="pl-e">MinWidth</span>=<span class="pl-s"><span class="pl-pds">"</span>44<span class="pl-pds">"</span></span> <span class="pl-e">Visibility</span>=<span class="pl-s"><span class="pl-pds">"</span>Collapsed<span class="pl-pds">"</span></span>&gt;
+                                    &lt;<span class="pl-ent">Grid</span>.ColumnDefinitions&gt;
+                                        &lt;<span class="pl-ent">ColumnDefinition</span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>18<span class="pl-pds">"</span></span>/&gt;
+                                        &lt;<span class="pl-ent">ColumnDefinition</span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>Auto<span class="pl-pds">"</span></span>/&gt;
+                                        &lt;<span class="pl-ent">ColumnDefinition</span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>18<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;/<span class="pl-ent">Grid</span>.ColumnDefinitions&gt;
+                                    &lt;<span class="pl-ent">Grid</span>.RowDefinitions&gt;
+                                        &lt;<span class="pl-ent">RowDefinition</span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span>/&gt;
+                                        &lt;<span class="pl-ent">RowDefinition</span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>Auto<span class="pl-pds">"</span></span>/&gt;
+                                        &lt;<span class="pl-ent">RowDefinition</span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>Auto<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;/<span class="pl-ent">Grid</span>.RowDefinitions&gt;
+                                    &lt;<span class="pl-ent">Rectangle</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>VerticalTrackRect<span class="pl-pds">"</span></span> Grid.Column=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding Background}<span class="pl-pds">"</span></span> Grid.RowSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackThemeHeight}<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">Rectangle</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>VerticalDecreaseRect<span class="pl-pds">"</span></span> Grid.Column=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding Foreground}<span class="pl-pds">"</span></span> Grid.Row=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">TickBar</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>LeftTickBar<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTickBarFill}<span class="pl-pds">"</span></span> <span class="pl-e">HorizontalAlignment</span>=<span class="pl-s"><span class="pl-pds">"</span>Right<span class="pl-pds">"</span></span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>0,0,4,0<span class="pl-pds">"</span></span> Grid.RowSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">Visibility</span>=<span class="pl-s"><span class="pl-pds">"</span>Collapsed<span class="pl-pds">"</span></span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderOutsideTickBarThemeHeight}<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">TickBar</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>VerticalInlineTickBar<span class="pl-pds">"</span></span> Grid.Column=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderInlineTickBarFill}<span class="pl-pds">"</span></span> Grid.RowSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">Visibility</span>=<span class="pl-s"><span class="pl-pds">"</span>Collapsed<span class="pl-pds">"</span></span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTrackThemeHeight}<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">TickBar</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>RightTickBar<span class="pl-pds">"</span></span> Grid.Column=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span> <span class="pl-e">Fill</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderTickBarFill}<span class="pl-pds">"</span></span> <span class="pl-e">HorizontalAlignment</span>=<span class="pl-s"><span class="pl-pds">"</span>Left<span class="pl-pds">"</span></span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>4,0,0,0<span class="pl-pds">"</span></span> Grid.RowSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> <span class="pl-e">Visibility</span>=<span class="pl-s"><span class="pl-pds">"</span>Collapsed<span class="pl-pds">"</span></span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>{ThemeResource SliderOutsideTickBarThemeHeight}<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;<span class="pl-ent">Thumb</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>VerticalThumb<span class="pl-pds">"</span></span> AutomationProperties.AccessibilityView=<span class="pl-s"><span class="pl-pds">"</span>Raw<span class="pl-pds">"</span></span> Grid.ColumnSpan=<span class="pl-s"><span class="pl-pds">"</span>3<span class="pl-pds">"</span></span> Grid.Column=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">DataContext</span>=<span class="pl-s"><span class="pl-pds">"</span>{TemplateBinding Value}<span class="pl-pds">"</span></span> <span class="pl-e">Height</span>=<span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span> Grid.Row=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{StaticResource SliderThumbStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Width</span>=<span class="pl-s"><span class="pl-pds">"</span>24<span class="pl-pds">"</span></span>/&gt;
+                                    &lt;/<span class="pl-ent">Grid</span>&gt;
+                                &lt;/<span class="pl-ent">Grid</span>&gt;
+                            &lt;/<span class="pl-ent">Grid</span>&gt;
+                        &lt;/<span class="pl-ent">ControlTemplate</span>&gt;
+                    &lt;/<span class="pl-ent">Setter</span>.Value&gt;
+                &lt;/<span class="pl-ent">Setter</span>&gt;
+            &lt;/<span class="pl-ent">Style</span>&gt;
+        &lt;/<span class="pl-ent">ResourceDictionary</span>&gt;
+    &lt;/<span class="pl-ent">Application</span>.Resources&gt;
+&lt;/<span class="pl-ent">Application</span>&gt;</pre></div>
+</li>
+<li>
+<p>Make <strong>DroneLander.UWP</strong> the startup project by right-clicking it and selecting <strong>Set as StartUp Project</strong>. Then click the <strong>Run</strong> button at the top of Visual Studio to launch the UWP version of Drone Lander on the local machine.</p>
+<blockquote>
+<p>If you would prefer to run the UWP app in a Windows phone emulator rather than on the desktop, simply select the desired emulator from the drop-down list attached to the <strong>Run</strong> button.</p>
+</blockquote>
+<p><a href="Images/run-uwp.png" target="_blank"><img src="Images/run-uwp.png" alt="Launching the UWP app" style="max-width:100%;"></a></p>
+<p><em>Launching the UWP app</em></p>
+</li>
+<li>
+<p>Confirm that the fuel gauge and throttle controls now look like the ones below. Then stop debugging.</p>
+<p><a href="Images/app-updated-controls-uwp.png" target="_blank"><img src="Images/app-updated-controls-uwp.png" alt="The UWP app with customized controls" style="max-width:100%;"></a></p>
+<p><em>The UWP app with customized controls</em></p>
+</li>
+</ol>
+<p>The app has now been updated to use custom renderers for Android, iOS and Windows. Custom renderers are one mechanism for customizing the appearance of controls, but they often require a lot of code. If you simply need to tweak the properties of the native controls that the default renderers produce, there is a simpler way to do it. That "simpler way" is custom effects.</p>
+<p><a name="Exercise2"></a></p>
+<h2>Exercise 2: Add a custom effect</h2>
+<p>On iOS and Windows, you can employ custom fonts in <code>Label</code> controls simply by adding font files to the projects and referencing them in the controls' <code>FontFamily</code> properties. On Android, it's not that simple. Code is required to load the font, create a <code>Typeface</code> object from it, and assign it to the control's <code>Typeface</code> property. A custom effect is the perfect tool for accomplishing this. Effects allow you to customize controls on a per-platform basis without writing full-blown renderers. They are typically simpler than custom renderers, and they can accept parameters as well.</p>
+<p>In this exercise, you will update the <code>Label</code> controls that display altitude, descent rate, and thrust in the Drone Lander app to use a digital font that resembles characters on an LCD display. And to ensure that it works on Android, you will write a custom effect.</p>
+<ol>
+<li>
+<p>In Solution Explorer, right-click the <strong>DroneLander (Portable)</strong> project and use the <strong>Add</strong> &gt; <strong>New Folder</strong> command to add a folder named "Effects" to the project.</p>
+</li>
+<li>
+<p>Right-click the "Effects" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "DigitalFontEffect.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-en">DigitalFontEffect</span>
+    {
+        <span class="pl-k">public static readonly </span><span class="pl-en">BindableProperty</span> <span class="pl-en">FontFileNameProperty</span> = BindableProperty.CreateAttached(<span class="pl-s"><span class="pl-pds">"</span>FontFileName<span class="pl-pds">"</span></span>, <span class="pl-k">typeof</span>(<span class="pl-k">string</span>), <span class="pl-k">typeof</span>(<span class="pl-en">DigitalFontEffect</span>), <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, propertyChanged: OnFileNameChanged);
+
+        <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">string</span> <span class="pl-en">GetFontFileName</span>(<span class="pl-en">BindableObject</span> <span class="pl-smi">view</span>)
+        {
+            <span class="pl-k">return</span> (<span class="pl-k">string</span>)view.GetValue(FontFileNameProperty);
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">SetFontFileName</span>(<span class="pl-en">BindableObject</span> <span class="pl-smi">view</span>, <span class="pl-k">string</span> <span class="pl-smi">value</span>)
+        {
+            view.SetValue(FontFileNameProperty, <span class="pl-k">value</span>);
+        }
+
+        <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">OnFileNameChanged</span>(<span class="pl-en">BindableObject</span> <span class="pl-smi">bindable</span>, <span class="pl-k">object</span> <span class="pl-smi">oldValue</span>, <span class="pl-k">object</span> <span class="pl-smi">newValue</span>)
+        {
+            <span class="pl-k">var</span> <span class="pl-en">view </span>= bindable <span class="pl-en">as</span> <span class="pl-en">View</span>;
+            <span class="pl-k">if</span> (view == <span class="pl-c1">null</span>)
+            {
+                <span class="pl-k">return</span>;
+            }
+            view.Effects.Add(<span class="pl-k">new</span> <span class="pl-en">FontEffect</span>());
+        }
+
+        <span class="pl-k">class</span> <span class="pl-en">FontEffect</span> : <span class="pl-en">RoutingEffect</span>
+        {
+            <span class="pl-k">public</span> <span class="pl-en">FontEffect</span>() : <span class="pl-c1">base</span>("Xamarin.FontEffect")
+            {
+            }
+        }
+    }
+}</pre></div>
+<p>Including this class in the Portable project enables you to apply a custom effect to any control by decorating it with a <code>DigitalFontEffect.FontFileName</code> attribute. The implementation of the effect is performed on a per-platform basis.</p>
+</li>
+<li>
+<p>Add a folder named "Effects" to the <strong>DroneLander.Android</strong> project. Then right-click the folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "DigitalFontEffect.cs." Replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms.Platform.Android</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Widget</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Graphics</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.ComponentModel</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Droid</span>;
+
+[assembly: ResolutionGroupName(<span class="pl-s"><span class="pl-pds">"</span>Xamarin<span class="pl-pds">"</span></span>)]
+[assembly: ExportEffect(typeof(DroneLander.Droid.DigitalFontEffect), <span class="pl-s"><span class="pl-pds">"</span>FontEffect<span class="pl-pds">"</span></span>)]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Droid</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">DigitalFontEffect</span> : <span class="pl-en">PlatformEffect</span>
+    {
+        <span class="pl-en">TextView</span> <span class="pl-en">control</span>;
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnAttached</span>()
+        {
+            <span class="pl-k">try</span>
+            {
+                control = Control <span class="pl-en">as</span> <span class="pl-en">TextView</span>;
+                <span class="pl-en">Typeface</span> <span class="pl-en">font</span> = Typeface.CreateFromAsset(Forms.Context.Assets, <span class="pl-s"><span class="pl-pds">"</span>Fonts/<span class="pl-pds">"</span></span> + DroneLander.DigitalFontEffect.GetFontFileName(Element) + <span class="pl-s"><span class="pl-pds">"</span>.ttf<span class="pl-pds">"</span></span>);
+                control.Typeface = font;
+            }
+            <span class="pl-k">catch</span> (Exception ex)
+            {
+            }
+        }
+
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnDetached</span>()
+        {
+        }
+
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnElementPropertyChanged</span>(<span class="pl-en">PropertyChangedEventArgs</span> <span class="pl-smi">args</span>)
+        {
+            <span class="pl-k">if</span> (args.PropertyName == DroneLander.DigitalFontEffect.FontFileNameProperty.PropertyName)
+            {
+                <span class="pl-en">Typeface</span> <span class="pl-en">font</span> = Typeface.CreateFromAsset(Forms.Context.ApplicationContext.Assets, <span class="pl-s"><span class="pl-pds">"</span>Fonts/<span class="pl-pds">"</span></span> + DroneLander.DigitalFontEffect.GetFontFileName(Element) + <span class="pl-s"><span class="pl-pds">"</span>.ttf<span class="pl-pds">"</span></span>);
+                control.Typeface = font;
+            }
+        }
+    }
+}</pre></div>
+<p>Custom effects are written by deriving from Xamarin Forms' <code>PlatformEffect</code> class and overriding key methods such as <code>OnAttached</code>, which is called when the effect is "attached" to the control, and <code>OnElementPropertyChanged</code>, which is called when one of the control's property values changes.</p>
+</li>
+<li>
+<p>Right-click the "Assets" folder in the <strong>DroneLander.Android</strong> project and use the <strong>Add</strong> &gt; <strong>New Folder</strong> command to add a subfolder named "Fonts." Then right-click the "Fonts" folder and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import <strong>Digital.ttf</strong> from the lab's "Resources\Fonts" folder.</p>
+</li>
+<li>
+<p>Select <strong>Digital.ttf</strong> in Solution Explorer. Then go to the Properties window and set <strong>Copy to Output Directory</strong> to <strong>Copy Always</strong>.</p>
+<p><a href="Images/vs-copy-always.png" target="_blank"><img src="Images/vs-copy-always.png" alt="Updating the properties of Digital.ttf" style="max-width:100%;"></a></p>
+<p><em>Updating the properties of Digital.ttf</em></p>
+</li>
+<li>
+<p>Open <strong>MainPage.xaml</strong> in the <strong>DroneLander (Portable)</strong> project and add a <code>Margin = "0,16,0,0"</code> attribute to the four <code>Label</code> controls highlighted below. This will create a little more vertical space between controls.</p>
+<p><a href="Images/vs-margin-after.png" target="_blank"><img src="Images/vs-margin-after.png" alt="Increasing the space between controls" style="max-width:100%;"></a></p>
+<p><em>Increasing the space between controls</em></p>
+</li>
+<li>
+<p>Now locate the <code>Label</code> controls that display altitude, descent rate, and thrust, and add the following attribute to each of the three controls to change the control fonts:</p>
+<div class="highlight highlight-text-xml"><pre>local:DigitalFontEffect.FontFileName="Digital"</pre></div>
+</li>
+<li>
+<p>Launch the Android version of Drone Lander in the Android emulator and confirm that the UI resembles the one below. Note the digital font used for the altitude, descent rate, and thrust readouts, and the increased margin between controls.</p>
+<p><a href="Images/app-after-margin.png" target="_blank"><img src="Images/app-after-margin.png" alt="The updated Android app" style="max-width:100%;"></a></p>
+<p><em>The updated Android app</em></p>
+</li>
+<li>
+<p>Right-click the "Resources" folder in the <strong>DroneLander.iOS</strong> project and use the <strong>Add</strong> &gt; <strong>New Folder</strong> command to add a subfolder named "Fonts." Then right-click the "Fonts" folder and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import <strong>Digital.ttf</strong> from the lab's "Resources\Fonts" folder.</p>
+</li>
+<li>
+<p>Select <strong>Digital.ttf</strong> and change its <strong>Copy to Output Directory</strong> property to <strong>Copy Always</strong>.</p>
+</li>
+<li>
+<p>Still in the <strong>DroneLander.iOS</strong> project, right-click <strong>Info.plist</strong>. Select <strong>Open With...</strong> from the context menu, select <strong>XML (Text) Editor</strong>, and click <strong>OK</strong>.</p>
+<p><a href="Images/vs-open-plist.png" target="_blank"><img src="Images/vs-open-plist.png" alt="Opening Info.plist in the XML editor" style="max-width:100%;"></a></p>
+<p><em>Opening Info.plist in the XML editor</em></p>
+</li>
+<li>
+<p>Scroll to the bottom of the file and add the following statements just before the closing <code>&lt;/dict&gt;</code> tag:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">key</span>&gt;UIAppFonts&lt;/<span class="pl-ent">key</span>&gt;
+&lt;<span class="pl-ent">array</span>&gt;
+  &lt;<span class="pl-ent">string</span>&gt;Fonts\Digital.ttf&lt;/<span class="pl-ent">string</span>&gt;
+&lt;/<span class="pl-ent">array</span>&gt;</pre></div>
+</li>
+<li>
+<p>Right-click the "Assets" folder in the <strong>DroneLander.UWP</strong> project and use the <strong>Add</strong> &gt; <strong>New Folder</strong> command to add a subfolder named "Fonts." Then right-click the "Fonts" folder and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import <strong>Digital.ttf</strong> from the lab's "Resources\Fonts" folder.</p>
+</li>
+<li>
+<p>Open <strong>App.xaml</strong> in the <strong>DroneLander (Portable)</strong> project and replace the style named <code>DisplayLabelStyle</code> with the following style definition:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">Style</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Key</span>=<span class="pl-s"><span class="pl-pds">"</span>DisplayLabelStyle<span class="pl-pds">"</span></span> <span class="pl-e">TargetType</span>=<span class="pl-s"><span class="pl-pds">"</span>Label<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>TextColor<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>White<span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>Margin<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">Setter</span>.Value&gt;
+            &lt;<span class="pl-ent">OnPlatform</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">TypeArguments</span>=<span class="pl-s"><span class="pl-pds">"</span>Thickness<span class="pl-pds">"</span></span>
+                <span class="pl-e">iOS</span>=<span class="pl-s"><span class="pl-pds">"</span>0,-10,0,0<span class="pl-pds">"</span></span>
+                <span class="pl-e">Android</span>=<span class="pl-s"><span class="pl-pds">"</span>0,-5,0,0<span class="pl-pds">"</span></span>
+                <span class="pl-e">WinPhone</span>=<span class="pl-s"><span class="pl-pds">"</span>0,-5,0,0<span class="pl-pds">"</span></span> /&gt;
+        &lt;/<span class="pl-ent">Setter</span>.Value&gt;
+    &lt;/<span class="pl-ent">Setter</span>&gt;
+    &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>FontSize<span class="pl-pds">"</span></span> <span class="pl-e">Value</span>=<span class="pl-s"><span class="pl-pds">"</span>48<span class="pl-pds">"</span></span> /&gt;
+    &lt;<span class="pl-ent">Setter</span> <span class="pl-e">Property</span>=<span class="pl-s"><span class="pl-pds">"</span>FontFamily<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">Setter</span>.Value&gt;
+            &lt;<span class="pl-ent">OnPlatform</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">TypeArguments</span>=<span class="pl-s"><span class="pl-pds">"</span>x:String<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">OnPlatform</span>.iOS&gt;Digital-7Mono&lt;/<span class="pl-ent">OnPlatform</span>.iOS&gt;
+                &lt;<span class="pl-ent">OnPlatform</span>.Android&gt;&lt;/<span class="pl-ent">OnPlatform</span>.Android&gt;
+                &lt;<span class="pl-ent">OnPlatform</span>.WinPhone&gt;/Assets/Fonts/Digital.ttf#Digital-7 Mono&lt;/<span class="pl-ent">OnPlatform</span>.WinPhone&gt;
+            &lt;/<span class="pl-ent">OnPlatform</span>&gt;
+        &lt;/<span class="pl-ent">Setter</span>.Value&gt;
+    &lt;/<span class="pl-ent">Setter</span>&gt;
+&lt;/<span class="pl-ent">Style</span>&gt;</pre></div>
+<p>The main purpose of this style is to set the <code>FontFamily</code> property of the controls to which it is applied on iOS and Windows to use the font in <strong>Digital.ttf</strong>. It also ensures that the margins and spacing look great on all three platforms. Note the use of <code>OnPlatform</code>, which is a simple yet powerful way to assign per-platform values to control properties and "tweak" the UI for each different operating system.</p>
+</li>
+<li>
+<p>Launch the Windows version of the app and confirm that the same changes you saw in Android app appear in the Windows version, too.</p>
+</li>
+</ol>
+<p>The primary purpose of custom renderers and custom effects is to change the appearance of controls used in Xamarin Forms apps. But what if you want to call platform-specific code in a Xamarin Forms app — for example, call an API that is unique to iOS, Android, or Windows? That's where dependency services come in.</p>
+<p><a name="Exercise3"></a></p>
+<h2>Exercise 3: Add a dependency service</h2>
+<p>Xamarin lets you write native apps for iOS, Android, and Windows in C# using a common API that feels familiar to .NET developers. But not all features of these platforms are exposed through Xamarin. A classic example is location services — APIs for detecting a user's current location or tracking movement. iOS, Android, and Windows all include location APIs, but because Xamarin doesn't wrap them, an app that wants to use these APIs must call them directly.</p>
+<p>The primary mechanism that Xamarin Forms apps use to call platform-specific APIs is <em>dependency services</em>. Dependency services permit you to define an interface in shared code and provide per-platform implementations of that interface in the platform-specific projects. Through the magic of dependency injection, a method called from shared code executes code that is specific to the host operating system.</p>
+<p>In this exercise, you will write a dependency service that enables Drone Lander to produce sound. In <a href="#Exercise4">Exercise 4</a>, you will modify the app to use the dependency service to play engine noises while the lander is descending.</p>
+<ol>
+<li>
+<p>Add a folder named "Services" to the <strong>DroneLander (Portable)</strong> project. Right-click the "Services" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "IAudioService.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Services</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-en">IAudioService</span>
+    {
+        <span class="pl-k">void</span> <span class="pl-en">AdjustVolume</span>(<span class="pl-k">double</span> <span class="pl-smi">volume</span>);
+        <span class="pl-k">void</span> <span class="pl-en">KillEngine</span>();
+        <span class="pl-k">void</span> <span class="pl-en">ToggleEngine</span>();
+        <span class="pl-en">Action</span> <span class="pl-en">OnFinishedPlaying</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    }
+}
+</pre></div>
+<p>This code defines an interface named <code>IAudioService</code> that can be called from shared code but implemented differently in each platform-specific project.</p>
+</li>
+<li>
+<p>Add a folder named "Services" to the <strong>DroneLander.Android</strong> project. Right-click the "Services" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "AudioServices.cs." Then replace the contents of the file with the following code, which implements the <code>IAudioService</code> interface in a way that is specific to Android:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Media</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.App</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Content</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.OS</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Runtime</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Views</span>;
+<span class="pl-k">using</span> <span class="pl-en">Android.Widget</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Droid.Services</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Services</span>;
+
+[assembly: Dependency(typeof(AudioService))]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Droid.Services</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AudioService</span> : <span class="pl-en">IAudioService</span>
+    {
+        <span class="pl-k">private </span><span class="pl-en">MediaPlayer</span> <span class="pl-en">_mediaPlayer</span>;
+
+        <span class="pl-k">public </span><span class="pl-en">Action</span> <span class="pl-en">OnFinishedPlaying</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+
+        <span class="pl-k">public</span> <span class="pl-en">AudioService</span>()
+        {
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">AdjustVolume</span>(<span class="pl-k">double</span> <span class="pl-smi">level</span>)
+        {
+            <span class="pl-k">float</span> <span class="pl-en">volume</span> = (<span class="pl-k">float</span>)(level / <span class="pl-c1">100.0</span>);
+            <span class="pl-k">if</span> (volume == <span class="pl-c1">0.0</span>) volume = <span class="pl-c1">0.1f</span>;
+            _mediaPlayer.SetVolume(volume, volume);
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">KillEngine</span>()
+        {    
+            _mediaPlayer?.SetVolume(<span class="pl-c1">0.0f</span>, <span class="pl-c1">0.0f</span>);
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">ToggleEngine</span>()
+        {
+            <span class="pl-k">if</span> (_mediaPlayer != <span class="pl-c1">null</span>)
+            {
+                _mediaPlayer.Completion -= OnMediaCompleted;
+                _mediaPlayer.Stop();
+                _mediaPlayer = <span class="pl-c1">null</span>;
+            }
+            <span class="pl-k">else</span>
+            {
+                <span class="pl-k">var</span> <span class="pl-en">fullPath </span>= <span class="pl-s"><span class="pl-pds">"</span>Sounds/engine.m4a<span class="pl-pds">"</span></span>;
+                Android.Content.Res.<span class="pl-en">AssetFileDescriptor</span> <span class="pl-en">afd</span> = <span class="pl-c1">null</span>;
+
+                <span class="pl-k">try</span>
+                {
+                    afd = Forms.Context.Assets.OpenFd(fullPath);
+                }
+                <span class="pl-k">catch</span> (Exception ex)
+                {
+
+                }
+                <span class="pl-k">if</span> (afd != <span class="pl-c1">null</span>)
+                {
+                    <span class="pl-k">if</span> (_mediaPlayer == <span class="pl-c1">null</span>)
+                    {
+                        _mediaPlayer = <span class="pl-k">new</span> <span class="pl-en">MediaPlayer</span>();
+                        _mediaPlayer.Prepared += (sender, args) =&gt;
+                        {
+                            _mediaPlayer.Start();
+                            _mediaPlayer.Completion += OnMediaCompleted;
+                        };
+                    }
+
+                    _mediaPlayer.Reset();
+                    _mediaPlayer.SetVolume(<span class="pl-c1">0.1f</span>, <span class="pl-c1">0.1f</span>);
+                    _mediaPlayer.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
+                    _mediaPlayer.PrepareAsync();
+                }
+            }
+        }
+
+        <span class="pl-k">void</span> <span class="pl-en">OnMediaCompleted</span>(<span class="pl-k">object</span> <span class="pl-smi">sender</span>, <span class="pl-en">EventArgs</span> <span class="pl-smi">e</span>)
+        {
+            OnFinishedPlaying?.Invoke();
+        }	
+    }
+}
+</pre></div>
+</li>
+<li>
+<p>Add a subfolder named "Sounds" to the "Assets" folder in the <strong>DroneLander.Android</strong> project. Right-click the "Sounds" folder and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import <strong>engine.m4a</strong> from the lab's "Resources\Sounds" folder. This file contains the engine noise that the app will play.</p>
+</li>
+<li>
+<p>Add a folder named "Services" to the <strong>DroneLander.iOS</strong> project. Right-click the "Services" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "AudioServices.cs." Then replace the contents of the file with the following code. This is the iOS implementation of <code>IAudioService</code>:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+
+<span class="pl-k">using</span> <span class="pl-en">Foundation</span>;
+<span class="pl-k">using</span> <span class="pl-en">UIKit</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+<span class="pl-k">using</span> <span class="pl-en">AVFoundation</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.iOS.DependencyServices</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Services</span>;
+
+[assembly: Dependency(typeof(AudioService))]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.iOS.DependencyServices</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AudioService</span> : <span class="pl-en">IAudioService</span>
+    {
+        <span class="pl-k">private </span><span class="pl-en">AVAudioPlayer</span> <span class="pl-en">_audioPlayer</span> = <span class="pl-c1">null</span>;
+        <span class="pl-k">public </span><span class="pl-en">Action</span> <span class="pl-en">OnFinishedPlaying</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+
+        <span class="pl-k">public</span> <span class="pl-en">AudioService</span>()
+        {
+            <span class="pl-k">var</span> <span class="pl-en">avSession </span>= AVAudioSession.SharedInstance();
+            avSession.SetCategory(AVAudioSessionCategory.Playback);
+
+            <span class="pl-en">NSError</span> <span class="pl-en">activationError</span> = <span class="pl-c1">null</span>;
+            avSession.SetActive(<span class="pl-c1">true</span>, out activationError);
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">AdjustVolume</span>(<span class="pl-k">double</span> <span class="pl-smi">level</span>)
+        {
+            <span class="pl-k">float</span> <span class="pl-en">volume</span> = (<span class="pl-k">float</span>)(level / <span class="pl-c1">100.0</span>);
+
+            <span class="pl-k">if</span> (volume == <span class="pl-c1">0.0</span>) volume = <span class="pl-c1">0.1f</span>;
+
+            _audioPlayer.SetVolume(volume, <span class="pl-c1">0</span>);
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">KillEngine</span>()
+        {
+            _audioPlayer.SetVolume(<span class="pl-c1">0.0f</span>, <span class="pl-c1">0</span>);
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">ToggleEngine</span>()
+        {
+            <span class="pl-k">if</span> (_audioPlayer != <span class="pl-c1">null</span>)
+            {
+                _audioPlayer.FinishedPlaying -= OnMediaCompleted;
+                _audioPlayer.Stop();
+                _audioPlayer = <span class="pl-c1">null</span>;
+            }
+            <span class="pl-k">else</span>
+            {
+                <span class="pl-k">string</span> <span class="pl-en">localUrl</span> = <span class="pl-s"><span class="pl-pds">"</span>Sounds/engine.m4a<span class="pl-pds">"</span></span>;
+                _audioPlayer = AVAudioPlayer.FromUrl(NSUrl.FromFilename(localUrl));
+                _audioPlayer.SetVolume(<span class="pl-c1">0.1f</span>, <span class="pl-c1">0</span>);
+                _audioPlayer.FinishedPlaying += OnMediaCompleted;
+                _audioPlayer.Play();
+            }
+        }
+
+        <span class="pl-k">private</span> <span class="pl-k">void</span> <span class="pl-en">OnMediaCompleted</span>(<span class="pl-k">object</span> <span class="pl-smi">sender</span>, <span class="pl-en">AVStatusEventArgs</span> <span class="pl-smi">e</span>)
+        {
+            OnFinishedPlaying?.Invoke();
+        }
+    }
+}</pre></div>
+</li>
+<li>
+<p>Add a subfolder named "Sounds" to the "Resources" folder in the <strong>DroneLander.iOS</strong> project. Right-click the "Sounds" folder and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import <strong>engine.m4a</strong> from the lab's "Resources\Sounds" folder.</p>
+</li>
+<li>
+<p>Add a folder named "Services" to the <strong>DroneLander.UWP</strong> project. Right-click the "Services" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "AudioServices.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">DroneLander.UWP.DependencyServices</span>;
+<span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">Windows.Media.Playback</span>;
+<span class="pl-k">using</span> <span class="pl-en">Xamarin.Forms</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Services</span>;
+
+[assembly: Dependency(typeof(AudioService))]
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.UWP.DependencyServices</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AudioService</span> : <span class="pl-en">IAudioService</span>
+    {
+        <span class="pl-k">private </span><span class="pl-en">MediaPlayer</span> <span class="pl-en">_mediaPlayer</span>;
+
+        <span class="pl-k">public </span><span class="pl-en">Action</span> <span class="pl-en">OnFinishedPlaying</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+
+        <span class="pl-k">public</span> <span class="pl-en">AudioService</span>()
+        {
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">AdjustVolume</span>(<span class="pl-k">double</span> <span class="pl-smi">level</span>)
+        {
+            <span class="pl-k">float</span> <span class="pl-en">volume</span> = (<span class="pl-k">float</span>)(level / <span class="pl-c1">100.0</span>);
+
+            _mediaPlayer.Volume = volume;
+        }
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">KillEngine</span>()
+        {
+            _mediaPlayer.Volume = <span class="pl-c1">0.0</span>;
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">ToggleEngine</span>()
+        {
+            <span class="pl-k">if</span> (_mediaPlayer != <span class="pl-c1">null</span>)
+            {
+                _mediaPlayer.Pause();
+
+                <span class="pl-k">var</span> <span class="pl-en">session </span>= _mediaPlayer.PlaybackSession;
+                session.Position = <span class="pl-k">new</span> <span class="pl-en">TimeSpan</span>(0);
+                _mediaPlayer.MediaEnded -= OnMediaEnded;
+
+            }
+            <span class="pl-k">else</span>
+            {
+                <span class="pl-k">var</span> <span class="pl-en">fullPath </span>= <span class="pl-s"><span class="pl-pds">"</span>Assets/Sounds/engine.m4a<span class="pl-pds">"</span></span>;
+
+                _mediaPlayer = <span class="pl-k">new</span> <span class="pl-en">MediaPlayer</span>();
+                _mediaPlayer.AutoPlay = <span class="pl-c1">false</span>;
+                _mediaPlayer.Volume = <span class="pl-c1">0.1f</span>;
+                _mediaPlayer.MediaEnded += OnMediaEnded;
+
+                <span class="pl-en">Uri</span> <span class="pl-en">pathUri</span> = <span class="pl-k">new</span> <span class="pl-en">Uri</span>(<span class="pl-pds">$"</span><span class="pl-s">ms-appx:///</span>{fullPath}<span class="pl-pds">"</span>);
+                _mediaPlayer.Source = Windows.Media.Core.MediaSource.CreateFromUri(pathUri);
+                _mediaPlayer.Play();
+            }	
+        }
+
+        <span class="pl-k">private</span> <span class="pl-k">void</span> <span class="pl-en">OnMediaEnded</span>(<span class="pl-en">MediaPlayer</span> <span class="pl-smi">sender</span>, <span class="pl-k">object</span> <span class="pl-smi">args</span>)
+        {
+            OnFinishedPlaying?.Invoke();
+        }
+    }
+}</pre></div>
+</li>
+<li>
+<p>Add a subfolder named "Sounds" to the "Assets" folder in the <strong>DroneLander.UWP</strong> project. Right-click the "Sounds" folder and use the <strong>Add</strong> &gt; <strong>Existing Item...</strong> command to import <strong>engine.m4a</strong> from the lab's "Resources\Sounds" folder.</p>
+</li>
+</ol>
+<p>With the infrastructure in place for generating sounds, the next step is to modify the app to use it.</p>
+<p><a name="Exercise4"></a></p>
+<h2>Exercise 4: Call the dependency service from shared code</h2>
+<p>The final piece of the puzzle is to call the <code>IAudioService</code> methods that you added in the previous exercise to make engine noises when the drone is descending, and to vary the volume as the throttle setting increases and decreases. Remember that because you're calling a dependency service, you make the calls from shared code, but execute platform-specific code.</p>
+<ol>
+<li>
+<p>Add a folder named "Helpers" to the <strong>DroneLander (Portable)</strong> project. Right-click the "Helpers" folder and use the <strong>Add</strong> &gt; <strong>Class</strong> command to add a class file named "AudioHelper.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">DroneLander.Services</span>;
+<span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Helpers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-en">AudioHelper</span>
+    {
+        <span class="pl-k">public static </span><span class="pl-en">IAudioService</span> <span class="pl-en">AudioPlayer</span>;
+        <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">ToggleEngine</span>()
+        {
+            AudioPlayer = Xamarin.Forms.DependencyService.Get&lt;IAudioService&gt;();	
+            AudioPlayer.ToggleEngine();
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">AdjustVolume</span>(<span class="pl-k">double</span> <span class="pl-smi">volume</span>)
+        {
+            AudioPlayer = Xamarin.Forms.DependencyService.Get&lt;IAudioService&gt;();	
+            AudioPlayer.AdjustVolume(volume);
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">KillEngine</span>()
+        {
+            AudioPlayer = Xamarin.Forms.DependencyService.Get&lt;IAudioService&gt;();	
+            AudioPlayer.KillEngine();
+        }
+    }
+}
+</pre></div>
+<p>Notice the call to <code>Xamarin.Forms.DependencyService.Get</code>. This is how shared code retrieves a reference to an object that provides a platform-specific implementation of the specified interface.</p>
+</li>
+<li>
+<p>Open <strong>MainViewModel.cs</strong> in the "ViewModels" folder and replace the <code>StartLanding</code> method with the one below:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">StartLanding</span>()
+{
+    Helpers.AudioHelper.ToggleEngine();
+
+    Device.StartTimer(TimeSpan.FromMilliseconds(Common.CoreConstants.PollingIncrement), () =&gt;
+    {
+        UpdateFlightParameters();
+                         
+        <span class="pl-k">if</span> (<span class="pl-c1">this</span>.ActiveLandingParameters.Altitude &gt; <span class="pl-c1">0.0</span>)
+        {
+            Device.BeginInvokeOnMainThread(() =&gt;
+            {
+                <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude;
+                <span class="pl-c1">this</span>.DescentRate = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity;
+                <span class="pl-c1">this</span>.FuelRemaining = <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel / <span class="pl-c1">1000</span>;
+                <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust;
+            });
+
+            <span class="pl-k">if</span> (<span class="pl-c1">this</span>.FuelRemaining == <span class="pl-c1">0.0</span>) Helpers.AudioHelper.KillEngine();
+
+            <span class="pl-k">return</span> <span class="pl-c1">this</span>.IsActive;
+        }                
+        <span class="pl-k">else</span>
+        {
+            <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude = <span class="pl-c1">0.0</span>;
+            <span class="pl-c1">this</span>.IsActive = <span class="pl-c1">false</span>;
+
+            Device.BeginInvokeOnMainThread(() =&gt;
+            {
+                <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude;
+                <span class="pl-c1">this</span>.DescentRate = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity;
+                <span class="pl-c1">this</span>.FuelRemaining = <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel / <span class="pl-c1">1000</span>;
+                <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust;
+            });
+
+            <span class="pl-k">if</span> (<span class="pl-c1">this</span>.ActiveLandingParameters.Velocity &gt; -<span class="pl-c1">5.0</span>)
+            {
+                MessagingCenter.Send(<span class="pl-c1">this</span>.ActivityPage, <span class="pl-s"><span class="pl-pds">"</span>ActivityUpdate<span class="pl-pds">"</span></span>, LandingResultType.Landed);
+            }
+            <span class="pl-k">else</span>
+            {
+                MessagingCenter.Send(<span class="pl-c1">this</span>.ActivityPage, <span class="pl-s"><span class="pl-pds">"</span>ActivityUpdate<span class="pl-pds">"</span></span>, LandingResultType.Kaboom);
+            }
+
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+    });
+}</pre></div>
+<p>This will ensure that the engine audio starts playing when the <strong>Start</strong> button is tapped, and stops if the lander runs out of fuel.</p>
+</li>
+<li>
+<p>Still in <strong>MainViewModel.cs</strong>, add the following line of code to the <code>ResetLanding</code> method, making it the first statement in that method:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">Helpers.AudioHelper.ToggleEngine</span>();</pre></div>
+<p><a href="Images/vs-updated-reset-landing.png" target="_blank"><img src="Images/vs-updated-reset-landing.png" alt="The updated ResetLanding method" style="max-width:100%;"></a></p>
+<p><em>The updated ResetLanding method</em></p>
+</li>
+<li>
+<p>Now replace the <code>Throttle</code> property in the <code>MainViewModel</code> class with the following implementation to adjust the audio volume whenever the throttle setting changes:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">private</span> <span class="pl-k">double</span> <span class="pl-en">_throttle</span>;
+<span class="pl-k">public</span> <span class="pl-k">double </span><span class="pl-en">Throttle</span>
+{
+    <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._throttle; }
+    <span class="pl-k">set</span>
+    {
+        <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._throttle, <span class="pl-k">value</span>);
+        <span class="pl-k">if</span> (<span class="pl-c1">this</span>.IsActive &amp;&amp; <span class="pl-c1">this</span>.FuelRemaining &gt; <span class="pl-c1">0.0</span>) Helpers.AudioHelper.AdjustVolume(<span class="pl-k">value</span>);
+    }
+}</pre></div>
+</li>
+</ol>
+<p>Now let's make sure that it works. Time to make a descent!</p>
+<p><a name="Exercise5"></a></p>
+<h2>Exercise 5: Test the updated app</h2>
+<p>The lander will fly no differently than before, but the UI has changed and you should hear the engine now when you use the throttle to control your descent. In this exercise, you will practice flying supply missions (remember, it gets real in Part 5!) and ensure that all the code you added works.</p>
+<p>Remember, you begin a descent 5,000 meters above the Mars surface. When you click <strong>Start</strong>, the supply drone begins falling. (The gravity on Mars is weaker than the gravity on Earth, but there is gravity nonetheless.) The goal is still to touch down on the surface with a downward velocity of 5 meters per second or less.</p>
+<ol>
+<li>
+<p>Launch the app in the Android emulator and click <strong>Start</strong>. Increase the throttle a bit and confirm that you hear the engine. It should be low but audible. If you don't hear anything, make sure the volume is turned up on your PC.</p>
+<p><a href="Images/app-click-start.png" target="_blank"><img src="Images/app-click-start.png" alt="Starting a descent" style="max-width:100%;"></a></p>
+<p><em>Starting a descent</em></p>
+</li>
+<li>
+<p>Increase the throttle and confirm that the audio increases in volume.</p>
+<p><a href="Images/app-adjust-throttle.png" target="_blank"><img src="Images/app-adjust-throttle.png" alt="Adjusting the drone's throttle" style="max-width:100%;"></a></p>
+<p><em>Adjusting the drone's throttle</em></p>
+</li>
+</ol>
+<p>Continue flying the mission until you reach the surface. If you have time left over, practice landing the drone a few times to prepare yourself for flying real missions later on.</p>
+<p><a name="Summary"></a></p>
+<h2>Summary</h2>
+<p>Dependency services, custom renderers, and custom effects are important tools in a Xamarin Forms developer's toolbox because virtually every real-world Xamarin Forms app requires some per-platform customizations. When you write Xamarin Forms apps of your own, you can use the customizations you made to Drone Lander as a template for those apps, too.</p>
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

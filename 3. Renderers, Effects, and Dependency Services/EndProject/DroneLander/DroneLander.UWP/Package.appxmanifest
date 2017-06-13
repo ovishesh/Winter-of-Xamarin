@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
+
+  <Identity
+    Name="04770cde-ea3c-4c61-a508-74f968c56a2f"
+    Publisher="CN=visho"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="04770cde-ea3c-4c61-a508-74f968c56a2f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>Drone Lander</DisplayName>
+    <PublisherDisplayName>Developer</PublisherDisplayName>
+    <Logo>Assets\DroneLander_store.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="DroneLander.UWP.App">
+      <uap:VisualElements DisplayName="Drone Lander" Square150x150Logo="Assets\DroneLander_150x150.png" Square44x44Logo="Assets\DroneLander_44x44.png" Description="Drone Lander for Windows" BackgroundColor="#212121">
+        <uap:DefaultTile Wide310x150Logo="Assets\DroneLander_310x150.png" Square310x310Logo="Assets\DroneLander_310x310.png" Square71x71Logo="Assets\DroneLander_71x71.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\DroneLander_splash.png" BackgroundColor="#212121" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

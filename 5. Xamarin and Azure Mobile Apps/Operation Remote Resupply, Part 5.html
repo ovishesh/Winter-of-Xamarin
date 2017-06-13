@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Operation Remote Resupply, Part 5</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<p><a name="HOLTitle"></a></p>
+<h1>Operation Remote Resupply, Part 5</h1>
+<hr>
+<p><a name="Overview"></a></p>
+<h2>Overview</h2>
+<p>At present, Drone Lander is a stand-alone app that doesn't connect to the cloud. In the real world, mobile apps frequently use cloud services to store data, authenticate users, enact push notifications, and more. Building cloud services for mobile apps frequently adds significant time and cost to the development process, and requires additional skills beyond those required to build client apps.</p>
+<p><a href="https://azure.microsoft.com/en-us/services/app-service/mobile/">Azure Mobile Apps</a> is an Azure service that simplifies the process of building back-end services for mobile apps. It supports authentication, push notifications, offline data syncing, and more. It also supports <a href="https://blog.xamarin.com/getting-started-azure-mobile-apps-easy-tables/">Easy Tables</a>, which make it easy to store data in the cloud, and Easy APIs, which make it extraordinarily easy to implement REST endpoints for client apps to call. In short, Azure Mobile Apps offer a comprehensive, scalable, and easily manageable platform for creating the kinds of back-end services that client apps often require.</p>
+<p>In Part 5 of Operation Remote Resupply, you will provision an Azure Mobile App in the Azure Portal and connect it to a database. Then you will use Visual Studio 2017 to implement a back-end service for the Drone Lander app and modify the app so that it uses the service to store information regarding landing attempts in the cloud and transmit real-time telemetry as you descend to the Mars surface. That telemetry will be fed to a Mission Control app shown on the big screen at the front of the room so everyone can see the supply missions that are flown. Then you will compete to be the first to land — and hopefully not the last!</p>
+<p><a name="Objectives"></a></p>
+<h3>Objectives</h3>
+<p>In this lab, you will learn how to:</p>
+<ul>
+<li>Create an Azure Mobile App</li>
+<li>Write a back-end service that stores data in the cloud</li>
+<li>Write a back-end service that exposes REST APIs</li>
+<li>Deploy a back-end service to an Azure Mobile app</li>
+<li>Authenticate users using an Azure Mobile App</li>
+<li>Call back-end services from a client app</li>
+</ul>
+<p><a name="Prerequisites"></a></p>
+<h3>Prerequisites</h3>
+<p>The following are required to complete this lab:</p>
+<ul>
+<li><a href="https://www.visualstudio.com/vs/">Visual Studio Community 2017</a> or higher</li>
+<li>A computer running Windows 10 that supports hardware emulation using Hyper-V. For more information, and for a list of requirements, see <a href="https://msdn.microsoft.com/en-us/library/mt228280.aspx">https://msdn.microsoft.com/en-us/library/mt228280.aspx</a>.</li>
+<li>A Microsoft Azure subscription. If you don't have one, <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a></li>
+</ul>
+<hr>
+<p><a name="Exercises"></a></p>
+<h2>Exercises</h2>
+<p>This lab includes the following exercises:</p>
+<ul>
+<li><a href="#Exercise1">Exercise 1: Create an Azure Mobile App</a></li>
+<li><a href="#Exercise2">Exercise 2: Add a data connection</a></li>
+<li><a href="#Exercise3">Exercise 3: Implement and deploy a back-end service</a></li>
+<li><a href="#Exercise4">Exercise 4: Configure the service to support authentication</a></li>
+<li><a href="#Exercise5">Exercise 5: Add authentication logic to Drone Lander</a></li>
+<li><a href="#Exercise6">Exercise 6: Update Drone Lander to authenticate users and record landings</a></li>
+<li><a href="#Exercise7">Exercise 7: Update Drone Lander to send telemetry to Mission Control</a></li>
+</ul>
+<p>Estimated time to complete this lab: <strong>45</strong> minutes.</p>
+<p><a name="Exercise1"></a></p>
+<h2>Exercise 1: Create an Azure Mobile App</h2>
+<p>The first step in using Azure Mobile Apps to build a back end for a Xamarin Forms app — or any client app, for that matter — is to create an Azure Mobile App. In this exercise, you will use the Azure portal to create an Azure Mobile App for Drone Lander. Under the hood, an Azure Mobile App is simply an <a href="https://azure.microsoft.com/services/app-service/">Azure App Service</a> that is capable of hosting Web sites and Web services. Later, you will build a service and deploy it to the Mobile App.</p>
+<ol>
+<li>
+<p>Open the <a href="https://portal.azure.com">Azure Portal</a> in your browser. If asked to sign in, do so using your Microsoft account.</p>
+</li>
+<li>
+<p>Click <strong>+ New</strong>, followed by <strong>Web + Mobile</strong> and <strong>Mobile App</strong>.</p>
+<p><a href="Images/new-mobile-app.png" target="_blank"><img src="Images/new-mobile-app.png" alt="Creating a new Azure Mobile App" style="max-width:100%;"></a></p>
+<p><em>Creating a new Azure Mobile App</em></p>
+</li>
+<li>
+<p>Enter an app name that is unique within Azure, such as "dronelandermobile001." Under <strong>Resource Group</strong>, select <strong>Create new</strong> and enter "DroneLanderResourceGroup" as the resource-group name to create a resource group for the Mobile App. Accept the default values for all other parameters, and then click <strong>Create</strong>.</p>
+<p><a href="Images/portal-create-new-app.png" target="_blank"><img src="Images/portal-create-new-app.png" alt="Creating an Azure Mobile App" style="max-width:100%;"></a></p>
+<p><em>Creating an Azure Mobile App</em></p>
+</li>
+<li>
+<p>Click <strong>Resource groups</strong> in the ribbon on the left side of the portal, and then click <strong>DroneLanderResourceGroup</strong> to open the resource group.</p>
+<p><a href="Images/open-resource-group.png" target="_blank"><img src="Images/open-resource-group.png" alt="Opening the resource group" style="max-width:100%;"></a></p>
+<p><em>Opening the resource group</em></p>
+</li>
+<li>
+<p>Click the <strong>Refresh</strong> button in the resource-group blade periodically until "Deploying" changes to "Succeeded," indicating that the Mobile App has been deployed.</p>
+</li>
+</ol>
+<p>Once the Azure Mobile App is deployed, you're ready for the next step: creating a database in Azure and connecting the Azure Mobile App to it.</p>
+<p><a name="Exercise2"></a></p>
+<h2>Exercise 2: Add a data connection</h2>
+<p>Every front end needs a great back end, and back ends frequently store data and provide APIs for accessing that data. Azure Mobile Apps support the concept of "Easy" tables and APIs, as well as direct data connections that store data in SQL databases or Azure blob storage. In this exercise, you will configure the Azure Mobile App you created in Exercise 1 to store data in an Azure SQL Database. <em>This is the database in which information about landing attempts will be recorded</em>.</p>
+<ol>
+<li>
+<p>In the blade for the "DroneLanderResourceGroup" resource group, click the Azure Mobile App that you deployed in Exercise 1. (It will be listed as an "App Service," which is the family of services to which Azure Mobile Apps belong.) Then scroll down in the menu on the left side of the blade and click <strong>Data connections</strong>.</p>
+<p><a href="Images/portal-select-data-connections.png" target="_blank"><img src="Images/portal-select-data-connections.png" alt="Viewing data connections" style="max-width:100%;"></a></p>
+<p><em>Viewing data connections</em></p>
+</li>
+<li>
+<p>Click <strong>+ Add</strong> to add a new data connection.</p>
+</li>
+<li>
+<p>Ensure <strong>SQL Database</strong> is selected. Then click <strong>Configure required settings</strong>, followed by <strong>Create a new database</strong>.</p>
+<p><a href="Images/portal-configure-database.png" target="_blank"><img src="Images/portal-configure-database.png" alt="Creating a new database" style="max-width:100%;"></a></p>
+<p><em>Creating a new database</em></p>
+</li>
+<li>
+<p>Enter the name of your Azure Mobile App as the database name, and then click <strong>Target server</strong>.</p>
+<blockquote>
+<p>Using the same name for your Mobile App and SQL database is NOT a requirement. It is simply a convenience for working this lab.</p>
+</blockquote>
+<p><a href="Images/portal-click-target-server.png" target="_blank"><img src="Images/portal-click-target-server.png" alt="Naming a database" style="max-width:100%;"></a></p>
+<p><em>Naming a database</em></p>
+</li>
+<li>
+<p>Click <strong>Create a new server</strong> and enter the name of your Azure Mobile App as the server name. Enter a user name and password of your choosing for accessing the server. Select a location (preferably the same location to which you deployed the Azure Mobile App in Exercise 1, although that is not a requirement), and then click <strong>Select</strong>.</p>
+<p><a href="Images/new-server.png" target="_blank"><img src="Images/new-server.png" alt="Creating a database server" style="max-width:100%;"></a></p>
+<p><em>Creating a database server</em></p>
+</li>
+<li>
+<p>Click the <strong>Select</strong> button at the bottom of the "SQL Database" blade. Then click <strong>Connection string</strong> in the "Add data connection" blade, <strong>OK</strong> at the bottom of the "Connection String" blade, and <strong>OK</strong> at the bottom of the "Add data connection" blade.</p>
+<blockquote>
+<p>Since you will use a "quickstart" project in the next exercise to implement a back-end service, it's important that you accept the default connection string name of "MS_TableConnectionString." You could change the connection-string name, but you would have to change it in the quickstart code as well.</p>
+</blockquote>
+<p><a href="Images/portal-accept-connection-string.png" target="_blank"><img src="Images/portal-accept-connection-string.png" alt="Adding a data connection" style="max-width:100%;"></a></p>
+<p><em>Adding a data connection</em></p>
+</li>
+</ol>
+<p>Provisioning the database and database server will take a few minutes, but there's no need to wait. You can move on to the next exercise and begin writing the back-end service that you will deploy to the Azure Mobile App.</p>
+<p><a name="Exercise3"></a></p>
+<h2>Exercise 3: Implement and deploy a back-end service</h2>
+<p>In this exercise, you will use Visual Studio to write a service and deploy it to the Azure Mobile App. The service will include two MVC controllers: one that exposes REST-callable methods for writing information about landing attempts to the database you created in the previous exercise (and for retrieving that information once written), and one that exposes REST-callable methods for transmitting telemetry data — altitude, descent rate, fuel remaining, thrust, and so on — to Mission Control, where it can be displayed for all to see on the big screen at the front of the room.</p>
+<ol>
+<li>
+<p>In Visual Studio 2017, open the <strong>DroneLander</strong> solution that you built in previous labs.</p>
+</li>
+<li>
+<p>Right-click the <strong>DroneLander</strong> solution and use the <strong>Add</strong> &gt; <strong>Existing Project...</strong> command to add <strong>DroneLander.Backend.csproj</strong> from the lab's "Resources\Quick Start\DroneLander.Backend" folder. This is a quick-start project for creating a back-end service for Azure Mobile Apps.</p>
+<blockquote>
+<p>You can click <strong>Quickstart</strong> in the blade for an Azure Mobile App in the Azure Portal and download quick-start projects of various types. Because these projects contain infrastructure you don't need and would have to be modified anyway, you are importing a project that has been specifically prepared for this lab.</p>
+</blockquote>
+</li>
+<li>
+<p>Add a folder named "Controllers" to the <strong>DroneLander.Backend</strong> project. Right-click the "Controllers" folder and use the <strong>Add</strong> &gt; <strong>Class...</strong> command to add a class file named "ActivityItemController.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Web.Http</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Web.Http.Controllers</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Web.Http.OData</span>;
+<span class="pl-k">using</span> <span class="pl-en">Microsoft.Azure.Mobile.Server</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Service.Models</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Service.DataObjects</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Service.Controllers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ActivityItemController</span> : <span class="pl-en">TableController</span>&lt;<span class="pl-en">ActivityItem</span>&gt;
+    {
+        <span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">Initialize</span>(<span class="pl-en">HttpControllerContext</span> <span class="pl-smi">controllerContext</span>)
+        {
+            <span class="pl-c1">base</span>.Initialize(controllerContext);
+            <span class="pl-en">DroneLanderServiceContext</span> <span class="pl-en">context</span> = <span class="pl-k">new</span> <span class="pl-en">DroneLanderServiceContext</span>();
+            DomainManager = <span class="pl-k">new</span> <span class="pl-en">EntityDomainManager</span>&lt;ActivityItem&gt;(context, Request);
+        }
+
+        <span class="pl-c">// GET tables/ActivityItem</span>
+        <span class="pl-k">public</span> <span class="pl-en">IQueryable</span>&lt;<span class="pl-en">ActivityItem</span>&gt; <span class="pl-en">GetAllActivityItems</span>()
+        {
+            <span class="pl-k">return</span> Query();
+        }
+
+        <span class="pl-c">// GET tables/ActivityItem/48D68C86-6EA6-4C25-AA33-223FC9A27959</span>
+        <span class="pl-k">public</span> <span class="pl-en">SingleResult</span>&lt;<span class="pl-en">ActivityItem</span>&gt; <span class="pl-en">GetActivityItem</span>(<span class="pl-k">string</span> <span class="pl-smi">id</span>)
+        {
+            <span class="pl-k">return</span> Lookup(id);
+        }
+
+        <span class="pl-c">// PATCH tables/ActivityItem/48D68C86-6EA6-4C25-AA33-223FC9A27959</span>
+        <span class="pl-k">public</span> <span class="pl-en">Task</span>&lt;<span class="pl-en">ActivityItem</span>&gt; <span class="pl-en">PatchActivityItem</span>(<span class="pl-k">string</span> <span class="pl-smi">id</span>, <span class="pl-en">Delta</span>&lt;<span class="pl-en">ActivityItem</span>&gt; <span class="pl-smi">patch</span>)
+        {
+            <span class="pl-k">return</span> UpdateAsync(id, patch);
+        }
+
+        <span class="pl-c">// POST tables/ActivityItem</span>
+        <span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-en">IHttpActionResult</span>&gt; <span class="pl-en">PostActivityItem</span>(<span class="pl-en">ActivityItem</span> <span class="pl-smi">item</span>)
+        {
+            <span class="pl-en">ActivityItem</span> <span class="pl-en">current</span> = <span class="pl-k">await</span> InsertAsync(item);
+            <span class="pl-k">return</span> CreatedAtRoute(<span class="pl-s"><span class="pl-pds">"</span>Tables<span class="pl-pds">"</span></span>, new { id = current.Id }, current);
+        }
+
+        <span class="pl-c">// DELETE tables/ActivityItem/48D68C86-6EA6-4C25-AA33-223FC9A27959</span>
+        <span class="pl-k">public</span> <span class="pl-en">Task</span> <span class="pl-en">DeleteActivityItem</span>(<span class="pl-k">string</span> <span class="pl-smi">id</span>)
+        {
+            <span class="pl-k">return</span> DeleteAsync(id);
+        }
+    }
+}</pre></div>
+<p>This controller uses the data connection you created in the previous exercise to access an "ActivityItem" table in the database. <code>ActivityItemController</code> derives from <code>TableController</code>, which provides a base implementation for controllers in Azure Mobile Apps and makes it easy to perform create, read, update, and delete (CRUD) operations on data stores connected to those apps.</p>
+</li>
+<li>
+<p>Right-click the "Controllers" folder again and use the <strong>Add</strong> &gt; <strong>Class...</strong> command to add a class file named "TelemetryController.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System.Web.Http</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Web.Http.Tracing</span>;
+<span class="pl-k">using</span> <span class="pl-en">Microsoft.Azure.Mobile.Server</span>;
+<span class="pl-k">using</span> <span class="pl-en">Microsoft.Azure.Mobile.Server.Config</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Service.DataObjects</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Service.Controllers</span>
+{    
+    [MobileAppController]
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TelemetryController</span> : <span class="pl-en">ApiController</span>
+    {
+        <span class="pl-c">// GET api/telemetry</span>
+        <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-en">Get</span>()
+        {
+            <span class="pl-en">MobileAppSettingsDictionary</span> <span class="pl-en">settings</span> = <span class="pl-c1">this</span>.Configuration.GetMobileAppSettingsProvider().GetMobileAppSettings();
+            
+            <span class="pl-k">string</span> <span class="pl-en">host</span> = settings.HostName ?? <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>;
+            <span class="pl-k">string</span> <span class="pl-en">greeting</span> = <span class="pl-pds">$"</span><span class="pl-s">Hello </span>{host}<span class="pl-s">. You are currently connected to Mission Control</span><span class="pl-pds">"</span>;
+           
+            <span class="pl-k">return</span> greeting;
+        }
+
+        <span class="pl-c">// POST api/telemetry</span>
+        <span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-k">string</span>&gt; <span class="pl-en">Post</span>(<span class="pl-en">TelemetryItem</span> <span class="pl-smi">telemetry</span>)
+        {
+            <span class="pl-k">await</span> Helpers.TelemetryHelper.SendToMissionControlAsync(telemetry);
+            <span class="pl-k">return</span> <span class="pl-pds">$"</span><span class="pl-s">Telemetry for </span>{telemetry.UserId}<span class="pl-s"> received by Mission Control.</span><span class="pl-pds">"</span>;
+        }
+    }
+}</pre></div>
+<p>Note the <code>[MobileAppController]</code> attribute decorating the class definition. This attribute designates an <code>ApiController</code> as an Azure Mobile App controller, meaning it can be accessed through the Azure Mobile SDK using standard APIs. <code>TelemetryController</code> is responsible for sending real-time telemetry to Mission Control to monitor the progress of landing attempts.</p>
+</li>
+<li>
+<p>To ensure that transmissions are properly routed to Mission Control, you need to insert a mission event name. Open <strong>CoreConstants.cs</strong> in the "Common" folder of the <strong>DroneLander.Backend</strong> project, locate the field named <code>MissionEventName</code>, and replace "[ENTER_MISSION_EVENT_NAME]" with the value given to you at the start of the event.</p>
+<p><a href="Images/vs-mission-name.png" target="_blank"><img src="Images/vs-mission-name.png" alt="Updating the mission event name" style="max-width:100%;"></a></p>
+<p><em>Updating the mission event name</em></p>
+</li>
+<li>
+<p>The next step is to publish the service to the cloud. Right-click the <strong>DroneLander.Backend</strong> project and select <strong>Publish...</strong> from the context menu. Then select <strong>Microsoft Azure App Service</strong> and  <strong>Select Existing</strong>, and click <strong>Publish</strong>.</p>
+<p><a href="Images/vs-publish-to-existing.png" target="_blank"><img src="Images/vs-publish-to-existing.png" alt="Publishing an Azure Mobile App" style="max-width:100%;"></a></p>
+<p><em>Publishing an Azure Mobile App</em></p>
+</li>
+<li>
+<p>Select the Azure Mobile App you created in Exercise 1. Then click <strong>OK</strong> to begin the publishing process.</p>
+</li>
+<li>
+<p>Wait until your browser opens to the default Azure Mobile App landing page, indicating that the service was successfully deployed.</p>
+<p><a href="Images/web-mobile-app-success.png" target="_blank"><img src="Images/web-mobile-app-success.png" alt="The default Azure Mobile App landing page" style="max-width:100%;"></a></p>
+<p><em>The default Azure Mobile App landing page</em></p>
+</li>
+</ol>
+<p>The mobile back-end is now in place, and it contains methods that double as REST endpoints that can be called from the Drone Lander app to record landing attempts and transmit telemetry data. In a few minutes, you will modify the client app to call these endpoints. But first, let's talk about authentication.</p>
+<p><a name="Exercise4"></a></p>
+<h2>Exercise 4: Configure the service to support authentication</h2>
+<p>Many mobile apps — especially enterprise apps — require users to sign in before accessing features and services. Authentication can be complicated, especially if you wish to use protocols such as <a href="https://en.wikipedia.org/wiki/OAuth">OAuth</a> and support sign-ins using Microsoft accounts and social-media accounts. Azure Mobile Apps simplify the creation of apps that require authentication by providing built-in support for popular federated-identity providers, including Azure Active Directory, Facebook, Google, Microsoft, and Twitter. In this exercise, you will configure the service you deployed in the previous exercise to support authentication and modify it to ignore calls from unauthenticated users.</p>
+<ol>
+<li>
+<p>Navigate to the <a href="https://apps.dev.microsoft.com/">Microsoft Application Registration portal</a> in your browser and sign in with your Microsoft account.</p>
+</li>
+<li>
+<p>Click <strong>Add an app</strong> at the top of the "Live SDK applications" section.</p>
+<p><a href="Images/web-add-an-app.png" target="_blank"><img src="Images/web-add-an-app.png" alt="Registering an app" style="max-width:100%;"></a></p>
+<p><em>Registering an app</em></p>
+</li>
+<li>
+<p>Enter "Drone Lander" as the app name and click <strong>Create application</strong>.</p>
+</li>
+<li>
+<p>Scroll down and click the <strong>Add URL</strong> button next to "Redirect URLs." Then enter the following URL, replacing "[YOUR_MOBILE_APP_NAME]" with the name of the Azure Mobile App you created in Exercise 1.</p>
+<pre><code>https://[YOUR_MOBILE_APP_NAME].azurewebsites.net/.auth/login/microsoftaccount/callback
+</code></pre>
+<p><a href="Images/web-add-redirect.png" target="_blank"><img src="Images/web-add-redirect.png" alt="Adding a redirect URL" style="max-width:100%;"></a></p>
+<p><em>Adding a redirect URL</em></p>
+</li>
+<li>
+<p>Click the <strong>Save</strong> button at the bottom of the page.</p>
+<p><a href="Images/web-save-registration-changes.png" target="_blank"><img src="Images/web-save-registration-changes.png" alt="Saving registration changes" style="max-width:100%;"></a></p>
+<p><em>Saving registration changes</em></p>
+</li>
+<li>
+<p>Scroll to the top of the page and copy the application ID and the application secret into Notepad or your favorite text editor.</p>
+<p><a href="Images/copy-application-id.png" target="_blank"><img src="Images/copy-application-id.png" alt="Copying the application ID and application secret" style="max-width:100%;"></a></p>
+<p><em>Copying the application ID and application secret</em></p>
+</li>
+<li>
+<p>Return to the <a href="https://portal.azure.com">Azure Portal</a> and to the blade for the Azure Mobile App you created in Exercise 1. Click <strong>Authentication / Authorization</strong> in the menu on the left. Then turn "App Service Authentication" <strong>On</strong> and select <strong>Microsoft</strong> from the list of authentication providers.</p>
+<p><a href="Images/web-select-microsoft-authentication.png" target="_blank"><img src="Images/web-select-microsoft-authentication.png" alt="Selecting the Microsoft authentication provider" style="max-width:100%;"></a></p>
+<p><em>Selecting the Microsoft authentication provider</em></p>
+</li>
+<li>
+<p>Paste the application ID into the <strong>Client Id</strong> field and the application secret into the <strong>Client Secret</strong> field in the "Microsoft Account Authentication Settings" blade. Make sure the values you entered do not have any leading or trailing spaces, and then click <strong>OK</strong>.</p>
+<p><a href="Images/web-save-authentication-settings.png" target="_blank"><img src="Images/web-save-authentication-settings.png" alt="Entering client secrets" style="max-width:100%;"></a></p>
+<p><em>Entering client secrets</em></p>
+</li>
+<li>
+<p>Click <strong>Save</strong> at the top of the blade to save the settings that you just entered.</p>
+</li>
+<li>
+<p>Azure Mobile App authentication can be applied at any level, from an entire service to a single method exposed by that service. You will apply it at the class level by adding special attributes to the controller classes you created in the previous exercise.</p>
+<p>Return to the DroneLander solution in Visual Studio 2017. Open <strong>ActivityItemController.cs</strong> in the <strong>DroneLander.Backend</strong> project's "Controllers" folder and locate the <code>ActivityItemController</code> class near the top of the file. Then add an <code>[Authorize]</code> attribute to the class:</p>
+<p><a href="Images/vs-add-authorize-attribute.png" target="_blank"><img src="Images/vs-add-authorize-attribute.png" alt="Attributing the controller class" style="max-width:100%;"></a></p>
+<p><em>Attributing the controller class</em></p>
+<p>The presence of this attribute means that calls to any of the controller's methods from unauthenticated users will be rejected.</p>
+</li>
+<li>
+<p>Open <strong>TelemetryController.cs</strong> and add an <code>[Authorize]</code> attribute to the <code>TelemetryController</code> class, directly above the <code>[MobileAppController]</code> attribute that is already there. Now <code>TelemetryContoller</code> methods will require authentication, too.</p>
+</li>
+<li>
+<p>Right-click the <strong>DroneLander.Backend</strong> project and use the <strong>Publish...</strong> command to publish your changes to Azure.</p>
+</li>
+</ol>
+<p>With authentication support in place on the back end, the next step is to update your Xamarin Forms solution to leverage that support.</p>
+<p><a name="Exercise5"></a></p>
+<h2>Exercise 5: Add authentication logic to Drone Lander</h2>
+<p>The <a href="https://www.nuget.org/packages/Microsoft.Azure.Mobile.Client/">Azure Mobile Client SDK</a> simplifies the process of adding authentication support to Xamarin Forms apps. When paired with an Azure Mobile App on the server, a single call is sufficient to sign a user in using an SDK-provided login page that is customized for individual identity providers, or to sign a user out. Moreover, you can retrieve information about authenticated users in order to customize the user experience. For more information about how the process works, see <a href="https://docs.microsoft.com/en-us/azure/app-service-mobile/app-service-mobile-auth">Authentication and Authorization in Azure Mobile Apps</a>.</p>
+<p>In this exercise, you will add logic to the Drone Lander app to support signing users in and out. In Exercise 6, you will close the circle by modifying the app's UI to support this logic.</p>
+<ol>
+<li>
+<p>In Visual Studio, open the Nuget Package Manager by right-clicking the <strong>DroneLander</strong> solution and selecting <strong>Manage NuGet Packages for Solution...</strong>.</p>
+</li>
+<li>
+<p>Ensure "Browse" is selected in the NuGet Package Manager, and type "Microsoft.Azure.Mobile.Client" into the search box. Select the <strong>Microsoft.Azure.Mobile.Client</strong> package. Then check the <strong>Project</strong> box to add the package to all of the projects in the solution, and click <strong>Install</strong>. Accept any changes and licenses presented to you.</p>
+</li>
+<li>
+<p>Open <strong>CoreConstants.cs</strong> in the <strong>DroneLander (Portable)</strong> project's "Common" folder, and add the following class directly below the <code>CoreConstants</code> class, replacing "[YOUR_MOBILE_APP_NAME]" with the name of the Azure Mobile App created in Exercise 1.</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-en">MobileServiceConstants</span>
+{
+    <span class="pl-k">public const </span><span class="pl-k">string</span> <span class="pl-en">AppUrl</span> = <span class="pl-s"><span class="pl-pds">"</span>https://[YOUR_MOBILE_APP_NAME].azurewebsites.net<span class="pl-pds">"</span></span>;
+}</pre></div>
+<p><a href="Images/vs-mobile-service-constants.png" target="_blank"><img src="Images/vs-mobile-service-constants.png" alt="Updating the app URL" style="max-width:100%;"></a></p>
+<p><em>Updating the app URL</em></p>
+</li>
+<li>
+<p>Right-click the <strong>DroneLander (Portable)</strong> project and use the <strong>Add</strong> &gt; <strong>New Folder</strong> command to add a folder named "Data" to the project. Right-click the "Data" folder and use the <strong>Add</strong> &gt; <strong>Class...</strong> command to add a class file named "TelemetryManager.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.ObjectModel</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Diagnostics</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">Microsoft.WindowsAzure.MobileServices</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">partial</span> <span class="pl-k">class</span> <span class="pl-en">TelemetryManager</span>
+    {
+        <span class="pl-k">static </span><span class="pl-en">TelemetryManager</span> <span class="pl-en">defaultInstance</span> = <span class="pl-k">new</span> <span class="pl-en">TelemetryManager</span>();
+        <span class="pl-en">MobileServiceClient</span> <span class="pl-en">client</span>;
+
+        <span class="pl-k">private</span> <span class="pl-en">TelemetryManager</span>()
+        {
+            <span class="pl-c1">this</span>.client = <span class="pl-k">new</span> <span class="pl-en">MobileServiceClient</span>(Common.MobileServiceConstants.AppUrl);
+        }
+
+        <span class="pl-k">public static </span><span class="pl-en">TelemetryManager</span> <span class="pl-en">DefaultManager</span>
+        {
+            <span class="pl-k">get</span>
+            {
+                <span class="pl-k">return</span> defaultInstance;
+            }
+            private <span class="pl-k">set</span>
+            {
+                defaultInstance = <span class="pl-k">value</span>;
+            }
+        }
+
+        <span class="pl-k">public </span><span class="pl-en">MobileServiceClient</span> <span class="pl-en">CurrentClient</span>
+        {
+            <span class="pl-k">get</span> { <span class="pl-k">return</span> client; }
+        }
+    }
+}</pre></div>
+<p><code>TelemetryManager</code> is a helper class for calling SDK methods from platform-specific code.</p>
+</li>
+<li>
+<p>Right-click the "Services" folder in the <strong>DroneLander (Portable)</strong> project and use the <strong>Add</strong> &gt; <strong>Class...</strong> command to add a class file named "IAuthenticationService.cs." Then replace the <code>IAuthenticationService</code> class with the following interface definition:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-en">IAuthenticationService</span>
+{
+    <span class="pl-en">Task</span>&lt;<span class="pl-k">bool</span>&gt; <span class="pl-en">SignInAsync</span>();
+    <span class="pl-en">Task</span>&lt;<span class="pl-k">bool</span>&gt; <span class="pl-en">SignOutAsync</span>();
+}</pre></div>
+</li>
+<li>
+<p>Still in the <strong>DroneLander (Portable)</strong> project, open <strong>App.xaml.cs</strong> and add the following statements above the <code>App</code> constructor:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-en">Services.IAuthenticationService</span> Authenticator { <span class="pl-k">get</span>; <span class="pl-en">private</span> <span class="pl-en">set</span>; }
+
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">InitializeAuthentication</span>(Services.<span class="pl-en">IAuthenticationService</span> <span class="pl-smi">authenticator</span>)
+{
+    Authenticator = authenticator;
+}</pre></div>
+</li>
+<li>
+<p>Open <strong>MainActivity.cs</strong> in the <strong>DroneLander.Android</strong> project and add the following <code>using</code> statements to the top of the file:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">Microsoft.WindowsAzure.MobileServices</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Services</span>;</pre></div>
+</li>
+<li>
+<p>Still in <strong>MainActivity.cs</strong>, update the <code>MainActivity</code> class to implement the <code>IAuthenticationService</code> interface by adding the following code (including the leading comma) to the end of the class definition:</p>
+<div class="highlight highlight-source-cs"><pre>, IAuthenticationService</pre></div>
+</li>
+<li>
+<p>Replace the <code>OnCreate</code> method with the following implementation:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnCreate</span>(<span class="pl-en">Bundle</span> <span class="pl-smi">bundle</span>)
+{
+    TabLayoutResource = Resource.Layout.Tabbar;
+    ToolbarResource = Resource.Layout.Toolbar;
+
+    <span class="pl-c1">base</span>.OnCreate(bundle);
+
+    App.InitializeAuthentication((<span class="pl-en">IAuthenticationService</span>)<span class="pl-c1">this</span>);
+
+    <span class="pl-k">global</span>::Xamarin.Forms.Forms.Init(<span class="pl-c1">this</span>, bundle);
+    LoadApplication(<span class="pl-k">new</span> <span class="pl-en">App</span>());
+}</pre></div>
+</li>
+<li>
+<p>Add the following statements to the <code>MainActivity</code> class to support signing in and out of the mobile service on Android:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">MobileServiceUser</span> <span class="pl-en">user</span> = <span class="pl-c1">null</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-k">bool</span>&gt; <span class="pl-en">SignInAsync</span>()
+{
+    <span class="pl-k">bool</span> <span class="pl-en">isSuccessful</span> = <span class="pl-c1">false</span>;
+
+    <span class="pl-k">try</span>
+    {
+        user = <span class="pl-k">await</span> TelemetryManager.DefaultManager.CurrentClient.LoginAsync(<span class="pl-c1">this</span>, MobileServiceAuthenticationProvider.MicrosoftAccount);
+        isSuccessful = user != <span class="pl-c1">null</span>;
+    }
+    <span class="pl-k">catch</span> { }
+
+    <span class="pl-k">return</span> isSuccessful;
+}
+
+<span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-k">bool</span>&gt; <span class="pl-en">SignOutAsync</span>()
+{
+    <span class="pl-k">bool</span> <span class="pl-en">isSuccessful</span> = <span class="pl-c1">false</span>;
+
+    <span class="pl-k">try</span>
+    {
+        <span class="pl-k">await</span> TelemetryManager.DefaultManager.CurrentClient.LogoutAsync();
+        isSuccessful = <span class="pl-c1">true</span>;
+    }
+    <span class="pl-k">catch</span> { }
+
+    <span class="pl-k">return</span> isSuccessful;
+}</pre></div>
+</li>
+<li>
+<p>Now let's add support for signing in and out to the iOS version of DroneLander. Open <strong>AppDelegate.cs</strong> in the <strong>DroneLander.iOS</strong> project and add the following <code>using</code> statements to the top of the file:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">Microsoft.WindowsAzure.MobileServices</span>; 
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Services</span>;</pre></div>
+</li>
+<li>
+<p>Still in <strong>AppDelegate.cs</strong>, update the <code>AppDelegate</code> class to implement the <code>IAuthenticationService</code> interface by adding the following code (including the leading comma) to the end of the class definition:</p>
+<div class="highlight highlight-source-cs"><pre>, IAuthenticationService</pre></div>
+</li>
+<li>
+<p>Replace the <code>FinishedLaunching</code> method with the following implementation:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">bool </span>FinishedLaunching(UIApplication app, NSDictionary options)
+{
+    App.InitializeAuthentication((<span class="pl-en">IAuthenticationService</span>)<span class="pl-c1">this</span>);
+
+    <span class="pl-k">global</span>::Xamarin.Forms.Forms.Init();
+    LoadApplication(<span class="pl-k">new</span> <span class="pl-en">App</span>());
+
+    <span class="pl-k">return</span> <span class="pl-c1">base</span>.FinishedLaunching(app, options);
+}</pre></div>
+</li>
+<li>
+<p>Add the following statements to the <code>AppDelegate</code> class to support signing in and out of the mobile service on iOS:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">MobileServiceUser</span> <span class="pl-en">user</span> = <span class="pl-c1">null</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-k">bool</span>&gt; <span class="pl-en">SignInAsync</span>()
+{
+    <span class="pl-k">bool</span> <span class="pl-en">successful</span> = <span class="pl-c1">false</span>;
+
+    <span class="pl-k">try</span>
+    {
+        user = <span class="pl-k">await</span> TelemetryManager.DefaultManager.CurrentClient.LoginAsync(UIApplication.SharedApplication.KeyWindow.RootViewController, MobileServiceAuthenticationProvider.MicrosoftAccount);
+
+        successful = user != <span class="pl-c1">null</span>;
+    }
+    <span class="pl-k">catch</span> { }
+
+    <span class="pl-k">return</span> successful;
+}
+
+<span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-k">bool</span>&gt; <span class="pl-en">SignOutAsync</span>()
+{
+    <span class="pl-k">bool</span> <span class="pl-en">isSuccessful</span> = <span class="pl-c1">false</span>;
+
+    <span class="pl-k">try</span>
+    {
+        <span class="pl-k">await</span> TelemetryManager.DefaultManager.CurrentClient.LogoutAsync();
+        isSuccessful = <span class="pl-c1">true</span>;
+    }
+    <span class="pl-k">catch</span> { }
+
+    <span class="pl-k">return</span> isSuccessful;
+}</pre></div>
+</li>
+<li>
+<p>Finally, you need to add support for signing in and out to the Windows version of the app. Open <strong>MainPage.xaml.cs</strong> in the <strong>DroneLander.UWP</strong> project and add the following <code>using</code> statements to the top of the file:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">Microsoft.WindowsAzure.MobileServices</span>; 
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+<span class="pl-k">using</span> <span class="pl-en">DroneLander.Services</span>;</pre></div>
+</li>
+<li>
+<p>Still in <strong>MainPage.xaml.cs</strong>, update the <code>MainPage</code> class to implement the <code>IAuthenticationService</code> interface by adding the following code (including the leading colon) to the end of the class definition:</p>
+<div class="highlight highlight-source-cs"><pre>: <span class="pl-en">IAuthenticationService</span></pre></div>
+</li>
+<li>
+<p>Replace the <code>MainPage</code> constructor with the following implementation:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> MainPage()
+{
+    <span class="pl-c1">this</span>.InitializeComponent();
+    DroneLander.App.InitializeAuthentication((<span class="pl-en">IAuthenticationService</span>)<span class="pl-c1">this</span>);
+    LoadApplication(<span class="pl-k">new</span> <span class="pl-en">DroneLander</span>.App());
+}</pre></div>
+</li>
+<li>
+<p>Add the following statements to the <code>MainPage</code> class to support signing in and out of the mobile service on Windows:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">MobileServiceUser</span> <span class="pl-en">user</span> = <span class="pl-c1">null</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-k">bool</span>&gt; <span class="pl-en">SignInAsync</span>()
+{
+    <span class="pl-k">bool</span> <span class="pl-en">successful</span> = <span class="pl-c1">false</span>;
+
+    <span class="pl-k">try</span>
+    {
+        user = <span class="pl-k">await</span> TelemetryManager.DefaultManager.CurrentClient.LoginAsync(MobileServiceAuthenticationProvider.MicrosoftAccount);
+        successful = user != <span class="pl-c1">null</span>;
+    }
+    <span class="pl-k">catch</span> { }
+
+    <span class="pl-k">return</span> successful;
+}
+
+<span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-k">bool</span>&gt; <span class="pl-en">SignOutAsync</span>()
+{
+    <span class="pl-k">bool</span> <span class="pl-en">isSuccessful</span> = <span class="pl-c1">false</span>;
+
+    <span class="pl-k">try</span>
+    {
+        <span class="pl-k">await</span> TelemetryManager.DefaultManager.CurrentClient.LogoutAsync();
+        isSuccessful = <span class="pl-c1">true</span>;
+    }
+    <span class="pl-k">catch</span> { }
+
+    <span class="pl-k">return</span> isSuccessful;
+}</pre></div>
+</li>
+</ol>
+<p>That may seem like a lot of code, but notice that the platform-specific code that calls the Azure Mobile Client SDK is virtually identical in every project. You can now call methods from shared code to sign users in and out of the mobile service. All that's missing is a UI for signing in and out.</p>
+<p><a name="Exercise6"></a></p>
+<h2>Exercise 6: Update Drone Lander to authenticate users and record landings</h2>
+<p>In this exercise, you will update the Drone Lander app to allow users to authenticate using their Microsoft accounts, and to record the results of each landing attempted by authenticated users in the mobile service's database. You will also add a page to the app that shows a summary of landing attempts.</p>
+<ol>
+<li>
+<p>Right-click the "Data" folder in the <strong>DroneLander (Portable)</strong> project and add a new class file named "ActivityItem.cs." Then replace the contents of the file with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander</span>
+{   
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ActivityItem</span>
+    {
+        <span class="pl-k">public </span><span class="pl-k">string</span> <span class="pl-en">Id</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }	
+        <span class="pl-k">public </span><span class="pl-k">string</span> <span class="pl-en">Status</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }	
+        <span class="pl-k">public </span><span class="pl-k">string</span> <span class="pl-en">Description</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }	
+        <span class="pl-k">public </span><span class="pl-en">DateTime</span> <span class="pl-en">ActivityDate</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    }
+}</pre></div>
+<p>The <code>ActivityItem</code> class encapsulates the results of a landing attempt, indicating whether it succeeded or failed. Each time an authenticated user flies a supply mission and reaches the Mars surface, an <code>ActivityItem</code> entry will be written to the database on the back end.</p>
+</li>
+<li>
+<p>Open <strong>TelemetryManager.cs</strong> and replace the <code>TelemetryManager</code> constructor with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">IMobileServiceTable</span>&lt;<span class="pl-en">ActivityItem</span>&gt; <span class="pl-en">activitiesTable</span>;
+    
+<span class="pl-k">private</span> TelemetryManager()
+{
+    <span class="pl-c1">this</span>.client = <span class="pl-k">new</span> <span class="pl-en">MobileServiceClient</span>(Common.MobileServiceConstants.AppUrl);
+    <span class="pl-c1">this</span>.activitiesTable = client.GetTable&lt;ActivityItem&gt;();
+}</pre></div>
+</li>
+<li>
+<p>Add the following methods to the <code>TelemetryManager</code> class for adding new activities and getting a list activities from the back-end service:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span> <span class="pl-en">AddActivityAsync</span>(<span class="pl-en">ActivityItem</span> <span class="pl-smi">item</span>)
+{
+    <span class="pl-k">try</span>
+    {
+        <span class="pl-k">await</span> activitiesTable.InsertAsync(item);
+    }
+    <span class="pl-k">catch</span> { }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-en">Task</span>&lt;<span class="pl-en">List</span>&lt;<span class="pl-en">ActivityItem</span>&gt;&gt; <span class="pl-en">GetAllActivityAync</span>()
+{
+    <span class="pl-en">List</span>&lt;<span class="pl-en">ActivityItem</span>&gt; <span class="pl-en">activity</span> = <span class="pl-k">new</span> <span class="pl-en">List</span>&lt;ActivityItem&gt;();
+
+    <span class="pl-k">try</span>
+    {
+        <span class="pl-en">IEnumerable</span>&lt;<span class="pl-en">ActivityItem</span>&gt; <span class="pl-en">items</span> = <span class="pl-k">await</span> activitiesTable.ToEnumerableAsync();
+        activity = <span class="pl-k">new</span> <span class="pl-en">List</span>&lt;ActivityItem&gt;(items.OrderByDescending(o =&gt; o.ActivityDate));
+    }
+    <span class="pl-k">catch</span> { }
+
+    <span class="pl-k">return</span> activity;
+}</pre></div>
+</li>
+<li>
+<p>Add a class file named "ActivityHelper.cs" to the "Helpers" folder and replace its contents with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">Newtonsoft.Json.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Collections.Generic</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Linq</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Text</span>;
+<span class="pl-k">using</span> <span class="pl-en">System.Threading.Tasks</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander.Helpers</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-en">ActivityHelper</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">async</span> <span class="pl-k">void</span> <span class="pl-en">AddActivityAsync</span>(<span class="pl-en">LandingResultType</span> <span class="pl-smi">landingResult</span>)
+        {
+            <span class="pl-k">try</span>
+            {
+                <span class="pl-k">await</span> TelemetryManager.DefaultManager.AddActivityAsync(<span class="pl-k">new</span> <span class="pl-en">ActivityItem</span>()
+                {
+                    ActivityDate = DateTime.Now.ToUniversalTime(),
+                    Status = landingResult.ToString(),
+                    Description = (landingResult == LandingResultType.Landed) ? <span class="pl-s"><span class="pl-pds">"</span>The Eagle has landed!<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>That's going to leave a mark!<span class="pl-pds">"</span></span>
+                });
+            }
+            <span class="pl-k">catch</span> {}	            
+        }
+    }
+}</pre></div>
+</li>
+<li>
+<p>Open <strong>MainViewModel.cs</strong> in the <strong>DroneLander (Portable)</strong> project's "ViewModels" folder and add the following <code>using</code> statement to the top of the file:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System.Collections.ObjectModel</span>;</pre></div>
+</li>
+<li>
+<p>Now add the following properties and method to the <code>MainViewModel</code> class:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">private</span> <span class="pl-k">bool</span> <span class="pl-en">_isAuthenticated</span>;
+<span class="pl-k">public</span> <span class="pl-k">bool </span><span class="pl-en">IsAuthenticated</span>
+{
+    <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._isAuthenticated; }
+    <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._isAuthenticated, <span class="pl-k">value</span>); }
+}
+
+<span class="pl-k">private</span> <span class="pl-k">string</span> <span class="pl-en">_userId</span>;
+<span class="pl-k">public</span> <span class="pl-k">string </span><span class="pl-en">UserId</span>
+{
+    <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._userId; }
+    <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._userId, <span class="pl-k">value</span>); }
+}
+
+<span class="pl-k">private</span> <span class="pl-k">bool</span> <span class="pl-en">_isBusy</span>;
+<span class="pl-k">public</span> <span class="pl-k">bool </span><span class="pl-en">IsBusy</span>
+{
+    <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._isBusy; }
+    <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._isBusy, <span class="pl-k">value</span>); }
+}
+
+<span class="pl-k">private</span> <span class="pl-k">string</span> <span class="pl-en">_signInLabel</span>;
+<span class="pl-k">public</span> <span class="pl-k">string </span><span class="pl-en">SignInLabel</span>
+{
+    <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._signInLabel; }
+    <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._signInLabel, <span class="pl-k">value</span>); }
+}
+
+<span class="pl-k">private</span> <span class="pl-en">ObservableCollection</span>&lt;<span class="pl-en">ActivityItem</span>&gt; <span class="pl-en">_currentActivity</span>;
+<span class="pl-k">public</span> <span class="pl-en">ObservableCollection</span>&lt;<span class="pl-en">ActivityItem</span>&gt; CurrentActivity
+{
+    <span class="pl-k">get</span> { <span class="pl-k">return</span> <span class="pl-c1">this</span>._currentActivity; }
+    <span class="pl-k">set</span> { <span class="pl-c1">this</span>.SetProperty(ref <span class="pl-c1">this</span>._currentActivity, <span class="pl-k">value</span>); }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-k">void</span> <span class="pl-en">LoadActivityAsync</span>()
+{
+    <span class="pl-c1">this</span>.IsBusy = <span class="pl-c1">true</span>;
+    <span class="pl-c1">this</span>.CurrentActivity.Clear();
+
+    <span class="pl-k">var</span> <span class="pl-en">activities </span>= <span class="pl-k">await</span> TelemetryManager.DefaultManager.GetAllActivityAync();
+
+    <span class="pl-k">foreach</span>(var activity <span class="pl-k">in</span> activities)
+    {
+        <span class="pl-c1">this</span>.CurrentActivity.Add(activity);
+    }
+    
+    <span class="pl-c1">this</span>.IsBusy = <span class="pl-c1">false</span>;
+}</pre></div>
+</li>
+<li>
+<p>Scroll down to the <code>AttemptLandingCommand</code> property and add the following property directly above it:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-en">System.Windows.Input.ICommand</span> SignInCommand
+{
+    <span class="pl-k">get</span>
+    {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">RelayCommand</span>(async () =&gt;
+        {
+            <span class="pl-c1">this</span>.CurrentActivity.Clear();
+
+            <span class="pl-k">if</span> (<span class="pl-c1">this</span>.IsAuthenticated)
+            {
+                <span class="pl-c1">this</span>.IsAuthenticated = !(<span class="pl-k">await</span> App.Authenticator.SignOutAsync());
+            }
+            <span class="pl-k">else</span>
+            {
+                <span class="pl-c1">this</span>.IsAuthenticated = <span class="pl-k">await</span> App.Authenticator.SignInAsync();
+                <span class="pl-k">if</span> (<span class="pl-c1">this</span>.IsAuthenticated) <span class="pl-c1">this</span>.UserId = TelemetryManager.DefaultManager.CurrentClient.CurrentUser.UserId.Split(<span class="pl-s"><span class="pl-pds">'</span>:<span class="pl-pds">'</span></span>).LastOrDefault();
+            }
+
+            <span class="pl-c1">this</span>.SignInLabel = (<span class="pl-c1">this</span>.IsAuthenticated) ? <span class="pl-s"><span class="pl-pds">"</span>Sign Out<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>Sign In<span class="pl-pds">"</span></span>;
+            <span class="pl-k">var</span> <span class="pl-en">activityToolbarItem </span>= <span class="pl-c1">this</span>.ActivityPage.ToolbarItems.Where(w =&gt; w.AutomationId.Equals(<span class="pl-s"><span class="pl-pds">"</span>ActivityLabel<span class="pl-pds">"</span></span>)).FirstOrDefault();
+
+            <span class="pl-k">if</span> (<span class="pl-c1">this</span>.IsAuthenticated)
+            {
+                <span class="pl-k">if</span> (activityToolbarItem == <span class="pl-c1">null</span>)
+                {
+                    activityToolbarItem = <span class="pl-k">new</span> <span class="pl-en">ToolbarItem</span>()
+                    {
+                        Text = <span class="pl-s"><span class="pl-pds">"</span>Activity<span class="pl-pds">"</span></span>,
+                        AutomationId = <span class="pl-s"><span class="pl-pds">"</span>ActivityLabel<span class="pl-pds">"</span></span>,
+                    };
+
+                    activityToolbarItem.Clicked += (s, e) =&gt;
+                    {
+                        <span class="pl-c1">this</span>.ActivityPage.Navigation.PushModalAsync(<span class="pl-k">new</span> <span class="pl-en">ViewActivityPage</span>(), <span class="pl-c1">true</span>);                                
+                    };
+
+                    <span class="pl-c1">this</span>.ActivityPage.ToolbarItems.Insert(<span class="pl-c1">0</span>, activityToolbarItem);
+                }
+            }
+            <span class="pl-k">else</span>
+            {
+                <span class="pl-k">if</span> (activityToolbarItem != <span class="pl-c1">null</span>) <span class="pl-c1">this</span>.ActivityPage.ToolbarItems.Remove(activityToolbarItem);
+            }
+        });
+    }
+}</pre></div>
+<p>This is the view-model property that will be be bound to a <code>Command</code> property in the view to enable users to sign in and out.</p>
+</li>
+<li>
+<p>Replace the <code>StartLanding</code> method with the following implementation, which transmits results to the service at the conclusion of each descent — <em>but only if the user has signed in</em>:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">StartLanding</span>()
+{
+    Helpers.AudioHelper.ToggleEngine();
+
+    Device.StartTimer(TimeSpan.FromMilliseconds(Common.CoreConstants.PollingIncrement), () =&gt;
+    {
+        UpdateFlightParameters();
+
+        <span class="pl-k">if</span> (<span class="pl-c1">this</span>.ActiveLandingParameters.Altitude &gt; <span class="pl-c1">0.0</span>)
+        {
+            Device.BeginInvokeOnMainThread(() =&gt;
+            {
+                <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude;
+                <span class="pl-c1">this</span>.DescentRate = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity;
+                <span class="pl-c1">this</span>.FuelRemaining = <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel / <span class="pl-c1">1000</span>;
+                <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust;
+            });
+
+            <span class="pl-k">if</span> (<span class="pl-c1">this</span>.FuelRemaining == <span class="pl-c1">0.0</span>) Helpers.AudioHelper.KillEngine();
+
+            <span class="pl-k">return</span> <span class="pl-c1">this</span>.IsActive;
+        }
+        <span class="pl-k">else</span>
+        {
+            <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude = <span class="pl-c1">0.0</span>;
+            <span class="pl-c1">this</span>.IsActive = <span class="pl-c1">false</span>;
+
+            Device.BeginInvokeOnMainThread(() =&gt;
+            {
+                <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude;
+                <span class="pl-c1">this</span>.DescentRate = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity;
+                <span class="pl-c1">this</span>.FuelRemaining = <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel / <span class="pl-c1">1000</span>;
+                <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust;
+            });
+
+            <span class="pl-en">LandingResultType</span> <span class="pl-en">landingResult</span> = (<span class="pl-c1">this</span>.ActiveLandingParameters.Velocity &gt; -<span class="pl-c1">5.0</span>) ? LandingResultType.Landed : LandingResultType.Kaboom;
+
+            <span class="pl-k">if</span> (<span class="pl-c1">this</span>.IsAuthenticated)
+            {
+                Helpers.ActivityHelper.AddActivityAsync(landingResult);
+            }
+
+            MessagingCenter.Send(<span class="pl-c1">this</span>.ActivityPage, <span class="pl-s"><span class="pl-pds">"</span>ActivityUpdate<span class="pl-pds">"</span></span>, landingResult);
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+    });
+}</pre></div>
+</li>
+<li>
+<p>Add the following statements to the <code>MainViewModel</code> constructor to assign default values to <code>SignInLabel</code> and <code>CurrentActivity</code>:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-c1">this</span>.<span class="pl-en">CurrentActivity</span> = new <span class="pl-en">ObservableCollection</span>&lt;<span class="pl-en">ActivityItem</span>&gt;();
+<span class="pl-c1">this</span>.<span class="pl-en">SignInLabel</span> = "Sign In";</pre></div>
+<p><a href="Images/vs-add-sign-in-label.png" target="_blank"><img src="Images/vs-add-sign-in-label.png" alt="Updating the MainViewModel constructor" style="max-width:100%;"></a></p>
+<p><em>Updating the MainViewModel constructor</em></p>
+</li>
+<li>
+<p>Right-click the <strong>DroneLander (Portable)</strong> project and use the <strong>Add</strong> &gt; <strong>New Item...</strong> command to add a new <strong>Content Page</strong> named "ViewActivityPage.xaml" to the project. This page will show a summary of recent landings.</p>
+<p><a href="Images/vs-add-new-page.png" target="_blank"><img src="Images/vs-add-new-page.png" alt="Adding a page to the app" style="max-width:100%;"></a></p>
+<p><em>Adding a page to the app</em></p>
+</li>
+<li>
+<p>Replace the contents of <strong>ViewActivityPage.xaml</strong> with the following XAML:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> ?&gt;
+&lt;<span class="pl-ent">ContentPage</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://xamarin.com/schemas/2014/forms<span class="pl-pds">"</span></span>
+             <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">x</span>=<span class="pl-s"><span class="pl-pds">"</span>http://schemas.microsoft.com/winfx/2009/xaml<span class="pl-pds">"</span></span>
+             <span class="pl-e">BackgroundImage</span>=<span class="pl-s"><span class="pl-pds">"</span>drone_lander_back.jpg<span class="pl-pds">"</span></span>
+             <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Class</span>=<span class="pl-s"><span class="pl-pds">"</span>DroneLander.ViewActivityPage<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">Grid</span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>40<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">StackLayout</span>&gt;
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">FontAttributes</span>=<span class="pl-s"><span class="pl-pds">"</span>Bold<span class="pl-pds">"</span></span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource TitleStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>Recent Activity<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource SubtitleStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>The following is a list of your most recent landing attempts:<span class="pl-pds">"</span></span>/&gt;
+            &lt;<span class="pl-ent">ListView</span> <span class="pl-e">HasUnevenRows</span>=<span class="pl-s"><span class="pl-pds">"</span>True<span class="pl-pds">"</span></span> <span class="pl-e">SeparatorVisibility</span>=<span class="pl-s"><span class="pl-pds">"</span>None<span class="pl-pds">"</span></span> <span class="pl-e">BindingContext</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding}<span class="pl-pds">"</span></span> <span class="pl-e">ItemsSource</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding CurrentActivity}<span class="pl-pds">"</span></span>&gt;
+                &lt;<span class="pl-ent">ListView</span>.ItemTemplate&gt;
+                    &lt;<span class="pl-ent">DataTemplate</span>&gt;
+                        &lt;<span class="pl-ent">ViewCell</span>&gt;
+                            &lt;<span class="pl-ent">ViewCell</span>.View&gt;
+                                &lt;<span class="pl-ent">StackLayout</span> <span class="pl-e">VerticalOptions</span>=<span class="pl-s"><span class="pl-pds">"</span>Start<span class="pl-pds">"</span></span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>0,0,0,10<span class="pl-pds">"</span></span> <span class="pl-e">Orientation</span>=<span class="pl-s"><span class="pl-pds">"</span>Vertical<span class="pl-pds">"</span></span>&gt;
+                                    &lt;<span class="pl-ent">Label</span> <span class="pl-e">FontAttributes</span>=<span class="pl-s"><span class="pl-pds">"</span>Bold<span class="pl-pds">"</span></span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource SubtitleStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding Status}<span class="pl-pds">"</span></span> /&gt;
+                                    &lt;<span class="pl-ent">Label</span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource BodyStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding Description}<span class="pl-pds">"</span></span> /&gt;
+                                    &lt;<span class="pl-ent">Label</span> <span class="pl-e">Opacity</span>=<span class="pl-s"><span class="pl-pds">"</span>0.7<span class="pl-pds">"</span></span> <span class="pl-e">Margin</span>=<span class="pl-s"><span class="pl-pds">"</span>0,-5,0,5<span class="pl-pds">"</span></span> <span class="pl-e">Style</span>=<span class="pl-s"><span class="pl-pds">"</span>{DynamicResource CaptionStyle}<span class="pl-pds">"</span></span> <span class="pl-e">Text</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding ActivityDate, StringFormat='{0:dddd hh:mm tt}'}<span class="pl-pds">"</span></span> /&gt;
+                                &lt;/<span class="pl-ent">StackLayout</span>&gt;
+                            &lt;/<span class="pl-ent">ViewCell</span>.View&gt;
+                        &lt;/<span class="pl-ent">ViewCell</span>&gt;
+                    &lt;/<span class="pl-ent">DataTemplate</span>&gt;
+                &lt;/<span class="pl-ent">ListView</span>.ItemTemplate&gt;
+            &lt;/<span class="pl-ent">ListView</span>&gt;
+        &lt;/<span class="pl-ent">StackLayout</span>&gt;
+
+        &lt;<span class="pl-ent">ActivityIndicator</span> <span class="pl-e">Color</span>=<span class="pl-s"><span class="pl-pds">"</span>#D90000<span class="pl-pds">"</span></span> <span class="pl-e">WidthRequest</span>=<span class="pl-s"><span class="pl-pds">"</span>100<span class="pl-pds">"</span></span> <span class="pl-e">HeightRequest</span>=<span class="pl-s"><span class="pl-pds">"</span>100<span class="pl-pds">"</span></span> <span class="pl-e">VerticalOptions</span>=<span class="pl-s"><span class="pl-pds">"</span>Center<span class="pl-pds">"</span></span> <span class="pl-e">HorizontalOptions</span>=<span class="pl-s"><span class="pl-pds">"</span>Center<span class="pl-pds">"</span></span> <span class="pl-e">IsRunning</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding IsBusy}<span class="pl-pds">"</span></span> <span class="pl-e">IsEnabled</span>=<span class="pl-s"><span class="pl-pds">"</span>{Binding IsBusy}<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">Grid</span>&gt;
+&lt;/<span class="pl-ent">ContentPage</span>&gt;</pre></div>
+</li>
+<li>
+<p>Open <strong>ViewActivityPage.xaml.cs</strong> and add the following method to the <code>ViewActivityPage</code> class to retrieve landing data from the service each time the page loads:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">protected</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">OnAppearing</span>()
+{
+    <span class="pl-c1">base</span>.OnAppearing();
+    <span class="pl-c1">this</span>.BindingContext = App.ViewModel;
+    App.ViewModel.LoadActivityAsync();
+}</pre></div>
+</li>
+<li>
+<p>Finally, open <strong>MainPage.xaml</strong> and add the following XAML directly above the opening <code>&lt;Grid&gt;</code> tag to provide a toolbar item for signing in and out:</p>
+<pre><code>&lt;ContentPage.ToolbarItems&gt;       
+   &lt;ToolbarItem AutomationId="SignInLabel" Text="{Binding SignInLabel}" Command="{Binding SignInCommand}"/&gt;
+&lt;/ContentPage.ToolbarItems&gt;
+</code></pre>
+<p><a href="Images/vs-add-sign-in-item.png" target="_blank"><img src="Images/vs-add-sign-in-item.png" alt="Adding a toolbar item for signing in and out" style="max-width:100%;"></a></p>
+<p><em>Adding a toolbar item for signing in and out</em></p>
+</li>
+<li>
+<p>Launch the Android version of the app. Click <strong>Sign In</strong> and sign in using your Microsoft account. If prompted to allow Drone Lander to access your profile and contact list, click <strong>Yes</strong>. Note that your <em>profile and contact information is not used in any way</em>.</p>
+<p><a href="Images/app-click-sign-in.png" target="_blank"><img src="Images/app-click-sign-in.png" alt="Signing in" style="max-width:100%;"></a></p>
+<p><em>Signing in</em></p>
+</li>
+<li>
+<p>Confirm that following a successful sign in, an <strong>Activity</strong> item appears in the toolbar. Then attempt a landing or two (or three) and click <strong>Activity</strong>.</p>
+<p><a href="Images/app-click-new-menu.png" target="_blank"><img src="Images/app-click-new-menu.png" alt="Viewing recent landing activity" style="max-width:100%;"></a></p>
+<p><em>Viewing recent landing activity</em></p>
+</li>
+<li>
+<p>Confirm that a summary of recent landing attempts appears:</p>
+<p><a href="Images/app-current-activity.png" target="_blank"><img src="Images/app-current-activity.png" alt="Recent landing attempts" style="max-width:100%;"></a></p>
+<p><em>Recent landing attempts</em></p>
+</li>
+</ol>
+<p>You can still fly supply missions even if you aren't signed in. However, data is only transmitted to Azure if you <em>are</em> signed in. That's important, because you configured the back-end service to require authenticated calls.</p>
+<p><a name="Exercise7"></a></p>
+<h2>Exercise 7: Update Drone Lander to send telemetry to Mission Control</h2>
+<p>Now comes the fun part: modifying the Drone Lander app to transmit telemetry data — altitude, descent rate, fuel remaining, and thrust — to Mission Control in real time. In this exercise, you will modify the app to do just that, and then compete with other teams to be the first to fly a successful supply mission to Mars.</p>
+<ol>
+<li>
+<p>Open <strong>CoreConstants.cs</strong> in the <strong>DroneLander (Portable)</strong> project's "Common" folder and add the following class:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-en">TelemetryConstants</span>
+{
+    <span class="pl-k">public const </span><span class="pl-k">string</span> <span class="pl-en">DisplayName</span> = <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>;
+    <span class="pl-k">public const </span><span class="pl-k">string</span> <span class="pl-en">Tagline</span> = <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>;
+}</pre></div>
+</li>
+<li>
+<p>Enter a string, such as your first name or a nickname, for the value of <code>DisplayName</code>. If you were assigned a team name for this session, enter the team name instead. This is the name that will appear on the big screen (the Mission Control screen at the front of the room) each time you fly a supply mission.</p>
+</li>
+<li>
+<p>Enter a string for <code>TagLine</code> as well. This value will appear on the big screen when you successfully land a supply mission. Keep it clean (please!), but feel free to talk a little smack to the other teams when you nail a landing.</p>
+</li>
+<li>
+<p>Right-click the "Data" folder in the <strong>DroneLander (Portable)</strong> project and add a new class file named "TelemetryItem.cs." Then replace its contents with the following code:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> <span class="pl-en">System</span>;
+
+<span class="pl-k">namespace</span> <span class="pl-en">DroneLander</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TelemetryItem</span>
+    {
+        <span class="pl-k">public </span><span class="pl-k">string</span> <span class="pl-en">UserId</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+        <span class="pl-k">public </span><span class="pl-k">string</span> <span class="pl-en">DisplayName</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+        <span class="pl-k">public </span><span class="pl-k">string</span> <span class="pl-en">Tagline</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Altitude</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">DescentRate</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Fuel</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+        <span class="pl-k">public </span><span class="pl-k">double</span> <span class="pl-en">Thrust</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    }
+}</pre></div>
+<p>This class encapsulates the telemetry data transmitted to Mission Control on each timer tick as a drone makes its descent.</p>
+</li>
+<li>
+<p>Open <strong>ActivityHelper.cs</strong> in the <strong>DroneLander (Portable)</strong> project's "Helpers" folder, and add the following method to the <code>ActivityHelper</code> class:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">async</span> <span class="pl-k">void</span> <span class="pl-en">SendTelemetryAsync</span>(<span class="pl-k">string</span> <span class="pl-smi">userId</span>, <span class="pl-k">double</span> <span class="pl-smi">altitude</span>, <span class="pl-k">double</span> <span class="pl-smi">descentRate</span>, <span class="pl-k">double</span> <span class="pl-smi">fuelRemaining</span>, <span class="pl-k">double</span> <span class="pl-smi">thrust</span>)
+{
+    <span class="pl-en">TelemetryItem</span> <span class="pl-en">telemetry</span> = <span class="pl-k">new</span> <span class="pl-en">TelemetryItem</span>()
+    {
+        Altitude = altitude,
+        DescentRate = descentRate,
+        Fuel = fuelRemaining,
+        Thrust = thrust,
+        Tagline = Common.TelemetryConstants.Tagline,
+        DisplayName = Common.TelemetryConstants.DisplayName,
+        UserId = userId,
+    };
+
+    <span class="pl-k">try</span>
+    {
+        <span class="pl-k">await</span> TelemetryManager.DefaultManager.CurrentClient.InvokeApiAsync(<span class="pl-s"><span class="pl-pds">"</span>telemetry<span class="pl-pds">"</span></span>, JToken.FromObject(telemetry));
+    }
+    <span class="pl-k">catch</span> { }
+}</pre></div>
+<p>Notice the call to <code>InvokeApiAsync</code>. This method, which comes from the Azure Mobile Client SDK, places a REST call to the <code>Post</code> method of the <code>TelemetryController</code> that you implemented in <a href="#Exercise3">Exercise 3</a> (see below). The body of the request contains a JSON-encoded <code>TelemetryItem</code> object with current status of your drone.</p>
+<p><a href="Images/vs-post-in-controller.png" target="_blank"><img src="Images/vs-post-in-controller.png" alt="The TelemetryController class in the Azure Mobile App" style="max-width:100%;"></a></p>
+<p><em>The TelemetryController class in the Azure Mobile App</em></p>
+</li>
+<li>
+<p>Open <strong>MainViewModel.cs</strong> in the <strong>DroneLander (Portable)</strong> project's "ViewModels" folder and replace the <code>StartLanding</code> method with the following implementation. The revised <code>StartLanding</code> method transmits telemetry on each timer tick by calling the <code>SendTelemetryAsync</code> method added in the previous step, but only if the user is signed in.</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">StartLanding</span>()
+{
+    Helpers.AudioHelper.ToggleEngine();
+    
+    Device.StartTimer(TimeSpan.FromMilliseconds(Common.CoreConstants.PollingIncrement), () =&gt;
+    {
+        UpdateFlightParameters();
+
+        <span class="pl-k">if</span> (<span class="pl-c1">this</span>.ActiveLandingParameters.Altitude &gt; <span class="pl-c1">0.0</span>)
+        {
+            Device.BeginInvokeOnMainThread(() =&gt;
+            {
+                <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude;
+                <span class="pl-c1">this</span>.DescentRate = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity;
+                <span class="pl-c1">this</span>.FuelRemaining = <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel / <span class="pl-c1">1000</span>;
+                <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust;
+            });
+
+            <span class="pl-k">if</span> (<span class="pl-c1">this</span>.FuelRemaining == <span class="pl-c1">0.0</span>) Helpers.AudioHelper.KillEngine();
+            <span class="pl-k">if</span> (<span class="pl-c1">this</span>.IsAuthenticated) Helpers.ActivityHelper.SendTelemetryAsync(<span class="pl-c1">this</span>.UserId, <span class="pl-c1">this</span>.Altitude, <span class="pl-c1">this</span>.DescentRate, <span class="pl-c1">this</span>.FuelRemaining, <span class="pl-c1">this</span>.Thrust);
+
+            <span class="pl-k">return</span> <span class="pl-c1">this</span>.IsActive;
+        }
+        <span class="pl-k">else</span>
+        {
+            <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude = <span class="pl-c1">0.0</span>;
+            <span class="pl-c1">this</span>.IsActive = <span class="pl-c1">false</span>;
+
+            Device.BeginInvokeOnMainThread(() =&gt;
+            {
+                <span class="pl-c1">this</span>.Altitude = <span class="pl-c1">this</span>.ActiveLandingParameters.Altitude;
+                <span class="pl-c1">this</span>.DescentRate = <span class="pl-c1">this</span>.ActiveLandingParameters.Velocity;
+                <span class="pl-c1">this</span>.FuelRemaining = <span class="pl-c1">this</span>.ActiveLandingParameters.Fuel / <span class="pl-c1">1000</span>;
+                <span class="pl-c1">this</span>.Thrust = <span class="pl-c1">this</span>.ActiveLandingParameters.Thrust;
+            });
+
+            <span class="pl-en">LandingResultType</span> <span class="pl-en">landingResult</span> = (<span class="pl-c1">this</span>.ActiveLandingParameters.Velocity &gt; -<span class="pl-c1">5.0</span>) ? LandingResultType.Landed : LandingResultType.Kaboom;
+
+            <span class="pl-k">if</span> (<span class="pl-c1">this</span>.IsAuthenticated)
+            {
+                Helpers.ActivityHelper.SendTelemetryAsync(<span class="pl-c1">this</span>.UserId, <span class="pl-c1">this</span>.Altitude, <span class="pl-c1">this</span>.DescentRate, <span class="pl-c1">this</span>.FuelRemaining, <span class="pl-c1">this</span>.Thrust);
+                Helpers.ActivityHelper.AddActivityAsync(landingResult);
+            }
+                                
+            MessagingCenter.Send(<span class="pl-c1">this</span>.ActivityPage, <span class="pl-s"><span class="pl-pds">"</span>ActivityUpdate<span class="pl-pds">"</span></span>, landingResult);
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+    });
+}</pre></div>
+</li>
+<li>
+<p>Launch the Android or Windows version of the app. Then <strong>sign in</strong> (remember, telemetry data is only transmitted if you are signed in) and attempt a landing. As you descend, watch the big screen at the front of the room and confirm that your "mission" shows up there and that it is updated in real time.</p>
+<p><a href="Images/app-mission-control.png" target="_blank"><img src="Images/app-mission-control.png" alt="Mission status shown by Mission Control" style="max-width:100%;"></a></p>
+<p><em>Mission status shown by Mission Control</em></p>
+</li>
+</ol>
+<p>If you don't land successfully the first time, try again and keep trying until you do. Keep an eye on the Mission Control screen at the front of the room to see how other pilots are doing. More importantly, don't be the last to land! The astronauts are counting on you!</p>
+<p><a name="Summary"></a></p>
+<h2>Summary</h2>
+<p>That's it for Part 5 of Operation Remote Resupply. In Part 6, you will learn how to use the Xamarin UI Test framework to automate UI testing for Xamarin Forms apps.</p>
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

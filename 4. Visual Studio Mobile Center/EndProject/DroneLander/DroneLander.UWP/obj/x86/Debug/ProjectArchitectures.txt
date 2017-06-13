@@ -1,0 +1,2 @@
+C:\Projects\DroneLander\Drone-Lander\DroneLander\DroneLander.UWP\DroneLander.UWP.csproj;x86
+C:\Projects\DroneLander\Drone-Lander\DroneLander\DroneLander\DroneLander.csproj;neutral

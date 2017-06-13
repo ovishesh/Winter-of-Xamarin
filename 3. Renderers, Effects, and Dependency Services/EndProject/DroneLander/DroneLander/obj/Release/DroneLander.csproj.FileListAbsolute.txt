@@ -1,0 +1,17 @@
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\DroneLander.dll
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\DroneLander.pdb
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\Xamarin.Forms.Core.dll
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\Xamarin.Forms.Platform.dll
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\Xamarin.Forms.Xaml.dll
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\Xamarin.Forms.Core.pdb
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\Xamarin.Forms.Core.xml
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\Xamarin.Forms.Platform.pdb
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\Xamarin.Forms.Xaml.pdb
+c:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\Xamarin.Forms.Xaml.xml
+c:\Projects\DroneLander\DroneLander\DroneLander\obj\Release\DroneLander.csprojResolveAssemblyReference.cache
+c:\Projects\DroneLander\DroneLander\DroneLander\obj\Release\DroneLander.MainPage.xaml.g.cs
+c:\Projects\DroneLander\DroneLander\DroneLander\obj\Release\DroneLander.App.xaml.g.cs
+c:\Projects\DroneLander\DroneLander\DroneLander\obj\Release\DroneLander.dll
+c:\Projects\DroneLander\DroneLander\DroneLander\obj\Release\DroneLander.pdb
+C:\Projects\DroneLander\DroneLander\DroneLander\obj\Release\DroneLander.dll.mdb
+C:\Projects\DroneLander\DroneLander\DroneLander\bin\Release\DroneLander.dll.mdb
