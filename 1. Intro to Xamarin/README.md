@@ -40,13 +40,13 @@ If Visual Studio is already installed, you can determine which components and wo
 
 1. Under "Workloads" in the Visual Studio installer, make sure **Universal Windows Platform development** and **.NET desktop development** are checked.
 
-    ![Installing the UWP and .NET development workloads](Images/workload-1.png)
+    ![Installing the UWP and .NET development workloads](../Preperation/Images/workload-1.png)
 
     _Installing the UWP and .NET development workloads_
 
 1. Under "Workloads" in the Visual Studio installer, make sure **Mobile development with .NET** is checked.
 
-    ![Installing the mobile development workload](Images/workload-2.png)
+    ![Installing the mobile development workload](../Preperation/Images/workload-2.png)
 
     _Installing the mobile development workload_
 
@@ -54,7 +54,7 @@ If Visual Studio is already installed, you can determine which components and wo
 
 	> If you haven't installed the Windows Creators Update, select the Anniversary Edition instead. If these emulators don't appear as options in the Visual Studio installer, it could because your PC doesn't support virtualization or that virtualization hasn't been enabled. For more information, see https://msdn.microsoft.com/en-us/library/mt228280.aspx.
 
-    ![Installing emulators](Images/workload-3.png)
+    ![Installing emulators](../Preperation/Images/workload-3.png)
 
     _Installing emulators_
 
