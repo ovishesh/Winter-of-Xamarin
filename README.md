@@ -1,6 +1,6 @@
 ![Banner](Preperation/Images/banner.png)
 
-# Projects Branch - Winter of Xamarin Events in New Zeland #
+# Winter of Xamarin Events in New Zeland #
 
 This guide will help you set up for the in-person events and will guide you through the basic installation of Visual Studio 2017 with all the tools and extentions neccessary for the event.
 
