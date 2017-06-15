@@ -20,11 +20,13 @@ Time | Session
 8:30am | Doors Open
 9:30am | Introduction to Xamarin
 10:00am | MVVM and Data Binding
+11:00am | Code/Soup
 11:30am | Renderers, Effects, and Dependency Services
 12:30pm | Lunch
+1:00pm | Fun Activity
 1:15pm | Visual Studio Mobile Center
 2:00pm | Xamarin and Azure Mobile Apps
-3:00pm | Xamarin UI Tests
-3:30pm | Xamarin Ideas Hack
-4:15pm | Spot Prizes and Closing
+3:00pm | Afternoon Tea
+3:15pm | Xamarin Ideas Hack
+4:00pm | Spot Prizes and Closing
 
