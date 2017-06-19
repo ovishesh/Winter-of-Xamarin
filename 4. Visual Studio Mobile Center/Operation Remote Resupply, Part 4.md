@@ -298,7 +298,7 @@ In a perfect world, apps would never crash. In the real world, they sometimes do
 	
 	_Updating the Android App ID_ 
 
-1. Now it's time generate a crash report and see how it looks in Visual Studio Mobile Center. To do that, you will temporarily comment out a line of code in the app to generate a crash. Begin by opening **MainViewModels.cs** in the **DroneLander (Portable)** project's "ViewModels" folder. Then comment out the line of code that initializes ```this.ActiveLandingParameters``` in the ```MainViewModel``` constructor.
+1. Now it's time generate a crash report and see how it looks in Visual Studio Mobile Center. To do that, you will temporarily comment out a line of code in the app to generate a crash. Begin by opening **MainViewModel.cs** in the **DroneLander (Portable)** project's "ViewModels" folder. Then comment out the line of code that initializes ```this.ActiveLandingParameters``` in the ```MainViewModel``` constructor.
 
 	![Commenting out a line of code to induce a crash](Images/vs-comment-out.png)
 	
