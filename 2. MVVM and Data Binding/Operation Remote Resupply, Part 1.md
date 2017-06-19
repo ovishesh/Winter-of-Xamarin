@@ -99,6 +99,8 @@ The first step in creating a cross-platform solution with Xamarin Forms is to pr
 
 1. When prompted to choose platform requirements for the Universal Windows Platform project, accept the defaults and click **OK**. If you are then prompted to connect to a Mac, simply close the dialog.
 
+	- **NOTE** - if you are using Visual Studio on a Mac you will not be able to create or deploy a UWP project. You will not be prompted to choose platform requirements.
+
     ![Specifying UWP platform versions](Images/vs-target-platform.png)
 
     _Specifying UWP platform versions_
@@ -109,6 +111,7 @@ The first step in creating a cross-platform solution with Xamarin Forms is to pr
 	- **DroneLander.Android** - Contains assets, resources, and logic specific to Android
 	- **DroneLander.iOS** - Contains assets, resources, and logic specific to iOS
 	- **DroneLander.UWP (Universal Windows)** - Contains assets, resources, and logic specific to the Universal Windows Platform (UWP)
+		- **NOTE** - Visual Studio for Mac will not have **DroneLander.UWP**
 
 	![The generated solution](Images/vs-projects-created.png)
 	
@@ -126,7 +129,7 @@ The first step in creating a cross-platform solution with Xamarin Forms is to pr
 
     _Enabling auto-deployment on Windows_
 
-1. Open the Settings app on your PC (an easy way to do it is to click the Windows button, type "Settings," and click **Settings**). Then click **Update & security** followed by **For developers**, and select **Developer mode** if it isn't already selected to make sure you can launch UWP apps from Visual Studio and run them on the local machine.
+1. **WINDOWS ONLY** Open the Settings app on your PC (an easy way to do it is to click the Windows button, type "Settings," and click **Settings**). Then click **Update & security** followed by **For developers**, and select **Developer mode** if it isn't already selected to make sure you can launch UWP apps from Visual Studio and run them on the local machine.
 
 	> If you try to enable developer mode and receive an error, see https://www.kapilarya.com/developer-mode-package-failed-to-install-error-code-0x80004005-windows-10 for a potential fix.
 
@@ -262,9 +265,9 @@ A common design pattern used in Xamarin Forms solutions is the [Model-View-ViewM
 
 1. In Solution Explorer, right-click the **DroneLander (Portable)** project and use the **Add** > **New Folder** command to add a folder named "Common" to the project. Then repeat this step to add folders named "Models" and "ViewModels" to the project.
 
-1. Right-click the "Common" folder that you just added and use the **Add** > **Existing Item...** command to import all of the files from the lab's "Resources\Portable\Common" folder. These files contain helper classes that implement commanding and property-binding notifications.
+1. Right-click the "Common" folder that you just added and use the **Add** > **Existing Item...** (on Mac, **Add** > **Add Files...**) command to import all of the files from the lab's "Resources\Portable\Common" folder. These files contain helper classes that implement commanding and property-binding notifications.
 
-1. Right-click the "Models" folder and use the **Add** > **Class** command to add a class file named "LandingParameters.cs" to the folder. Then replace the contents of the file with the following code. This class serves as the data model for information displayed by your app.
+1. Right-click the "Models" folder and use the **Add** > **Class** (on Mac, **Add** > **New File...** > **General** > **Empty Class**) command to add a class file named "LandingParameters.cs" to the folder. Then replace the contents of the file with the following code. This class serves as the data model for information displayed by your app.
  
 	```C#
 	using DroneLander.Common;
@@ -294,7 +297,7 @@ A common design pattern used in Xamarin Forms solutions is the [Model-View-ViewM
 	    }
 	}
 	```
-1. Right-click the "ViewModels" folder and use the **Add** > **Class** command to add a class file named "MainViewModel.cs." Then replace the contents of the file with the following code. The purpose of this class is to provide a view-model containing logic to calculate drone sensor readings, as well as to update UI elements through data binding.
+1. Right-click the "ViewModels" folder and use the **Add** > **Class** (on Mac, **Add** > **New File...** > **General** > **Empty Class**) command to add a class file named "MainViewModel.cs." Then replace the contents of the file with the following code. The purpose of this class is to provide a view-model containing logic to calculate drone sensor readings, as well as to update UI elements through data binding.
  
 	```C#
 	using DroneLander.Common;
