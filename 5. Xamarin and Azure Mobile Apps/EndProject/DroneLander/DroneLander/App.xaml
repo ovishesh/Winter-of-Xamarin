@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:common="clr-namespace:DroneLander.Common;assembly=DroneLander" 
+             x:Class="DroneLander.App">
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <common:DecimalDisplayConverter x:Key="DecimalDisplayConverter"/>
+
+            <Style x:Key="CaptionLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Opacity" Value="0.7" />
+            </Style>
+
+            <Style x:Key="DisplayLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Margin">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness"
+                iOS="0,-10,0,0"
+                Android="0,-5,0,0"
+                WinPhone="0,-5,0,0" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FontSize" Value="48" />
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <OnPlatform.iOS>Digital-7Mono</OnPlatform.iOS>
+                            <OnPlatform.Android></OnPlatform.Android>
+                            <OnPlatform.WinPhone>/Assets/Fonts/Digital.ttf#Digital-7 Mono</OnPlatform.WinPhone>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ButtonLabelStyle" TargetType="Button">
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HeightRequest" Value="64" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
