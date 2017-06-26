@@ -9,7 +9,7 @@ This guide will help you us the sample project in this folder that you can use t
 3. Navigate to the **Final Solution** folder and open the DroneLander.sln file in Visual Studio 2017.
 4. `Build` the solution, set your desired platform project as a `Startup Project` and run the app.
 
-Advanced - Complete [Module 5 Xamarin and Azure Mobile Apps](../5. Xamarin and Azure Mobile Apps/) and create your own Backend in Azure.
+Advanced - Complete [Module 5 Xamarin and Azure Mobile Apps](../5.%20Xamarin%20and%20Azure%20Mobile%20Apps/) and create your own Backend in Azure.
 
 If any issues, you can log them on the [Issues tab](https://github.com/ovishesh/Winter-of-Xamarin/issues).
 
